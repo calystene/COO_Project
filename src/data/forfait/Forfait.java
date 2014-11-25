@@ -35,7 +35,7 @@ abstract public class Forfait {
    * Set the value of numero
    * @param newVar the new value of numero
    */
-  private void setNumero (int newVar) {
+  public void setNumero (int newVar) {
     numero = newVar;
   }
 
@@ -43,7 +43,7 @@ abstract public class Forfait {
    * Get the value of numero
    * @return the value of numero
    */
-  private int getNumero () {
+  public int getNumero () {
     return numero;
   }
 
@@ -51,7 +51,7 @@ abstract public class Forfait {
    * Set the value of dateFinValidite
    * @param newVar the new value of dateFinValidite
    */
-  private void setDateFinValidite (Date newVar) {
+  public void setDateFinValidite (Date newVar) {
     dateFinValidite = newVar;
   }
 
@@ -59,7 +59,7 @@ abstract public class Forfait {
    * Get the value of dateFinValidite
    * @return the value of dateFinValidite
    */
-  private Date getDateFinValidite () {
+  public Date getDateFinValidite () {
     return dateFinValidite;
   }
 
@@ -67,7 +67,7 @@ abstract public class Forfait {
    * Set the value of heureDisponible
    * @param newVar the new value of heureDisponible
    */
-  private void setHeureDisponible (int newVar) {
+  public void setHeureDisponible (int newVar) {
     heureDisponible = newVar;
   }
 
@@ -75,7 +75,7 @@ abstract public class Forfait {
    * Get the value of heureDisponible
    * @return the value of heureDisponible
    */
-  private int getHeureDisponible () {
+  public int getHeureDisponible () {
     return heureDisponible;
   }
 
@@ -83,7 +83,7 @@ abstract public class Forfait {
    * Set the value of prix
    * @param newVar the new value of prix
    */
-  private void setPrix (int newVar) {
+  public void setPrix (int newVar) {
     prix = newVar;
   }
 
@@ -91,7 +91,7 @@ abstract public class Forfait {
    * Get the value of prix
    * @return the value of prix
    */
-  private int getPrix () {
+  public int getPrix () {
     return prix;
   }
 
@@ -99,7 +99,7 @@ abstract public class Forfait {
    * Set the value of libelle
    * @param newVar the new value of libelle
    */
-  private void setLibelle (String newVar) {
+  public void setLibelle (String newVar) {
     libelle = newVar;
   }
 
@@ -107,7 +107,7 @@ abstract public class Forfait {
    * Get the value of libelle
    * @return the value of libelle
    */
-  private String getLibelle () {
+  public String getLibelle () {
     return libelle;
   }
 

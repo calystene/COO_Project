@@ -1,6 +1,5 @@
 package data;
 
-import java.util.*;
 
 /**
  * Class CarteFidelite
@@ -38,7 +37,7 @@ public class CarteFidelite {
 	 * @param newVar
 	 *            the new value of nbPoints
 	 */
-	private void setNbPoints(int newVar) {
+	public void setNbPoints(int newVar) {
 		nbPoints = newVar;
 	}
 
@@ -47,7 +46,7 @@ public class CarteFidelite {
 	 * 
 	 * @return the value of nbPoints
 	 */
-	private int getNbPoints() {
+	public int getNbPoints() {
 		return nbPoints;
 	}
 
@@ -57,7 +56,7 @@ public class CarteFidelite {
 	 * @param newVar
 	 *            the new value of nbHeureGratuite
 	 */
-	private void setNbHeureGratuite(int newVar) {
+	public void setNbHeureGratuite(int newVar) {
 		nbHeureGratuite = newVar;
 	}
 
@@ -66,7 +65,7 @@ public class CarteFidelite {
 	 * 
 	 * @return the value of nbHeureGratuite
 	 */
-	private int getNbHeureGratuite() {
+	public int getNbHeureGratuite() {
 		return nbHeureGratuite;
 	}
 

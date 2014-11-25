@@ -35,7 +35,7 @@ public class Client {
    * Set the value of prenom
    * @param newVar the new value of prenom
    */
-  private void setPrenom (String newVar) {
+  public void setPrenom (String newVar) {
     prenom = newVar;
   }
 
@@ -43,7 +43,7 @@ public class Client {
    * Get the value of prenom
    * @return the value of prenom
    */
-  private String getPrenom () {
+  public String getPrenom () {
     return prenom;
   }
 
@@ -51,7 +51,7 @@ public class Client {
    * Set the value of nom
    * @param newVar the new value of nom
    */
-  private void setNom (String newVar) {
+  public void setNom (String newVar) {
     nom = newVar;
   }
 
@@ -59,7 +59,7 @@ public class Client {
    * Get the value of nom
    * @return the value of nom
    */
-  private String getNom () {
+  public String getNom () {
     return nom;
   }
 
@@ -67,7 +67,7 @@ public class Client {
    * Set the value of numero
    * @param newVar the new value of numero
    */
-  private void setNumero (int newVar) {
+  public void setNumero (int newVar) {
     numero = newVar;
   }
 
@@ -75,7 +75,7 @@ public class Client {
    * Get the value of numero
    * @return the value of numero
    */
-  private int getNumero () {
+  public int getNumero () {
     return numero;
   }
   
@@ -83,7 +83,7 @@ public class Client {
    * Set the value of carte
    * @param c
    */
-  private void setCarteFidelite(CarteFidelite c) {
+  public void setCarteFidelite(CarteFidelite c) {
 	  carte = c;
   }
   
@@ -92,7 +92,7 @@ public class Client {
    * Get the value of carte
    * @return
    */
-  private CarteFidelite getCarteFidelite() {
+  public CarteFidelite getCarteFidelite() {
 	  return carte;
   }
   //

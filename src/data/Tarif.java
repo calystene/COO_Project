@@ -29,7 +29,7 @@ public class Tarif {
    * Set the value of prix
    * @param newVar the new value of prix
    */
-  private void setPrix (int newVar) {
+  public void setPrix (int newVar) {
     prix = newVar;
   }
 
@@ -37,7 +37,7 @@ public class Tarif {
    * Get the value of prix
    * @return the value of prix
    */
-  private int getPrix () {
+  public int getPrix () {
     return prix;
   }
 
@@ -49,7 +49,7 @@ public class Tarif {
   /**
    * @return       int
    */
-  private int calculerTarif()
+  public int calculerTarif()
   {
 	  return 0;
   }

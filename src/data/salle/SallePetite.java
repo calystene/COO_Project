@@ -36,7 +36,7 @@ public class SallePetite implements Salle {
 	 * @param newVar
 	 *            the new value of nom
 	 */
-	private void setNom(String newVar) {
+	public void setNom(String newVar) {
 		nom = newVar;
 	}
 
@@ -46,7 +46,7 @@ public class SallePetite implements Salle {
 	 * 
 	 * @return the value of nom
 	 */
-	private String getNom() {
+	public String getNom() {
 		return nom;
 	}
 

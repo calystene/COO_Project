@@ -33,7 +33,7 @@ public class Reservation {
    * Set the value of dateReservation
    * @param newVar the new value of dateReservation
    */
-  private void setDateReservation (Date newVar) {
+  public void setDateReservation (Date newVar) {
     dateReservation = newVar;
   }
 
@@ -41,7 +41,7 @@ public class Reservation {
    * Get the value of dateReservation
    * @return the value of dateReservation
    */
-  private Date getDateReservation () {
+  public Date getDateReservation () {
     return dateReservation;
   }
 
@@ -49,7 +49,7 @@ public class Reservation {
    * Set the value of duree
    * @param newVar the new value of duree
    */
-  private void setDuree (int newVar) {
+  public void setDuree (int newVar) {
     duree = newVar;
   }
 
@@ -57,7 +57,7 @@ public class Reservation {
    * Get the value of duree
    * @return the value of duree
    */
-  private int getDuree () {
+  public int getDuree () {
     return duree;
   }
 
@@ -65,7 +65,7 @@ public class Reservation {
    * Set the value of etatPaiement
    * @param newVar the new value of etatPaiement
    */
-  private void setEtatPaiement (boolean newVar) {
+  public void setEtatPaiement (boolean newVar) {
     etatPaiement = newVar;
   }
 
@@ -73,7 +73,7 @@ public class Reservation {
    * Get the value of etatPaiement
    * @return the value of etatPaiement
    */
-  private boolean getEtatPaiement () {
+  public boolean getEtatPaiement () {
     return etatPaiement;
   }
 
