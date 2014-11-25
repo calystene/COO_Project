@@ -13,10 +13,12 @@ public class SalleSpecifique implements Salle {
 
 	private String nom;
 
+	
 	//
 	// Constructors
 	//
 	public SalleSpecifique() {
+		
 	};
 
 	//
@@ -26,24 +28,6 @@ public class SalleSpecifique implements Salle {
 	//
 	// Accessor methods
 	//
-
-
-	/**
-	 * get the value of PRIX_1H
-	 * @return PRIX_1H
-	 */
-	public int getPrix1h() {
-		return PRIX_1H;
-	}
-	
-	
-	/**
-	 * get the value of PRIX_2H
-	 * @return PRIX_2H
-	 */
-	public int getPrix2h() {
-		return PRIX_2H;
-	}
 	
 
 	/**
@@ -70,17 +54,19 @@ public class SalleSpecifique implements Salle {
 	//
 
 	/**
+	 * Get the value of PRIX_1H
 	 * @return int
 	 */
 	public int getPrixUneHeure() {
-		return 0;
+		return PRIX_1H;
 	}
 
 	/**
+	 * Get the value of PRIX_2H
 	 * @return int
 	 */
 	public int getPrixDeuxHeure() {
-		return 0;
+		return PRIX_2H;
 	}
 
 }
