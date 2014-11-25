@@ -8,27 +8,27 @@ TODO
 -----------
 * Couche Données Objet
  * Codage des méthodes de base
-   * CarteFidelite : OK
-   * Client : In Progress
-   * Forfait & ses fils : KO
-   * Reservation : KO
-   * CalendrierReservation : KO
-   * Tarif : KO
-   * SallePetite : In Progress
-   * SalleGrande : In Progress
-   * SalleSpecifique : In Progress
-   * TrancheH_Matin : KO
-   * TrancheH_AM : KO
-   * TrancheH_Soir : KO
+    * CarteFidelite : OK
+    * Client : In Progress
+    * Forfait & ses fils : KO
+    * Reservation : KO
+    * CalendrierReservation : KO
+    * Tarif : KO
+    * SallePetite : In Progress
+    * SalleGrande : In Progress
+    * SalleSpecifique : In Progress
+    * TrancheH_Matin : KO
+    * TrancheH_AM : KO
+    * TrancheH_Soir : KO
 -----------
 * Factory
  * Création des factory
-  * FactoryClient : KO
-  * FactoryForfait : KO
-  * FactoryTarif : KO
-  * FactoryReservation : KO
-  * FactoryTrancheHoraire : KO
-  * FactorySalle : KO
+    * FactoryClient : KO
+    * FactoryForfait : KO
+    * FactoryTarif : KO
+    * FactoryReservation : KO
+    * FactoryTrancheHoraire : KO
+    * FactorySalle : KO
 -----------
 3. Metier
 3.1 Création des métiers de base
