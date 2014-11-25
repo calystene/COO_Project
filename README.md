@@ -4,11 +4,11 @@
 Project of *Conception Orienté Objet* for **M1 MIAGE** 2014-2015
 -----------
 TODO
-*Remarque : Ne pas hésiter à créer des classes d'exception nécessaire au fil de l'eau => Servira dans Swing*
+Remarque : Ne pas hésiter à créer des classes d'exception nécessaire au fil de l'eau => Servira dans Swing 
 -----------
-1. Couche Données Objet
-  1.1 Codage des méthodes de base
-    1.1.1 CarteFidelite : **OK**
+* Couche Données Objet
+  * Codage des méthodes de base
+    * CarteFidelite : **OK**
     1.1.2 Client : In Progress
     1.1.3 Forfait & ses fils : KO
     1.1.4 Reservation : KO
