@@ -6,20 +6,20 @@
 TODO
 #####Remarque : Ne pas hésiter à créer au fil de l'eau des classes d'exception nécessaire => Servira dans Swing 
 -----------
-* Couche Données Objet
+1. Couche Données Objet
   * Codage des méthodes de base
     * CarteFidelite : **OK**
     * Client : In Progress
     * Forfait & ses fils : KO
-1.1.4 Reservation : KO
-1.1.5 CalendrierReservation : KO
-1.1.6 Tarif : KO
-1.1.7 SallePetite : In Progress
-1.1.8 SalleGrande : In Progress
-1.1.9 SalleSpecifique : In Progress
-1.1.10 TrancheH_Matin : KO
-1.1.11 TrancheH_AM : KO
-1.1.12 TrancheH_Soir : KO
+    * Reservation : KO
+    * CalendrierReservation : KO
+    * Tarif : KO
+    * SallePetite : In Progress
+    * SalleGrande : In Progress
+    * SalleSpecifique : In Progress
+    * TrancheH_Matin : KO
+    * TrancheH_AM : KO
+    * TrancheH_Soir : KO
 -----------
 2. Factory
 2.1 Création des factory
