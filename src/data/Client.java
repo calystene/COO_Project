@@ -106,7 +106,7 @@ public class Client {
 	/**
 	 * Get the value of carte
 	 * 
-	 * @return
+	 * @return the value of carte
 	 */
 	public CarteFidelite getCarteFidelite() {
 		return carte;
@@ -127,7 +127,7 @@ public class Client {
 	
 	/**
 	 * get the List of Forfait for this Client
-	 * @return
+	 * @return ArrayList<Forfait>
 	 */
 	public ArrayList<Forfait> getForfait() {
 		return lesForfaits;
