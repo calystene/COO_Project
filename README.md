@@ -1,25 +1,25 @@
 -----------
 ![Université Lille 1](http://www.univ-lille1.fr/digitalAssets/38/38040_logo-trans.png)
 #COO_Project 
-Project of *Conception Orienté Objet* for **M1 MIAGE** 2014-2015
+###Project of *Conception Orienté Objet* for **M1 MIAGE** 2014-2015
 -----------
 TODO
-Remarque : Ne pas hésiter à créer des classes d'exception nécessaire au fil de l'eau => Servira dans Swing 
+#####Remarque : Ne pas hésiter à créer des classes d'exception nécessaire au fil de l'eau => Servira dans Swing 
 -----------
-* Couche Données Objet
-  * Codage des méthodes de base
-    * CarteFidelite : **OK**
-    1.1.2 Client : In Progress
-    1.1.3 Forfait & ses fils : KO
-    1.1.4 Reservation : KO
-    1.1.5 CalendrierReservation : KO
-    1.1.6 Tarif : KO
-    1.1.7 SallePetite : In Progress
-    1.1.8 SalleGrande : In Progress
-    1.1.9 SalleSpecifique : In Progress
-    1.1.10 TrancheH_Matin : KO
-    1.1.11 TrancheH_AM : KO
-    1.1.12 TrancheH_Soir : KO
+1. Couche Données Objet </br>
+1.1 Codage des méthodes de base </br>
+1.1.1 CarteFidelite : **OK** </br>
+1.1.2 Client : In Progress </br>
+1.1.3 Forfait & ses fils : KO </br>
+1.1.4 Reservation : KO </br>
+1.1.5 CalendrierReservation : KO
+1.1.6 Tarif : KO
+1.1.7 SallePetite : In Progress
+1.1.8 SalleGrande : In Progress
+1.1.9 SalleSpecifique : In Progress
+1.1.10 TrancheH_Matin : KO
+1.1.11 TrancheH_AM : KO
+1.1.12 TrancheH_Soir : KO
 -----------
 2. Factory
 2.1 Création des factory
