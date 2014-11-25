@@ -3,10 +3,9 @@
 #COO_Project 
 Project of *Conception Orienté Objet* for **M1 MIAGE** 2014-2015
 -----------
-
 TODO
 *Remarque : Ne pas hésiter à créer des classes d'exception nécessaire au fil de l'eau => Servira dans Swing*
-
+-----------
 1. Couche Données Objet
 1.1 Codage des méthodes de base
 1.1.1 CarteFidelite : **OK**
@@ -21,7 +20,7 @@ TODO
 1.1.10 TrancheH_Matin : KO
 1.1.11 TrancheH_AM : KO
 1.1.12 TrancheH_Soir : KO
-
+-----------
 2. Factory
 2.1 Création des factory
 2.1.1 FactoryClient : KO
@@ -30,7 +29,7 @@ TODO
 2.1.4 FactoryReservation : KO
 2.1.5 FactoryTrancheHoraire : KO
 2.1.6 FactorySalle : KO
-
+-----------
 3. Metier
 3.1 Création des métiers de base
 3.1.1 CreationClient : KO // Penser à associer une carte de fidelité à la création du client
@@ -48,7 +47,7 @@ TODO
 3.2.4.1 confirmerReservation : KO
 3.2.4.2 vendreForfait : KO
 3.2.6 AnnulerReservation : KO
-
+-----------
 4. Partie Base de données
 4.1 Création de la base
 4.1.1 Elaborer MCD : KO
@@ -61,7 +60,7 @@ TODO
 4.2.5 FactoryTrancheHoraire : KO
 4.2.6 FactorySalle : KO
 4.3 Tests du code : KO
-
+-----------
 5. Presentation
 5.1 Conception de l'interface
 5.1.1 Version papier : KO
