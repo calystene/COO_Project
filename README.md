@@ -8,7 +8,7 @@ TODO
 -----------
 1. Couche Données Objet
   * Codage des méthodes de base
-    * CarteFidelite : **OK**
+    * CarteFidelite : OK
     * Client : In Progress
     * Forfait & ses fils : KO
     * Reservation : KO
