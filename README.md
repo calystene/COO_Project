@@ -6,8 +6,8 @@
 TODO
 #####Remarque : Ne pas hésiter à créer au fil de l'eau des classes d'exception nécessaire => Servira dans Swing 
 -----------
-1. Couche Données Objet
-* Codage des méthodes de base
+* Couche Données Objet
+ * Codage des méthodes de base
   * CarteFidelite : OK
   * Client : In Progress
   * Forfait & ses fils : KO
@@ -21,8 +21,8 @@ TODO
   * TrancheH_AM : KO
   * TrancheH_Soir : KO
 -----------
-2. Factory
-* Création des factory
+* Factory
+ * Création des factory
   * FactoryClient : KO
   * FactoryForfait : KO
   * FactoryTarif : KO
