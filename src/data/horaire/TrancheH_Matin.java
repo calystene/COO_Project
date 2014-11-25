@@ -9,9 +9,9 @@ public class TrancheH_Matin implements TrancheHoraire {
   // Fields
   //
 
-  public String nom;
-  public int debut;
-  public int fin;
+  private String nom;
+  private int debut;
+  private int fin;
   
   //
   // Constructors

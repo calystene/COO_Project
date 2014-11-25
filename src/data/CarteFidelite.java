@@ -1,74 +1,100 @@
 package data;
-import java.util.*;
 
+import java.util.*;
 
 /**
  * Class CarteFidelite
  */
 public class CarteFidelite {
 
-  //
-  // Fields
-  //
+	//
+	// Fields
+	//
 
-  private int nbPoints;
-  private int nbHeureGratuite;
-  
-  //
-  // Constructors
-  //
-  public CarteFidelite () { };
-  
-  //
-  // Methods
-  //
+	private int nbPoints;
+	private int nbHeureGratuite;
+	private Client client;
 
+	//
+	// Constructors
+	//
+	public CarteFidelite(Client c) {
+		client = c;
+		nbPoints = 0;
+		nbHeureGratuite = 0;
+	};
 
-  //
-  // Accessor methods
-  //
+	//
+	// Methods
+	//
 
-  /**
-   * Set the value of nbPoints
-   * @param newVar the new value of nbPoints
-   */
-  private void setNbPoints (int newVar) {
-    nbPoints = newVar;
-  }
+	//
+	// Accessor methods
+	//
 
-  /**
-   * Get the value of nbPoints
-   * @return the value of nbPoints
-   */
-  private int getNbPoints () {
-    return nbPoints;
-  }
+	/**
+	 * Set the value of nbPoints
+	 * 
+	 * @param newVar
+	 *            the new value of nbPoints
+	 */
+	private void setNbPoints(int newVar) {
+		nbPoints = newVar;
+	}
 
-  /**
-   * Set the value of nbHeureGratuite
-   * @param newVar the new value of nbHeureGratuite
-   */
-  private void setNbHeureGratuite (int newVar) {
-    nbHeureGratuite = newVar;
-  }
+	/**
+	 * Get the value of nbPoints
+	 * 
+	 * @return the value of nbPoints
+	 */
+	private int getNbPoints() {
+		return nbPoints;
+	}
 
-  /**
-   * Get the value of nbHeureGratuite
-   * @return the value of nbHeureGratuite
-   */
-  private int getNbHeureGratuite () {
-    return nbHeureGratuite;
-  }
+	/**
+	 * Set the value of nbHeureGratuite
+	 * 
+	 * @param newVar
+	 *            the new value of nbHeureGratuite
+	 */
+	private void setNbHeureGratuite(int newVar) {
+		nbHeureGratuite = newVar;
+	}
 
-  //
-  // Other methods
-  //
+	/**
+	 * Get the value of nbHeureGratuite
+	 * 
+	 * @return the value of nbHeureGratuite
+	 */
+	private int getNbHeureGratuite() {
+		return nbHeureGratuite;
+	}
 
-  /**
-   */
-  public void miseAJour()
-  {
-  }
+	//
+	// Other methods
+	//
 
-
+	/**
+	 * 
+	 */
+	public void miseAJour() {
+		
+	}
+	
+	
+	/**
+	 * 
+	 * Get the value of client
+	 */
+	public Client getPersonne() {
+		return client;
+	}
+	
+	/**
+	 * Set the value of client;
+	 * @param p
+	 */
+	public void setPersonne(Client p) {
+		client = p;
+	}
 }

@@ -1,6 +1,4 @@
 package data;
-import java.util.*;
-
 
 /**
  * Class Client
@@ -14,16 +12,20 @@ public class Client {
   private String prenom;
   private String nom;
   private int numero;
+  private CarteFidelite carte;
   
   //
   // Constructors
   //
-  public Client () { };
+  public Client (String p, String no, int nu) { 
+	  prenom = p;
+	  nom = no;
+	  numero = nu;
+  };
   
   //
   // Methods
   //
-
 
   //
   // Accessor methods
@@ -76,7 +78,23 @@ public class Client {
   private int getNumero () {
     return numero;
   }
-
+  
+  /**
+   * Set the value of carte
+   * @param c
+   */
+  private void setCarteFidelite(CarteFidelite c) {
+	  carte = c;
+  }
+  
+  
+  /**
+   * Get the value of carte
+   * @return
+   */
+  private CarteFidelite getCarteFidelite() {
+	  return carte;
+  }
   //
   // Other methods
   //
