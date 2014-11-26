@@ -18,6 +18,7 @@ public class Client {
 	private int numero;
 	private CarteFidelite carte;
 	private ArrayList<Forfait> lesForfaits;
+	
 
 	//data.horaire
 	// Constructors
@@ -133,7 +134,17 @@ public class Client {
 		return lesForfaits;
 		
 		// Evolution : Utiliser méthode de Factory pour chercher l'information dans la base 
-		// FactoryForfait.getInstance().rechercherByClient(this)
+		// FactoryForfait.getInstance().rechercherByClient(this);
+	}
+	
+	
+	/**
+	 * 
+	 * 
+	 */
+	public ArrayList<Reservation> getReservation () {
+		// FactoryReservation.getInstance().rechercherByClient(this);
+		return null;
 	}
 	
 	

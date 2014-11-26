@@ -8,25 +8,18 @@ public class SallePetite implements Salle {
 	//
 	// Fields
 	//
-	
 	final private int PRIX_1H = 7;
 	final private int PRIX_2H = 10;
-	
+	final private TYPE_SALLE categorie = TYPE_SALLE.PETITE_SALLE;
 	private String nom;
 
+	
 	//
 	// Constructors
 	//
-	public SallePetite() {
+	public SallePetite(String n) {
+		nom = n;
 	};
-
-	//
-	// Methods
-	//
-
-	//
-	// Accessor methods
-	//
 
 	
 	
@@ -70,4 +63,11 @@ public class SallePetite implements Salle {
 		return PRIX_2H;
 	}
 
+	/**
+	 * 
+	 * @return the category of the Salle
+	 */
+	public TYPE_SALLE getCategorie() {
+		return categorie;
+	}
 }

@@ -9,17 +9,18 @@ TODO
 * **Couche Données Objet**
  * Codage des méthodes de base
     * CarteFidelite : **OK**
-    * Client : In Progress
-    * Forfait & ses fils : KO
+    * Client : **OK**
+    * Forfait & ses fils : In progress
     * Reservation : KO
     * CalendrierReservation : KO
     * Tarif : KO
-    * SallePetite : In Progress
-    * SalleGrande : In Progress
-    * SalleSpecifique : In Progress
+    * SallePetite : **OK**
+    * SalleGrande : **OK**
+    * SalleSpecifique : **OK**
     * TrancheH_Matin : KO
     * TrancheH_AM : KO
     * TrancheH_Soir : KO
+    * DateManager : In progress
 
 -----------
 

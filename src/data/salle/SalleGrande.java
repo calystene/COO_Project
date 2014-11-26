@@ -10,31 +10,22 @@ public class SalleGrande implements Salle {
 	//
 	final private int PRIX_1H = 10;
 	final private int PRIX_2H = 16;
+	final private TYPE_SALLE categorie = TYPE_SALLE.GRANDE_SALLE;
 	
 	private String nom;
 
 	//
 	// Constructors
 	//
-	public SalleGrande() {
-		
+	public SalleGrande(String n) {
+		nom = n;
 	};
-
-	//
-	// Methods
-	//
-
-	//
-	// Accessor methods
-	//
-
 
 	
 	/**
 	 * Set the value of nom
 	 * 
-	 * @param newVar
-	 *            the new value of nom
+	 * @param newVar the new value of nom
 	 */
 	public void setNom(String newVar) {
 		nom = newVar;
@@ -68,6 +59,15 @@ public class SalleGrande implements Salle {
 	 */
 	public int getPrixDeuxHeure() {
 		return PRIX_2H;
+	}
+
+	
+	/**
+	 * 
+	 * @return the category of the Salle
+	 */
+	public TYPE_SALLE getCategorie() {
+		return categorie;
 	}
 
 }

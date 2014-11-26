@@ -6,23 +6,6 @@ package data.salle;
  */
 public interface Salle {
 
-  //
-  // Fields
-  //
-
-  
-  //
-  // Methods
-  //
-
-
-  //
-  // Accessor methods
-  //
-
-  //
-  // Other methods
-  //
 
   /**
    * @return       int

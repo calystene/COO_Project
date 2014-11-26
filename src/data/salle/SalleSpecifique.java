@@ -10,15 +10,15 @@ public class SalleSpecifique implements Salle {
 	//
 	final private int PRIX_1H = 20;
 	final private int PRIX_2H = 30;
-
+	final private TYPE_SALLE categorie = TYPE_SALLE.GRANDE_SALLE;
+	
 	private String nom;
-
 	
 	//
 	// Constructors
 	//
-	public SalleSpecifique() {
-		
+	public SalleSpecifique(String n) {
+		nom = n;
 	};
 
 	//
@@ -61,6 +61,7 @@ public class SalleSpecifique implements Salle {
 		return PRIX_1H;
 	}
 
+	
 	/**
 	 * Get the value of PRIX_2H
 	 * @return int
@@ -68,5 +69,13 @@ public class SalleSpecifique implements Salle {
 	public int getPrixDeuxHeure() {
 		return PRIX_2H;
 	}
-
+	
+	
+	/**
+	 * 
+	 * @return the category of the Salle
+	 */
+	public TYPE_SALLE getCategorie() {
+		return categorie;
+	}
 }
