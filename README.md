@@ -1,7 +1,7 @@
 -----------
 ![Université Lille 1](http://www.univ-lille1.fr/digitalAssets/38/38040_logo-trans.png)
 #COO_Project 
-###Project of *Conception Orienté Objet* for **M1 MIAGE** 2014-2015
+###Projet de *Conception Orienté Objet* - **M1 MIAGE** 2014-2015
 -----------
 TODO
 #####Remarque : Ne pas hésiter à créer au fil de l'eau des classes d'exception nécessaire => Servira dans Swing 
