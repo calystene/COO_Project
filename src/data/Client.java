@@ -19,7 +19,7 @@ public class Client {
 	private CarteFidelite carte;
 	private ArrayList<Forfait> lesForfaits;
 
-	//
+	//data.horaire
 	// Constructors
 	//
 	public Client(String p, String no, int nu) {
@@ -131,6 +131,34 @@ public class Client {
 	 */
 	public ArrayList<Forfait> getForfait() {
 		return lesForfaits;
+		
+		// Evolution : Utiliser méthode de Factory pour chercher l'information dans la base 
+		// FactoryForfait.getInstance().rechercherByClient(this)
 	}
 	
+	
+	/**
+	 * check equality between 2 Client objects
+	 * @return true if objects are the same 
+	 */
+	public boolean equals(Object o) {
+		if (o instanceof Client) {
+			Client c = (Client) o;
+			
+			return (this.getNom().equals(c.getNom()) &&
+					this.getPrenom().equals(c.getPrenom()) &&
+					this.getNumero()==c.getNumero()); 
+		}
+		
+		return false;
+	}
+	
+	
+	/**
+	 * 
+	 * 
+	 */
+	public String toString() {
+		return prenom + " " + nom;
+	}
 }
