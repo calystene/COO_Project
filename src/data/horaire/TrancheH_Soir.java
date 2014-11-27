@@ -5,10 +5,6 @@ package data.horaire;
  */
 public class TrancheH_Soir implements TrancheHoraire {
 
-  //
-  // Fields
-  //
-	
   private String nom;
   private int debut;
   private int fin;
@@ -74,11 +70,5 @@ public class TrancheH_Soir implements TrancheHoraire {
   public int getFin () {
     return fin;
   }
-
-  //
-  // Other methods
-  //
-
-
 
 }

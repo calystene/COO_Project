@@ -10,7 +10,7 @@ TODO
  * Codage des méthodes de base
     * CarteFidelite : **OK**
     * Client : **OK**
-    * Forfait & ses fils : In progress
+    * Forfait & ses fils : **OK**
     * Reservation : KO
     * CalendrierReservation : KO
     * Tarif : KO
@@ -20,7 +20,7 @@ TODO
     * TrancheH_Matin : KO
     * TrancheH_AM : KO
     * TrancheH_Soir : KO
-    * DateManager : In progress
+    * DateManager : **OK**
 
 -----------
 

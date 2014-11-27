@@ -6,24 +6,6 @@ package data.horaire;
  */
 public interface TrancheHoraire {
 
-  //
-  // Fields
-  //
-
-  
-  //
-  // Methods
-  //
-
-
-  //
-  // Accessor methods
-  //
-
-  //
-  // Other methods
-  //
-
   /**
    * @return       String
    */

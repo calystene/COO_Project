@@ -13,7 +13,7 @@ public class Forfait12HGrande extends Forfait {
 	// Fields
 	//
 	final private int PRIX = 80;
-	final private String libelle = "Forfait 12h grande salle";
+	final private String LIBELLE = "Forfait 12h grande salle";
 	
 	private int heureDisponible;
 	private Date dateFinValidite;
@@ -24,7 +24,6 @@ public class Forfait12HGrande extends Forfait {
 	public Forfait12HGrande(int n, Client c) {
 		super(n,c);
 		heureDisponible = 12;
-		
 	}
 
 	//
@@ -62,36 +61,22 @@ public class Forfait12HGrande extends Forfait {
 	    return heureDisponible;
 	  }
 
-	  /**
-	   * Set the value of prix
-	   * @param newVar the new value of prix
-	   */
-	  public void setPrix (int newVar) {
-	    prix = newVar;
-	  }
-
+	  
 	  /**
 	   * Get the value of prix
 	   * @return the value of prix
 	   */
 	  public int getPrix () {
-	    return prix;
+	    return PRIX;
 	  }
 
-	  /**
-	   * Set the value of libelle
-	   * @param newVar the new value of libelle
-	   */
-	  public void setLibelle (String newVar) {
-	    libelle = newVar;
-	  }
 
 	  /**
 	   * Get the value of libelle
 	   * @return the value of libelle
 	   */
 	  public String getLibelle () {
-	    return libelle;
+	    return LIBELLE;
 	  }
 
 }
