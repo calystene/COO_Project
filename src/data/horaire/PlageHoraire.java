@@ -7,12 +7,14 @@ public class PlageHoraire {
 
 	private int heureDebut;
 	private int heureFin;
+	private int duree;
 	private Tranche tranche;
 	
 	
 	public PlageHoraire(int hD, int hF, Tranche t) {
 		heureDebut = hD;
 		heureFin = hF;
+		duree = hD - hF;
 		tranche = t;
 	}
 
@@ -41,5 +43,7 @@ public class PlageHoraire {
 		return tranche;
 	}
 	
-
+	public int getDuree() {
+		return duree;
+	}
 }

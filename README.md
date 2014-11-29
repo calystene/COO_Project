@@ -11,9 +11,8 @@ TODO
     * CarteFidelite : **OK**
     * Client : **OK**
     * Forfait & ses fils : **OK**
-    * Reservation : KO
-    * CalendrierReservation : KO
-    * Tarif : KO
+    * Reservation : **OK**
+    * CalendrierReservation : **OK**
     * SallePetite : **OK**
     * SalleGrande : **OK**
     * SalleSpecifique : **OK**
