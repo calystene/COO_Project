@@ -156,9 +156,7 @@ public class Client {
 		if (o instanceof Client) {
 			Client c = (Client) o;
 			
-			return (this.getNom().equals(c.getNom()) &&
-					this.getPrenom().equals(c.getPrenom()) &&
-					this.getNumero()==c.getNumero()); 
+			return (this.hashCode()==c.hashCode()); 
 		}
 		
 		return false;
@@ -166,7 +164,19 @@ public class Client {
 	
 	
 	/**
-	 * 
+	 * retourne le hashCode du client, sert d'ID dans la BDD et dans le HashMap de FactoryClient
+	 * @return le hashCode du client
+	 */
+	public int hashCode() {
+		int hash = 1;
+		hash = hash * 31 + numero;
+		hash = hash * 21 + nom.hashCode();
+		hash = hash * 11 + prenom.hashCode();
+		return hash;
+	}
+	
+	/**
+	 * retourne un string composé du prenom et du nom du Client
 	 * 
 	 */
 	public String toString() {

@@ -92,4 +92,37 @@ public class Reservation {
 		return etatPaiement;
 	}
 
+	public ArrayList<PlageHoraire> getLesPlages() {
+		return lesPlages;
+	}
+
+	public void setLesPlages(ArrayList<PlageHoraire> lesPlages) {
+		this.lesPlages = lesPlages;
+	}
+
+	public int getPrix() {
+		return prix;
+	}
+
+	public void setPrix(int prix) {
+		this.prix = prix;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public Salle getSalle() {
+		return salle;
+	}
+
+	public void setSalle(Salle salle) {
+		this.salle = salle;
+	}
+
+	
 }
