@@ -9,11 +9,7 @@ import data.salle.Salle;
  * Class Reservation
  */
 public class Reservation {
-
-	//
-	// Fields
-	//
-
+	private Date datePriseReservation;
 	private Date dateReservation;
 	private ArrayList<PlageHoraire> lesPlages;
 	private boolean etatPaiement;
@@ -25,8 +21,9 @@ public class Reservation {
 	//
 	// Constructors
 	//
-	public Reservation(Date dR, ArrayList<PlageHoraire> plages, int p,
+	public Reservation(Date dPR, Date dR, ArrayList<PlageHoraire> plages, int p,
 			Client c, Salle s) {
+		datePriseReservation = dPR;
 		dateReservation = dR;
 		lesPlages = plages;
 		etatPaiement = false;
@@ -122,6 +119,10 @@ public class Reservation {
 
 	public void setSalle(Salle salle) {
 		this.salle = salle;
+	}
+
+	public Date getDatePriseReservation() {
+		return datePriseReservation;
 	}
 
 	

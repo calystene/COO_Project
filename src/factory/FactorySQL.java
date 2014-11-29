@@ -10,7 +10,7 @@ public class FactorySQL {
 	private Connection conn;
 	private static FactorySQL singleton;
 
-	private FactorySQL() {
+	private FactorySQL() { 
 		try {
 			Class.forName("org.hsqldb.jdbcDriver");
 		} catch (ClassNotFoundException e) {
@@ -21,8 +21,8 @@ public class FactorySQL {
 		try {
 			conn = DriverManager
 					.getConnection(
-							"jdbc:hsqldb:file:bdd/annuaire;shutdown=true",
-							"tom", "tom");
+							"jdbc:hsqldb:file:bdd/data_base;shutdown=true",
+							"coo", "coo");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Erreur DriverManager.getConnection");
@@ -47,7 +47,6 @@ public class FactorySQL {
 			rs = st.executeQuery();
 			return rs;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Erreur éxécution requête");
 		}
@@ -56,15 +55,17 @@ public class FactorySQL {
 	
 	public int executeUpdate(String sql) {
 		PreparedStatement st;
+		int result = 0;
 		
 		try {
 			st = conn.prepareStatement(sql);
-			return st.executeUpdate();
+			result = st.executeUpdate();
+			conn.commit();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Erreur executeUpdate(sql)");
 			e.printStackTrace();
 		}
 		
-		return 0;
+		return result;
 	}
 }

@@ -1,0 +1,8 @@
+CREATE TABLE CLIENT (
+id_client int PRIMARY KEY,
+prenom varchar(30),
+nom varchar(30),
+numero int,
+nbPoint int NULL,
+nbHeureGratuite int NULL,
+)

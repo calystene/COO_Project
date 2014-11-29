@@ -70,11 +70,11 @@ public class FactoryClient {
 						"INSERT INTO CLIENT (id_client, prenom, nom, numero, nbPoint, nbHeureGratuite) "
 								+ "VALUES ("
 								+ idClient
-								+ ","
+								+ ",'"
 								+ c.getPrenom()
-								+ ","
+								+ "','"
 								+ c.getNom()
-								+ ","
+								+ "',"
 								+ c.getNumero()
 								+ ",0,0)");
 

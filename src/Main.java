@@ -1,6 +1,13 @@
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import data.Client;
+import exception.ExceptionClientExistant;
+import factory.FactoryClient;
+import factory.FactorySQL;
 import util.date.DateManager;
 
 
@@ -21,6 +28,30 @@ public class Main {
 		System.out.println(DateManager.getInstance().jourOuvrable(gc.getTime()));
 		System.out.println(DateManager.getInstance().jourOuvrable(paque.getTime()));
 		System.out.println(DateManager.getInstance().jourOuvrable(date));
+		
+		
+		try {
+			Client c = FactoryClient.getInstance().creerClient("Jean", "Christophe", 657374020);
+			
+			ResultSet rs = FactorySQL.getInstance().getResultSet("SELECT * FROM CLIENT");
+			
+			while(rs.next()) {
+				System.out.println(rs.getString("nom") + " " + rs.getString("prenom"));
+			}
+			
+			ArrayList<Client> liste = FactoryClient.getInstance().listeClient();
+			
+			for(Client cli : liste) {
+				System.out.println(cli.getPrenom() + " " + cli.getNom());
+			}
+			
+		} catch (ExceptionClientExistant e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
