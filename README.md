@@ -17,9 +17,7 @@ TODO
     * SallePetite : **OK**
     * SalleGrande : **OK**
     * SalleSpecifique : **OK**
-    * TrancheH_Matin : KO
-    * TrancheH_AM : KO
-    * TrancheH_Soir : KO
+    * PlageHoraire : **OK**
     * DateManager : **OK**
 
 -----------

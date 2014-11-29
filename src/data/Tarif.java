@@ -1,58 +1,58 @@
 package data;
 
+import data.horaire.PlageHoraire;
+import data.salle.Salle;
+
 /**
  * Class Tarif
  */
 public class Tarif {
 
-  //
-  // Fields
-  //
+	private int prix;
+	private PlageHoraire plage;
+	private Salle salle;
 
-  private int prix;
-  
-  //
-  // Constructors
-  //
-  public Tarif () { };
-  
-  //
-  // Methods
-  //
+	//
+	// Constructors
+	//
+	public Tarif(PlageHoraire p, Salle s) {
+		plage = p;
+		salle = s;
+	};
 
+	/**
+	 * Set the value of prix
+	 * 
+	 * @param newVar
+	 *            the new value of prix
+	 */
+	public void setPrix(int newVar) {
+		prix = newVar;
+	}
 
-  //
-  // Accessor methods
-  //
+	/**
+	 * Get the value of prix
+	 * 
+	 * @return the value of prix
+	 */
+	public int getPrix() {
+		return prix;
+	}
 
-  /**
-   * Set the value of prix
-   * @param newVar the new value of prix
-   */
-  public void setPrix (int newVar) {
-    prix = newVar;
-  }
+	public PlageHoraire getPlage() {
+		return plage;
+	}
 
-  /**
-   * Get the value of prix
-   * @return the value of prix
-   */
-  public int getPrix () {
-    return prix;
-  }
+	public void setPlage(PlageHoraire plage) {
+		this.plage = plage;
+	}
 
-  //
-  // Other methods
-  //
+	public Salle getSalle() {
+		return salle;
+	}
 
- 
-  /**
-   * @return       int
-   */
-  public int calculerTarif()
-  {
-	  return 0;
-  }
-
+	public void setSalle(Salle salle) {
+		this.salle = salle;
+	}
 
 }

@@ -15,7 +15,6 @@ public class Main {
 		System.out.println(DateManager.getInstance().valueOf(DateManager.getInstance().addMonth(5)));
 		System.out.println(DateManager.getInstance().valueOf(DateManager.getInstance().addMonth(dateSQL,5)));
 	
-		Date ferie = new Date(2015,0,1);
 		GregorianCalendar paque = new GregorianCalendar(2015,3,6,12,30);
 		GregorianCalendar gc = new GregorianCalendar(2015,0,1,9,30);
 		
