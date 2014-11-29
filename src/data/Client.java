@@ -20,7 +20,6 @@ public class Client {
 	private ArrayList<Forfait> lesForfaits;
 	
 
-	//data.horaire
 	// Constructors
 	//
 	public Client(String p, String no, int nu) {
@@ -30,13 +29,6 @@ public class Client {
 		lesForfaits = new ArrayList<Forfait>();
 	};
 
-	//
-	// Methods
-	//
-
-	//
-	// Accessor methods
-	//
 
 	/**
 	 * Set the value of prenom

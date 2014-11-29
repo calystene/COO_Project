@@ -6,11 +6,7 @@ package data;
  */
 public class CarteFidelite {
 
-	//
-	// Fields
-	//
-
-	private int nbPoints;
+	private int nbPoint;
 	private int nbHeureGratuite;
 	private Client client;
 
@@ -19,26 +15,27 @@ public class CarteFidelite {
 	//
 	public CarteFidelite(Client c) {
 		client = c;
-		nbPoints = 0;
+		nbPoint = 0;
 		nbHeureGratuite = 0;
 	};
 
-	//
-	// Methods
-	//
 
-	//
-	// Accessor methods
-	//
+	public CarteFidelite(Client c, int nbP, int nbHG) {
+		client = c;
+		nbPoint = nbP;
+		nbHeureGratuite = nbHG;
+	}
 
+	
+	
 	/**
 	 * Set the value of nbPoints
 	 * 
 	 * @param newVar
 	 *            the new value of nbPoints
 	 */
-	public void setNbPoints(int newVar) {
-		nbPoints = newVar;
+	public void setNbPoint(int newVar) {
+		nbPoint = newVar;
 	}
 
 	/**
@@ -46,8 +43,8 @@ public class CarteFidelite {
 	 * 
 	 * @return the value of nbPoints
 	 */
-	public int getNbPoints() {
-		return nbPoints;
+	public int getNbPoint() {
+		return nbPoint;
 	}
 
 	/**
@@ -89,11 +86,4 @@ public class CarteFidelite {
 		return client;
 	}
 	
-	/**
-	 * Set the value of client;
-	 * @param p
-	 */
-	public void setPersonne(Client p) {
-		client = p;
-	}
 }

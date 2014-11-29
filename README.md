@@ -29,7 +29,7 @@ TODO
     * FactoryPlageHoraire : **KO**
     * FactorySalle : **OK**
  * Codage des Factory
-    * FactoryClient : In progress
+    * FactoryClient : **OK**
     * FactoryForfait : In progress
     * FactoryReservation : In progress
     * FactoryPlageHoraire : In progress

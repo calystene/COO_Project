@@ -14,7 +14,6 @@ public class FactorySQL {
 		try {
 			Class.forName("org.hsqldb.jdbcDriver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Erreur Class.forName");
 		}
@@ -25,7 +24,6 @@ public class FactorySQL {
 							"jdbc:hsqldb:file:bdd/annuaire;shutdown=true",
 							"tom", "tom");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Erreur DriverManager.getConnection");
 		}
@@ -45,7 +43,7 @@ public class FactorySQL {
 		ResultSet rs;
 		
 		try {
-			st = conn.prepareStatement(sql);
+			st = conn.prepareStatement(sql,ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			rs = st.executeQuery();
 			return rs;
 		} catch (SQLException e) {
