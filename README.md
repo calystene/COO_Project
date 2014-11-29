@@ -38,7 +38,7 @@ TODO
 -----------
 * **Metier**
    *  Création des métiers de base
-      * CreationClient : KO // Penser à associer une carte de fidelité à la création du client
+      * CreationClient : KO
       * AjoutForfait : KO
       * CreationSalle : KO
       * CreationTrancheHoraire : KO
