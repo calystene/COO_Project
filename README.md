@@ -23,12 +23,17 @@ TODO
 
 * **Factory**
  * Création des factory
-    * FactoryClient : KO
-    * FactoryForfait : KO
-    * FactoryTarif : KO
-    * FactoryReservation : KO
-    * FactoryTrancheHoraire : KO
-    * FactorySalle : KO
+    * FactoryClient : **OK**
+    * FactoryForfait : **OK**
+    * FactoryReservation : **KO**
+    * FactoryPlageHoraire : **KO**
+    * FactorySalle : **OK**
+ * Codage des Factory
+    * FactoryClient : In progress
+    * FactoryForfait : In progress
+    * FactoryReservation : In progress
+    * FactoryPlageHoraire : In progress
+    * FactorySalle : In progress
 
 -----------
 * **Metier**
