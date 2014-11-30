@@ -3,6 +3,7 @@ package data;
 import java.util.ArrayList;
 
 import data.forfait.Forfait;
+import factory.FactoryForfait;
 
 /**
  * Class Client
@@ -119,10 +120,10 @@ public class Client {
 	 * @return ArrayList<Forfait>
 	 */
 	public ArrayList<Forfait> getForfait() {
-		return lesForfaits;
+		//return lesForfaits;
 		
 		// Evolution : Utiliser méthode de Factory pour chercher l'information dans la base 
-		// FactoryForfait.getInstance().rechercherByClient(this);
+		return FactoryForfait.getInstance().rechercherByClient(this);
 	}
 	
 	

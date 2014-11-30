@@ -27,9 +27,6 @@ public class FactoryClient {
 		return singleton;
 	}
 
-	
-	
-	
 	/**
 	 * Crée un nouveau Client et l'ajoute au cache et à la BDD
 	 * 
@@ -64,34 +61,32 @@ public class FactoryClient {
 
 		// Sinon on l'ajoute au cache et à la BDD
 		cacheClients.put(idClient, c);
-		FactorySQL
-				.getInstance()
-				.executeUpdate(
-						"INSERT INTO CLIENT (id_client, prenom, nom, numero, nbPoint, nbHeureGratuite) "
-								+ "VALUES ("
-								+ idClient
-								+ ",'"
-								+ c.getPrenom()
-								+ "','"
-								+ c.getNom()
-								+ "',"
-								+ c.getNumero()
-								+ ",0,0)");
+		sql = "INSERT INTO CLIENT (id_client, prenom, nom, numero, nbPoint, nbHeureGratuite) "
+				+ "VALUES ("
+				+ idClient
+				+ ",'"
+				+ c.getPrenom()
+				+ "','"
+				+ c.getNom()
+				+ "',"
+				+ c.getNumero()
+				+ ",0,0)";
+		
+		FactorySQL.getInstance().executeUpdate(sql);
 
 		return c;
 	}
 
-	
-	
-	
 	/**
 	 * Recherche un client par numéro
+	 * 
 	 * @param numero
 	 * @return
 	 * @throws SQLException
 	 * @throws ExceptionClientInexistant
 	 */
-	public Client rechercherClient(int numero) throws SQLException, ExceptionClientInexistant {
+	public Client rechercherClient(int numero) throws SQLException,
+			ExceptionClientInexistant {
 
 		// On recherche d'abord dans le cache
 		Iterator<Integer> it = cacheClients.keySet().iterator();
@@ -104,127 +99,118 @@ public class FactoryClient {
 				return c;
 		}
 
-		
 		// A ce stade le client n'est pas en cache, on recherche dans la BDD
 		String sql = "SELECT id_client, prenom, nom, numero, nbPoint, nbHeureGratuite FROM CLIENT WHERE numero="
 				+ numero;
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
 		rs.last(); // On place le curseur sur la dernière ligne
-		int nbLigne = rs.getRow(); // On récupère le numéro de ligne (si 0 alors client inexistant)
+		int nbLigne = rs.getRow(); // On récupère le numéro de ligne (si 0 alors
+									// client inexistant)
 		rs.beforeFirst(); // On replace le curseur avant la première ligne
-		
-		if(nbLigne<=0)
+
+		if (nbLigne <= 0)
 			throw new ExceptionClientInexistant("Le client n'existe pas");
-		
-		
-		
-		// A ce stade le client existe, on récupère les informations et on return le Client
+
+		// A ce stade le client existe, on récupère les informations et on
+		// return le Client
 		String prenom = rs.getString("prenom");
 		String nom = rs.getString("nom");
 		int nbPoint = rs.getInt("nbPoint");
 		int nbHeureGratuite = rs.getInt("nbHeureGratuite");
-		
+
 		c = new Client(prenom, nom, numero);
-		c.setCarteFidelite(new CarteFidelite(c,nbPoint,nbHeureGratuite));
-		
+		c.setCarteFidelite(new CarteFidelite(c, nbPoint, nbHeureGratuite));
+
 		// On ajoute le client dans le cache
 		cacheClients.put(c.hashCode(), c);
-		
+
 		return c;
 	}
 
-	
-	
-	
-	
 	/**
 	 * Recherche un client par prénom et nom
+	 * 
 	 * @param prenom
 	 * @param nom
 	 * @return
 	 * @throws SQLException
 	 * @throws ExceptionClientInexistant
 	 */
-	public Client rechercherClient(String prenom, String nom) throws SQLException, ExceptionClientInexistant {
+	public Client rechercherClient(String prenom, String nom)
+			throws SQLException, ExceptionClientInexistant {
 
 		// On recherche d'abord dans le cache
 		Iterator<Integer> it = cacheClients.keySet().iterator();
 		Client c;
-		
+
 		while (it.hasNext()) {
 			c = cacheClients.get(it);
-			
+
 			if (c.getPrenom().equals(prenom) && c.getNom().equals(nom))
 				return c;
 		}
 
-		
 		// A ce stade le client n'est pas en cache, on recherche dans la BDD
 		String sql = "SELECT id_client, prenom, nom, numero, nbPoint, nbHeureGratuite FROM CLIENT WHERE prenom='"
-				+ prenom
-				+ "' AND NOM='"
-				+ nom
-				+ "'";
+				+ prenom + "' AND NOM='" + nom + "'";
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
 		rs.last(); // On place le curseur sur la dernière ligne
-		int nbLigne = rs.getRow(); // On récupère le numéro de ligne (si 0 alors client inexistant)
+		int nbLigne = rs.getRow(); // On récupère le numéro de ligne (si 0 alors
+									// client inexistant)
 		rs.beforeFirst(); // On replace le curseur avant la première ligne
-		
-		
+
 		// Si le client existe pas, on déclenche une Exception
-		if(nbLigne<=0)
+		if (nbLigne <= 0)
 			throw new ExceptionClientInexistant("Le client n'existe pas");
-		
-		
-		
-		// A ce stade le client existe, on récupère les informations et on return le Client
+
+		// A ce stade le client existe, on récupère les informations et on
+		// return le Client
 		int numero = rs.getInt("numero");
 		int nbPoint = rs.getInt("nbPoint");
 		int nbHeureGratuite = rs.getInt("nbHeureGratuite");
-		
+
 		c = new Client(prenom, nom, numero);
-		c.setCarteFidelite(new CarteFidelite(c,nbPoint,nbHeureGratuite));
-		
+		c.setCarteFidelite(new CarteFidelite(c, nbPoint, nbHeureGratuite));
+
 		// On ajoute le client dans le cache
 		cacheClients.put(c.hashCode(), c);
-		
-		return c;	
+
+		return c;
 	}
-	
-	
-	public ArrayList<Client> listeClient () throws SQLException {
+
+	public ArrayList<Client> listeClient() throws SQLException {
 		ArrayList<Client> lesClients = new ArrayList<Client>();
-		
+
 		String sql = "SELECT id_client, prenom, nom, numero, nbPoint, nbHeureGratuite FROM CLIENT";
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
-		
+
 		Client c;
 		String prenom;
 		String nom;
 		int numero;
 		int nbPoint;
 		int nbHeureGratuite;
-		
-		while(rs.next()) {
+
+		while (rs.next()) {
 			prenom = rs.getString("prenom");
 			nom = rs.getString("nom");
 			numero = rs.getInt("numero");
 			nbPoint = rs.getInt("nbPoint");
 			nbHeureGratuite = rs.getInt("nbHeureGratuite");
-			
-			c = new Client(prenom,nom,numero);
+
+			c = new Client(prenom, nom, numero);
 			c.setCarteFidelite(new CarteFidelite(c, nbPoint, nbHeureGratuite));
-			
-			// Si le client existe en cache on retourne ce dernier pour pas surcharger le RAM, sinon on retourne celui créée ci-dessus
-			if(cacheClients.containsKey(c.hashCode()))
+
+			// Si le client existe en cache on retourne ce dernier pour pas
+			// surcharger le RAM, sinon on retourne celui créée ci-dessus
+			if (cacheClients.containsKey(c.hashCode()))
 				lesClients.add(cacheClients.get(c.hashCode()));
 			else {
 				lesClients.add(c);
 			}
 		}
-		
+
 		return lesClients;
 	}
-	
 
 }
