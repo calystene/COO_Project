@@ -31,7 +31,7 @@ public class Main {
 		
 		
 		try {
-			Client c = FactoryClient.getInstance().creerClient("Jean", "Christophe", 657374020);
+			Client c = FactoryClient.getInstance().creerClient("Jean", "Pierre", 657274020);
 			
 			ResultSet rs = FactorySQL.getInstance().getResultSet("SELECT * FROM CLIENT");
 			
@@ -46,12 +46,14 @@ public class Main {
 			}
 			
 		} catch (ExceptionClientExistant e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			String msg = e.getMessage();
+			System.out.println(msg);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		FactorySQL.getInstance().shutdown();
 	}
 
 }

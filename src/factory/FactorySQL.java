@@ -37,7 +37,13 @@ public class FactorySQL {
 		singleton = new FactorySQL();
 		return singleton;
 	}
-
+	
+	
+	/**
+	 * Permet d'éxécuter une requête et de récupérer son résultat dans un ResultSet
+	 * @param sql La requête à éxécuté
+	 * @return Le result
+	 */
 	public ResultSet getResultSet(String sql) {
 		PreparedStatement st;
 		ResultSet rs;
@@ -53,6 +59,12 @@ public class FactorySQL {
 		return null;
 	}
 	
+	
+	/** 
+	 * Permet d'éxécuter une requête de mise à jour
+	 * @param sql La requête à éxécuter
+	 * @return Le nombre de ligne modifiées
+	 */
 	public int executeUpdate(String sql) {
 		PreparedStatement st;
 		int result = 0;
@@ -60,12 +72,25 @@ public class FactorySQL {
 		try {
 			st = conn.prepareStatement(sql);
 			result = st.executeUpdate();
-			conn.commit();
 		} catch (SQLException e) {
-			System.out.println("Erreur executeUpdate(sql)");
+			System.out.println("Erreur executeUpdate(sql) sur la requête : " + sql);
 			e.printStackTrace();
 		}
 		
 		return result;
+	}
+	
+	
+	/**
+	 * Permet de fermer la connection à la base
+	 * Penser à le faire à la fin du programme sinon le commit ne se fait pas
+	 */
+	public void shutdown() {
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

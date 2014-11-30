@@ -9,10 +9,6 @@ import data.forfait.Forfait;
  */
 public class Client {
 
-	//
-	// Fields
-	//
-
 	private String prenom;
 	private String nom;
 	private int numero;
@@ -164,7 +160,8 @@ public class Client {
 		hash = hash * 31 + numero;
 		hash = hash * 21 + nom.hashCode();
 		hash = hash * 11 + prenom.hashCode();
-		return hash;
+		
+		return Math.abs(hash);
 	}
 	
 	/**

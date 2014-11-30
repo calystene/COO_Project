@@ -34,6 +34,7 @@ TODO
     * FactoryReservation : In progress
     * FactoryPlageHoraire : In progress
     * FactorySalle : In progress
+    * FactorySQL : **OK**
 
 -----------
 * **Metier**
