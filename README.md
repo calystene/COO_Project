@@ -59,11 +59,11 @@ TODO
 
 * **Partie Base de données**
    * Création de la base
-      * Elaborer MCD : KO
-      * Création de la base : KO
+      * Elaborer MCD : In progress
+      * Création de la base : **OK**
    * Création des méthodes JDBC
-      * FactoryClient : KO
-      * FactoryForfait : KO
+      * FactoryClient : **OK**
+      * FactoryForfait : In progress
       * FactoryTarif : KO
       * FactoryReservation : KO
       * FactoryTrancheHoraire : KO
