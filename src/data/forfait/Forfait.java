@@ -21,8 +21,9 @@ public class Forfait {
 	//
 	// Constructors
 	//
-	public Forfait(int n, TYPE_FORFAIT t, Date dFinValidite, int hDispo, int p, String l) {
-		numero = n;
+	public Forfait(Client c, TYPE_FORFAIT t, Date dFinValidite, int hDispo, int p, String l) {
+		numero = t.hashCode() + c.hashCode();
+		client = c;
 		type = t;
 		dateFinValidite = dFinValidite;
 		heureDisponible = hDispo;

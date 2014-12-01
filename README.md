@@ -29,7 +29,7 @@ TODO
     * FactoryPlageHoraire : **KO**
     * FactorySalle : **OK**
  * Codage des Factory
-    * FactoryClient : **OK** // L'insertion se fait correctement, mais le commit se fait pas à la fermeture du prog 
+    * FactoryClient : **OK** 
     * FactoryForfait : In progress
     * FactoryReservation : In progress
     * FactoryPlageHoraire : In progress
@@ -39,7 +39,7 @@ TODO
 -----------
 * **Metier**
    *  Création des métiers de base
-      * CreationClient : KO // Penser à associer une carte de fidelité à la création du client
+      * CreationClient : KO
       * AjoutForfait : KO
       * CreationSalle : KO
       * CreationTrancheHoraire : KO

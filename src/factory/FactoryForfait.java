@@ -27,19 +27,23 @@ public class FactoryForfait {
 		return singleton;
 	}
 
-	public Forfait creerForfait(int n, TYPE_FORFAIT t, Date dFinValidite,
+	// Modifier la classe : Param (Client c, TYPE_FORFAIT t) et rechercher les
+	// informations en BDD
+	public Forfait creerForfait(Client c, TYPE_FORFAIT t, Date dFinValidite,
 			int hDispo, int p, String l) throws ExceptionForfaitExistant,
 			SQLException {
-		Forfait f = new Forfait(n, t, dFinValidite, hDispo, p, l);
+
+		
+		int idForfait = t.hashCode() + c.getNumero();
 		String msgException = "Le forfait existe déjà";
 
 		// On vérifie l'existence du forfait dans le cache
-		if (cacheForfait.containsKey(f.getNumero()))
+		if (cacheForfait.containsKey(idForfait))
 			throw new ExceptionForfaitExistant(msgException);
 
 		// On vérifie si le forfait existe en BDD
 		String sql = "SELECT COUNT(id_forfait) as id_forfait FROM FORFAIT WHERE id_forfait="
-				+ f.getNumero();
+				+ idForfait;
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
 
 		while (rs.next()) {
@@ -47,9 +51,44 @@ public class FactoryForfait {
 				throw new ExceptionForfaitExistant(msgException);
 		}
 
+		
+		// Sinon on récupère les informations sur le type de forfait dans la BDD et on cré le forfait
+		sql = "SELECT id_typeForfait, prix, libelle, nb_heure, nb_moisValide "
+				+ "FROM TYPE_FORFAIT WHERE id_forfait='" + t.toString() + "'";
+		rs = FactorySQL.getInstance().getResultSet(sql);
+		
+		int prix, nb_heure, nb_moisValide;
+		String libelle;
+		// Date fin validité
+		
+		while (rs.next()) {
+			prix = rs.getInt("prix");
+			nb_heure = rs.getInt("nb_heure");
+			nb_moisValide = rs.getInt("nb_moisValide");
+			libelle = rs.getString("libelle");
+		}
+		
+		Forfait f = new Forfait(c, t, dFinValidite, hDispo, p, l);
+		
 		// Sinon on l'ajoute au cache et à la BDD
+		
+		
+		
 		cacheForfait.put(f.getNumero(), f);
-		sql = "INSERT INTO FORFAIT (id_forfait, dateFinValide, ) VALUES ()";
+		int nbHeureInitial = 0; // Récupérer les informations dans la BDD sur le
+								// type de forfait
+
+		sql = "INSERT INTO FORFAIT (id_forfait, dateFinValide, nb_heureDisponible, fk_client, fk_typeForfait)"
+				+ " VALUES ("
+				+ f.getNumero()
+				+ ", "
+				+ f.getDateFinValidite() // à transformer en long ou Date SQL
+				+ ", "
+				+ nbHeureInitial
+				+ ", "
+				+ c.getNumero()
+				+ ", "
+				+ t.toString() + ")";
 		FactorySQL.getInstance().executeUpdate(sql);
 
 		return f;

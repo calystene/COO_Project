@@ -6,3 +6,23 @@ numero int,
 nbPoint int NULL,
 nbHeureGratuite int NULL,
 )
+
+
+CREATE TABLE TYPE_FORFAIT (
+id_typeForfait varchar(8) PRIMARY KEY,
+prix int,
+libelle varchar(75),
+nb_heure int,
+nb_moisValide int
+)
+
+
+CREATE TABLE FORFAIT (
+id_forfait int PRIMARY KEY,
+date_FinValidite int,
+nb_heureDisponible int,
+fk_client int,
+fk_typeForfait varchar(8),
+FOREIGN KEY (fk_client) REFERENCES CLIENT(id_client), 
+FOREIGN KEY (fk_typeForfait) REFERENCES TYPE_FORFAIT(id_typeForfait)
+)
