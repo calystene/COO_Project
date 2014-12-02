@@ -26,6 +26,8 @@ public class FactoryForfait {
 
 		return singleton;
 	}
+	
+	// Manon
 
 	// Modifier la classe : Param (Client c, TYPE_FORFAIT t) et rechercher les
 	// informations en BDD
