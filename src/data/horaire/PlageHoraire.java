@@ -1,5 +1,7 @@
 package data.horaire;
 
+import exception.ExceptionPlageIncorrect;
+
 /**
  * Interface TrancheHoraire
  */
@@ -11,11 +13,14 @@ public class PlageHoraire {
 	private Tranche tranche;
 	
 	
-	public PlageHoraire(int hD, int hF, Tranche t) {
+	public PlageHoraire(int hD, int hF, Tranche t) throws ExceptionPlageIncorrect {
 		heureDebut = hD;
 		heureFin = hF;
 		duree = hD - hF;
 		tranche = t;
+		if (duree>2){
+			throw new ExceptionPlageIncorrect("Plage horaire supérieur à 2 heures");
+		}
 	}
 
 
