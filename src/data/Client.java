@@ -1,5 +1,6 @@
 package data;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import data.forfait.Forfait;
@@ -118,8 +119,9 @@ public class Client {
 	/**
 	 * get the List of Forfait for this Client
 	 * @return ArrayList<Forfait>
+	 * @throws SQLException 
 	 */
-	public ArrayList<Forfait> getForfait() {
+	public ArrayList<Forfait> getForfait() throws SQLException {
 		//return lesForfaits;
 		
 		// Evolution : Utiliser méthode de Factory pour chercher l'information dans la base 

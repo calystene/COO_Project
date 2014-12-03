@@ -32,7 +32,7 @@ public class FactoryForfait {
 	public Forfait creerForfait(Client c, TYPE_FORFAIT t) throws ExceptionForfaitExistant,
 			SQLException {
 
-		int idForfait = Math.abs(t.hashCode() + c.getNumero());
+		int idForfait = Math.abs(t.hashCode() + c.hashCode());
 		String msgException = "Le forfait existe déjà";
 
 		// On vérifie l'existence du forfait dans le cache
@@ -92,23 +92,61 @@ public class FactoryForfait {
 		return f;
 	}
 
+	
 	public Forfait rechercherForfait(int n) {
 
 		return null;
 	}
 
-	public ArrayList<Forfait> rechercherByClient(Client c) {
-
-		return null;
+	public ArrayList<Forfait> rechercherByClient(Client c) throws SQLException {
+		ArrayList<Forfait> listeForfait = new ArrayList<Forfait>();
+		
+		String sql = "SELECT id_forfait, date_FinValidite, nb_heureDisponible, prix, libelle, fk_typeForfait FROM FORFAIT, TYPE_FORFAIT WHERE "
+				+ "fk_typeForfait=id_typeForfait AND"
+				+ "fk_client=" + c.hashCode();
+		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
+		
+		Forfait f = null;
+		TYPE_FORFAIT type;
+		Date dFinValidite;
+		int hDispo;
+		int prix;
+		String libelle;
+		
+		while (rs.next()) {
+			type = getTypeForfait(rs.getString("fk_typeForfait"));
+			dFinValidite = DateManager.sqlToDate(rs.getDate("date_FinValidite"));
+			hDispo = rs.getInt("nb_heureDisponible");
+			prix = rs.getInt("prix");
+			libelle = rs.getString("libelle");
+			f = new Forfait(c, type, dFinValidite, hDispo, prix, libelle);
+			
+			listeForfait.add(f);
+		}
+		
+		return listeForfait;
 	}
 
 	public ArrayList<Forfait> listeForfait() {
-
+		
 		return null;
 	}
 
 	public ArrayList<Forfait> listeTypeForfait() {
-
+		
+		return null;
+	}
+	
+	private TYPE_FORFAIT getTypeForfait(String s) {
+		if(s.equals("A_PETITE")) {
+			return TYPE_FORFAIT.A_PETITE;
+		} else if (s.equals("A_GRANDE")) {
+			return TYPE_FORFAIT.A_GRANDE;
+		} else if (s.equals("B_PETITE")) {
+			return TYPE_FORFAIT.B_PETITE;
+		} else if (s.equals("B_GRANDE")) {
+			return TYPE_FORFAIT.B_GRANDE;
+		}
 		return null;
 	}
 }

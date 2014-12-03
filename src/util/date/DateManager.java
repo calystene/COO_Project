@@ -35,9 +35,24 @@ public class DateManager {
 	}
 
 	
+	/**
+	 * Converti une util.Date en sql.Date
+	 * @param pdate
+	 * @return
+	 */
 	static public java.sql.Date dateToSQL (Date pdate) {
 		java.sql.Date d = new java.sql.Date(pdate.getTime());
 		return d;
+	}
+	
+	
+	/**
+	 * Converti une sql.Date en util.Date
+	 * @param d
+	 * @return
+	 */
+	static public java.util.Date sqlToDate (java.sql.Date d) {
+		return new java.util.Date(d.getTime());
 	}
 	
 	
