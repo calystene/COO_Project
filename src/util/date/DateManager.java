@@ -8,36 +8,18 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class DateManager {
-	private static DateManager singleton;
-
-	private java.util.Date uDate;
-	private java.sql.Date sDate;
-	private GregorianCalendar calendar;
-
-	private DateManager() {
-		uDate = new java.util.Date();
-		sDate = new java.sql.Date(System.currentTimeMillis());
-		calendar = new java.util.GregorianCalendar();
-	}
-
-	public static DateManager getInstance() {
-		if (singleton == null)
-			singleton = new DateManager();
-
-		return singleton;
-	}
-
 	
+	private DateManager() {	}
 	
 	/**
 	 * Retourne la date courante en String sous l'affichage : 'jj mmm. aaaa'
 	 * 
 	 * @return la date courante
 	 */
-	public String dateToString() {
+	public static String dateToString() {
 		DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM,
 				Locale.FRANCE);
-		return df.format(uDate);
+		return df.format(new java.util.Date());
 	}
 
 	
@@ -47,14 +29,15 @@ public class DateManager {
 	 * 
 	 * @return la date courante au format SQL
 	 */
-	public String dateSQLToString() {
-		return sDate.toString();
+	static public String dateSQLToString() {
+		java.sql.Date d = new java.sql.Date(System.currentTimeMillis());
+		return d.toString();
 	}
 
 	
-	public java.sql.Date dateToSQL (Date d) {
-		sDate = new java.sql.Date(d.getTime());
-		return sDate;
+	static public java.sql.Date dateToSQL (Date pdate) {
+		java.sql.Date d = new java.sql.Date(pdate.getTime());
+		return d;
 	}
 	
 	
@@ -63,8 +46,8 @@ public class DateManager {
 	 * 
 	 * @return la date courante
 	 */
-	public Date getDate() {
-		return uDate;
+	public static Date getDate() {
+		return new Date();
 	}
 
 	
@@ -74,8 +57,9 @@ public class DateManager {
 	 * 
 	 * @return
 	 */
-	public Date getDateSQL() {
-		return sDate;
+	public static java.sql.Date getDateSQL() {
+		java.sql.Date d = new java.sql.Date(System.currentTimeMillis());
+		return d;
 	}
 	
 	
@@ -87,7 +71,7 @@ public class DateManager {
 	 *            La date à transformer
 	 * @return la date au format texte
 	 */
-	public String valueOf(Date d) {
+	public static String valueOf(Date d) {
 		DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM,
 				Locale.FRANCE);
 		return df.format(d);
@@ -103,8 +87,9 @@ public class DateManager {
 	 *            le nombre de mois à ajouter
 	 * @return la nouvelle date
 	 */
-	public Date addMonth(int month) {
-		calendar.setTime(uDate);
+	static public Date addMonthFromToday(int month) {
+		GregorianCalendar calendar = new java.util.GregorianCalendar();
+		calendar.setTime(new Date());
 		calendar.add(Calendar.MONTH, month);
 		return calendar.getTime();
 	}
@@ -121,7 +106,8 @@ public class DateManager {
 	 *            le nombre de mois à ajouter
 	 * @return la nouvelle date
 	 */
-	public Date addMonth(Date d, int month) {
+	static public Date addMonthFromDate(Date d, int month) {
+		GregorianCalendar calendar = new java.util.GregorianCalendar();
 		calendar.setTime(d);
 		calendar.add(Calendar.MONTH, month);
 		return calendar.getTime();
@@ -137,7 +123,7 @@ public class DateManager {
 	 *            La date à vérifier
 	 * @return True si la date n'est pas un jour férié, sinon False
 	 */
-	public boolean jourOuvrable(Date date) {
+	static public boolean jourOuvrable(Date date) {
 		Calendar c1 = Calendar.getInstance();
 		Calendar c2 = Calendar.getInstance();
 
@@ -170,7 +156,7 @@ public class DateManager {
 	 * @param annee
 	 * @return La liste des jours férié
 	 */
-	public ArrayList<Date> getJourFeries(int annee) {
+	static public ArrayList<Date> getJourFeries(int annee) {
 		ArrayList<Date> datesFeries = new ArrayList<Date>();
 
 		// Jour de l'an
@@ -234,7 +220,7 @@ public class DateManager {
 	 * @param annee
 	 * @return la date du jour de paque
 	 */
-	public GregorianCalendar calculLundiPacques(int annee) {
+	static public GregorianCalendar calculLundiPacques(int annee) {
 		int a = annee / 100;
 		int b = annee % 100;
 		int c = (3 * (a + 25)) / 4;

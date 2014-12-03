@@ -19,7 +19,7 @@ nb_moisValide int
 
 CREATE TABLE FORFAIT (
 id_forfait int PRIMARY KEY,
-date_FinValidite int,
+date_FinValidite Date,
 nb_heureDisponible int,
 fk_client int,
 fk_typeForfait varchar(8),

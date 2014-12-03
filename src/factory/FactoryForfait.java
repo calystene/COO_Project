@@ -68,7 +68,7 @@ public class FactoryForfait {
 			libelle = rs.getString("libelle");
 		}
 
-		Date dateFinValidite = DateManager.getInstance().addMonth(nb_moisValide);
+		Date dateFinValidite = DateManager.addMonthFromToday(nb_moisValide);
 		Forfait f = new Forfait(c, t, dateFinValidite, nb_heureInit, prix, libelle);
 		
 			
@@ -79,7 +79,7 @@ public class FactoryForfait {
 				+ " VALUES ("
 				+ f.getNumero()
 				+ ", '"
-				+ DateManager.getInstance().dateToSQL(f.getDateFinValidite())
+				+ DateManager.dateToSQL(f.getDateFinValidite())
 				+ "', "
 				+ nb_heureInit
 				+ ", "
