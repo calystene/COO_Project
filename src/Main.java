@@ -5,8 +5,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import data.Client;
+import data.forfait.Forfait;
+import data.forfait.TYPE_FORFAIT;
 import exception.ExceptionClientExistant;
+import exception.ExceptionClientInexistant;
+import exception.ExceptionForfaitExistant;
 import factory.FactoryClient;
+import factory.FactoryForfait;
 import factory.FactorySQL;
 import util.date.DateManager;
 
@@ -29,15 +34,11 @@ public class Main {
 		System.out.println(DateManager.getInstance().jourOuvrable(paque.getTime()));
 		System.out.println(DateManager.getInstance().jourOuvrable(date));
 		
-		
+		Client c = null;
 		try {
-			Client c = FactoryClient.getInstance().creerClient("Jean", "Pierre", 657274020);
+			//FactoryClient.getInstance().creerClient("Thomas", "Pierard", 637571940);
 			
-			ResultSet rs = FactorySQL.getInstance().getResultSet("SELECT * FROM CLIENT");
-			
-			while(rs.next()) {
-				System.out.println(rs.getString("nom") + " " + rs.getString("prenom"));
-			}
+			c = FactoryClient.getInstance().rechercherClient("Pierard",637571940);
 			
 			ArrayList<Client> liste = FactoryClient.getInstance().listeClient();
 			
@@ -45,13 +46,21 @@ public class Main {
 				System.out.println(cli.getPrenom() + " " + cli.getNom());
 			}
 			
-		} catch (ExceptionClientExistant e) {
-			String msg = e.getMessage();
-			System.out.println(msg);
-		} catch (SQLException e) {
+			
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		} 
+		
+		try {
+			Forfait f = FactoryForfait.getInstance().creerForfait(c, TYPE_FORFAIT.B_GRANDE);
+		} catch (ExceptionForfaitExistant | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		
 		FactorySQL.getInstance().shutdown();
 	}

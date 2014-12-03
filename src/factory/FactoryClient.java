@@ -78,35 +78,37 @@ public class FactoryClient {
 	}
 
 	/**
-	 * Recherche un client par numéro
-	 * 
+	 * Recherche un client par nom et numéro
+	 * @param nom
 	 * @param numero
 	 * @return
 	 * @throws SQLException
 	 * @throws ExceptionClientInexistant
 	 */
-	public Client rechercherClient(int numero) throws SQLException,
+	public Client rechercherClient(String nom, int numero) throws SQLException,
 			ExceptionClientInexistant {
 
 		// On recherche d'abord dans le cache
 		Iterator<Integer> it = cacheClients.keySet().iterator();
 		Client c;
-
+		
 		while (it.hasNext()) {
 			c = cacheClients.get(it);
-
-			if (c.getNumero() == numero)
+			
+			if (c!=null && c.getNom().equals(nom) && c.getNumero() == numero)
 				return c;
 		}
 
 		// A ce stade le client n'est pas en cache, on recherche dans la BDD
 		String sql = "SELECT id_client, prenom, nom, numero, nbPoint, nbHeureGratuite FROM CLIENT WHERE numero="
-				+ numero;
+				+ numero
+				+ "AND nom='"
+				+ nom + "'";
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
 		rs.last(); // On place le curseur sur la dernière ligne
 		int nbLigne = rs.getRow(); // On récupère le numéro de ligne (si 0 alors
 									// client inexistant)
-		rs.beforeFirst(); // On replace le curseur avant la première ligne
+		
 
 		if (nbLigne <= 0)
 			throw new ExceptionClientInexistant("Le client n'existe pas");
@@ -114,7 +116,6 @@ public class FactoryClient {
 		// A ce stade le client existe, on récupère les informations et on
 		// return le Client
 		String prenom = rs.getString("prenom");
-		String nom = rs.getString("nom");
 		int nbPoint = rs.getInt("nbPoint");
 		int nbHeureGratuite = rs.getInt("nbHeureGratuite");
 
@@ -146,7 +147,7 @@ public class FactoryClient {
 		while (it.hasNext()) {
 			c = cacheClients.get(it);
 
-			if (c.getPrenom().equals(prenom) && c.getNom().equals(nom))
+			if (c!=null && c.getPrenom().equals(prenom) && c.getNom().equals(nom))
 				return c;
 		}
 
@@ -157,7 +158,7 @@ public class FactoryClient {
 		rs.last(); // On place le curseur sur la dernière ligne
 		int nbLigne = rs.getRow(); // On récupère le numéro de ligne (si 0 alors
 									// client inexistant)
-		rs.beforeFirst(); // On replace le curseur avant la première ligne
+		//rs.beforeFirst(); // On replace le curseur avant la première ligne
 
 		// Si le client existe pas, on déclenche une Exception
 		if (nbLigne <= 0)
@@ -177,7 +178,13 @@ public class FactoryClient {
 
 		return c;
 	}
-
+	
+	
+	/**
+	 * Retourne la liste des clients sans les remonter en cache
+	 * @return
+	 * @throws SQLException
+	 */
 	public ArrayList<Client> listeClient() throws SQLException {
 		ArrayList<Client> lesClients = new ArrayList<Client>();
 

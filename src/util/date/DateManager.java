@@ -52,6 +52,11 @@ public class DateManager {
 	}
 
 	
+	public java.sql.Date dateToSQL (Date d) {
+		sDate = new java.sql.Date(d.getTime());
+		return sDate;
+	}
+	
 	
 	/**
 	 * Retourne l'objet de la date courante

@@ -1,7 +1,0 @@
-/*C3*/SET SCHEMA PUBLIC
-CREATE TABLE TYPE_FORFAIT (\u000aid_typeForfait int PRIMARY KEY,\u000aprix int,\u000alibelle varchar(75),\u000anb_heure int,\u000anb_moisValide int,\u000atype_forfait varchar(8)\u000a)\u000a
-CREATE TABLE FORFAIT (\u000aid_forfait int PRIMARY KEY,\u000adate_FinValidite int,\u000anb_heureDisponible int,\u000afk_client int,\u000afk_typeForfait int,\u000aFOREIGN KEY (fk_client) REFERENCES CLIENT(id_client), \u000aFOREIGN KEY (fk_typeForfait) REFERENCES TYPE_FORFAIT(id_typeForfait)\u000a)\u000a
-DROP TABLE FORFAIT
-DROP TABLE TYPE_FORFAIT
-CREATE TABLE TYPE_FORFAIT (\u000aid_typeForfait varchar(8) PRIMARY KEY,\u000aprix int,\u000alibelle varchar(75),\u000anb_heure int,\u000anb_moisValide int\u000a)\u000a\u000a\u000a
-\u000aCREATE TABLE FORFAIT (\u000aid_forfait int PRIMARY KEY,\u000adate_FinValidite int,\u000anb_heureDisponible int,\u000afk_client int,\u000afk_typeForfait varchar(8),\u000aFOREIGN KEY (fk_client) REFERENCES CLIENT(id_client), \u000aFOREIGN KEY (fk_typeForfait) REFERENCES TYPE_FORFAIT(id_typeForfait)\u000a)\u000a
