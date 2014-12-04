@@ -1,5 +1,6 @@
 A chaque connexion, pour recuperer mise a jour :
 
+
 git pull https://github.com/calystene/COO_Project
 
 A la fin, pour commit :
@@ -22,3 +23,8 @@ Carte Fidelité
 
 Retournr sur branche master : git checkout master
 voir branche actuelle : git branch
+
+=>
+git pull origin master
+git pull orign Salle
+
