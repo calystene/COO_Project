@@ -56,11 +56,26 @@ public class Main {
 		
 		try {
 			Forfait f = FactoryForfait.getInstance().creerForfait(c, TYPE_FORFAIT.B_GRANDE);
-		} catch (ExceptionForfaitExistant | SQLException e) {
+			
+			
+			
+			
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
 		
+		ArrayList<Forfait> listeF;
+		try {
+			listeF = c.getForfait();
+			
+			for(Forfait forfait : listeF) {
+				System.out.println(forfait.getLibelle());
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		FactorySQL.getInstance().shutdown();
 	}

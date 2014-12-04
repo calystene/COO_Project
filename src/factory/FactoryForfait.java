@@ -102,7 +102,7 @@ public class FactoryForfait {
 		ArrayList<Forfait> listeForfait = new ArrayList<Forfait>();
 		
 		String sql = "SELECT id_forfait, date_FinValidite, nb_heureDisponible, prix, libelle, fk_typeForfait FROM FORFAIT, TYPE_FORFAIT WHERE "
-				+ "fk_typeForfait=id_typeForfait AND"
+				+ "fk_typeForfait=id_typeForfait AND "
 				+ "fk_client=" + c.hashCode();
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
 		
