@@ -38,7 +38,7 @@ public class Main {
 		try {
 			//FactoryClient.getInstance().creerClient("Thomas", "Pierard", 637571940);
 			
-			c = FactoryClient.getInstance().rechercherClient("Pierard",637571940);
+			c = FactoryClient.getInstance().rechercherClient("Pierre",657371940);
 			
 			ArrayList<Client> liste = FactoryClient.getInstance().listeClient();
 			
@@ -54,28 +54,24 @@ public class Main {
 			System.out.println(e.getMessage());
 		} 
 		
-		try {
-			Forfait f = FactoryForfait.getInstance().creerForfait(c, TYPE_FORFAIT.B_GRANDE);
-			
-			
-			
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
-		}
-		
+		System.out.println("POINT 1") ;
 		ArrayList<Forfait> listeF;
 		try {
-			listeF = c.getForfait();
+			listeF = FactoryForfait.getInstance().listeTypeForfait();
+			
+			Forfait forf = FactoryForfait.getInstance().rechercherForfait(2046125353);
 			
 			for(Forfait forfait : listeF) {
-				System.out.println(forfait.getLibelle());
+				System.out.println(forfait.getLibelle() + "  " + forfait.getPrix() + " " + forfait.getHeureDisponible());
 			}
-		} catch (SQLException e) {
+			
+			System.out.println("--- " + forf.getClient().getNom() + " " + forf.getLibelle());
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 		
 		FactorySQL.getInstance().shutdown();
 	}

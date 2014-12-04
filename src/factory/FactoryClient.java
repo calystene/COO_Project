@@ -27,6 +27,8 @@ public class FactoryClient {
 		return singleton;
 	}
 
+	
+	
 	/**
 	 * Crée un nouveau Client et l'ajoute au cache et à la BDD
 	 * 
@@ -77,6 +79,9 @@ public class FactoryClient {
 		return c;
 	}
 
+	
+	
+	
 	/**
 	 * Recherche un client par nom et numéro
 	 * @param nom
@@ -128,6 +133,9 @@ public class FactoryClient {
 		return c;
 	}
 
+	
+	
+	
 	/**
 	 * Recherche un client par prénom et nom
 	 * 
@@ -178,6 +186,8 @@ public class FactoryClient {
 
 		return c;
 	}
+	
+	
 	
 	
 	/**

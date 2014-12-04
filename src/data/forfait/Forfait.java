@@ -18,9 +18,15 @@ public class Forfait {
 	private String libelle;
 	
 	
-	//
-	// Constructors
-	//
+	/**
+	 * Constructeur utiliser pour créer un forfait pour un client
+	 * @param c Le client à qui appartient le forfait
+	 * @param t Le type du forfait
+	 * @param dFinValidite Le date de fin de validité du forfait
+	 * @param hDispo Le nombre d'heure disponible sur le forfait
+	 * @param p Le prix du forfait
+	 * @param l Le libellé du forfait
+	 */
 	public Forfait(Client c, TYPE_FORFAIT t, Date dFinValidite, int hDispo, int p, String l) {
 		numero = Math.abs(t.hashCode() + c.hashCode());
 		client = c;
@@ -31,7 +37,28 @@ public class Forfait {
 		libelle = l;
 	}
 
+	
+	
+	/**
+	 * Constructeur pour crééer les différents Type de forfait disponible
+	 * Le forfait créer par ce constructeur n'a pas d'existence dans le BDD dans la table Forfait
+	 * @param t Le type du forfait
+	 * @param hDispo Le nombre d'heure initial du forfait
+	 * @param p Le prix du forfait
+	 * @param l Le libellé du forfait
+	 */
+	public Forfait(TYPE_FORFAIT t, int hDispo, int p, String l) {
+		numero = 0;
+		client = null;
+		type = t;
+		dateFinValidite = null;
+		heureDisponible = hDispo;
+		prix = p;
+		libelle = l;
+	}
 
+	
+	
 	/**
 	 * Function Forfait.java
 	 * @return the numero

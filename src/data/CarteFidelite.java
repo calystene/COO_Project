@@ -66,16 +66,6 @@ public class CarteFidelite {
 		return nbHeureGratuite;
 	}
 
-	//
-	// Other methods
-	//
-
-	/**
-	 * 
-	 */
-	public void miseAJour() {
-		
-	}
 	
 	
 	/**

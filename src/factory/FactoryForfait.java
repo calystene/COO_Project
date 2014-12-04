@@ -10,7 +10,9 @@ import util.date.DateManager;
 import data.Client;
 import data.forfait.Forfait;
 import data.forfait.TYPE_FORFAIT;
+import exception.ExceptionClientInexistant;
 import exception.ExceptionForfaitExistant;
+import exception.ExceptionForfaitInexistant;
 
 public class FactoryForfait {
 	private HashMap<Integer, Forfait> cacheForfait;
@@ -27,8 +29,15 @@ public class FactoryForfait {
 		return singleton;
 	}
 
-	// Modifier la classe : Param (Client c, TYPE_FORFAIT t) et rechercher les
-	// informations en BDD
+	
+	/**
+	 * Permet de créer un nouveau forfait pour un client. L'ajoute au cache et à la BDD
+	 * @param c Le client
+	 * @param t Le type de forfait
+	 * @return Le nouveau forfait pour le client
+	 * @throws ExceptionForfaitExistant
+	 * @throws SQLException
+	 */
 	public Forfait creerForfait(Client c, TYPE_FORFAIT t) throws ExceptionForfaitExistant,
 			SQLException {
 
@@ -59,7 +68,6 @@ public class FactoryForfait {
 		int nb_heureInit=0;
 		int nb_moisValide = 0;
 		String libelle = "";
-		// Date fin validité
 
 		while (rs.next()) {
 			prix = rs.getInt("prix");
@@ -74,6 +82,7 @@ public class FactoryForfait {
 			
 		// On l'ajoute au cache et à la BDD
 		cacheForfait.put(f.getNumero(), f);
+		
 
 		sql = "INSERT INTO FORFAIT (id_forfait, date_FinValidite, nb_heureDisponible, fk_client, fk_typeForfait)"
 				+ " VALUES ("
@@ -93,11 +102,67 @@ public class FactoryForfait {
 	}
 
 	
-	public Forfait rechercherForfait(int n) {
-
-		return null;
+	
+	/**
+	 * Permet de rechercher un forfait avec son numéro
+	 * @param n
+	 * @return
+	 * @throws SQLException
+	 * @throws ExceptionForfaitInexistant
+	 * @throws ExceptionClientInexistant
+	 */
+	public Forfait rechercherForfait(int n) throws SQLException, ExceptionForfaitInexistant, ExceptionClientInexistant {
+		// On recherche dans le cache en premier
+		if(cacheForfait.containsKey(n))
+			return cacheForfait.get(n);
+		
+		//Sinon on regarde dans la base
+		String sql = "SELECT id_forfait, date_FinValidite, nb_heureDisponible, prix, libelle, fk_typeForfait, nom, numero FROM FORFAIT, CLIENT, TYPE_FORFAIT WHERE "
+				+ "id_typeForfait=fk_typeForfait AND "
+				+ "id_client=fk_client AND "
+				+ "id_forfait=" + n;
+		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
+		
+		rs.last(); // On place le curseur sur la dernière ligne
+		int nbLigne = rs.getRow(); // On récupère le numéro de ligne
+		// Si numero de ligne <= 0 alors forfait inexistant
+		if(nbLigne <= 0)
+			throw new ExceptionForfaitInexistant("Le forfait " + n + " n'existe pas");
+		
+		
+		// Sinon
+		// Création de l'objet Forfait
+		Forfait f = null;
+		Client c = null; 
+		
+		// Données forfait
+		TYPE_FORFAIT type = getTypeForfait(rs.getString("fk_typeForfait"));
+		Date dFinValidite = DateManager.sqlToDate(rs.getDate("date_FinValidite"));
+		int hDispo = rs.getInt("nb_heureDisponible");
+		int prix = rs.getInt("prix");;
+		String libelle = rs.getString("libelle");
+		
+		// Données client
+		String nomClient = rs.getString("nom");
+		int numClient = rs.getInt("numero");
+		
+		c = FactoryClient.getInstance().rechercherClient(nomClient, numClient); // On récupère l'objet Client associé au forfait
+		
+		f = new Forfait(c, type, dFinValidite, hDispo, prix, libelle); // On crée le forfait
+		
+		cacheForfait.put(f.getNumero(), f);
+		
+		return f;
 	}
 
+	
+	
+	/**
+	 * Retourne la liste des forfait d'un client
+	 * @param c
+	 * @return
+	 * @throws SQLException
+	 */
 	public ArrayList<Forfait> rechercherByClient(Client c) throws SQLException {
 		ArrayList<Forfait> listeForfait = new ArrayList<Forfait>();
 		
@@ -122,21 +187,53 @@ public class FactoryForfait {
 			f = new Forfait(c, type, dFinValidite, hDispo, prix, libelle);
 			
 			listeForfait.add(f);
+			cacheForfait.put(f.getNumero(), f);
 		}
 		
 		return listeForfait;
 	}
 
-	public ArrayList<Forfait> listeForfait() {
+	
+	
+	
+	/**
+	 * Retourne la liste des types de forfait disponible dans la BDD
+	 * @return La liste des types de forfait
+	 * @throws SQLException
+	 */
+	public ArrayList<Forfait> listeTypeForfait() throws SQLException {
+		ArrayList<Forfait> listeForfait = new ArrayList<Forfait>();
 		
-		return null;
-	}
-
-	public ArrayList<Forfait> listeTypeForfait() {
+		String sql = "SELECT id_typeForfait, prix, libelle, nb_heure FROM TYPE_FORFAIT";
+		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
 		
-		return null;
+		Forfait f = null;
+		TYPE_FORFAIT type;
+		int hDispo;
+		int prix;
+		String libelle;
+		
+		while (rs.next()) {
+			type = getTypeForfait(rs.getString("id_typeForfait"));
+			hDispo = rs.getInt("nb_heure");
+			prix = rs.getInt("prix");
+			libelle = rs.getString("libelle");
+			f = new Forfait(type, hDispo, prix, libelle);
+			
+			listeForfait.add(f);
+		}
+		
+		return listeForfait;
 	}
 	
+	
+	
+	
+	/**
+	 * Permet de faire la conversion entre l'objet TYPE_FORFAIT et le varchar typeForfait contenu dans la BDD
+	 * @param s Le varchar typeForfait issu de la BDD
+	 * @return l'objet TYPE_FORFAIT correspondant 
+	 */
 	private TYPE_FORFAIT getTypeForfait(String s) {
 		if(s.equals("A_PETITE")) {
 			return TYPE_FORFAIT.A_PETITE;

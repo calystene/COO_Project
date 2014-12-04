@@ -15,7 +15,6 @@ public class Client {
 	private String nom;
 	private int numero;
 	private CarteFidelite carte;
-	private ArrayList<Forfait> lesForfaits;
 	
 
 	// Constructors
@@ -24,7 +23,6 @@ public class Client {
 		prenom = p;
 		nom = no;
 		numero = nu;
-		lesForfaits = new ArrayList<Forfait>();
 	};
 
 
@@ -107,13 +105,6 @@ public class Client {
 	// Other methods
 	//
 	
-	/**
-	 * Add one Forfait to this Client
-	 * @param f
-	 */
-	public void addForfait(Forfait f) {
-		lesForfaits.add(f);
-	}
 	
 	
 	/**
@@ -122,9 +113,6 @@ public class Client {
 	 * @throws SQLException 
 	 */
 	public ArrayList<Forfait> getForfait() throws SQLException {
-		//return lesForfaits;
-		
-		// Evolution : Utiliser méthode de Factory pour chercher l'information dans la base 
 		return FactoryForfait.getInstance().rechercherByClient(this);
 	}
 	
