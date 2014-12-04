@@ -72,14 +72,6 @@ public class CarteFidelite {
 
 	/**
 	 * 
-	 */
-	public void miseAJour() {
-		
-	}
-	
-	
-	/**
-	 * 
 	 * Get the value of client
 	 */
 	public Client getPersonne() {

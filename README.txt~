@@ -1,0 +1,18 @@
+A chaque connexion, pour recuperer mise a jour :
+
+git pull https://github.com/calystene/COO_Project
+
+A la fin, pour commit :
+
+git add * (chemin vers fichier modif)
+git commit -m "Ton message, les modifications"
+git push origin master
+
+Data_base :
+referenced librairies => hsql => org..util => DataBaseManager.class -> clic droit run as java application
+
+setting name : data_base
+type :standalone
+url: jdbc:hsqldb:file:bdd/data_base
+user/pass : coo
+
