@@ -22,17 +22,17 @@ public class Main {
 		Date date = DateManager.getDate();
 		Date dateSQL = DateManager.getDateSQL();
 		
-		System.out.println(DateManager.dateToString());
-		System.out.println(DateManager.valueOf(dateSQL));
-		System.out.println(DateManager.valueOf(DateManager.addMonthFromToday(5)));
-		System.out.println(DateManager.valueOf(DateManager.addMonthFromDate(dateSQL,5)));
-	
-		GregorianCalendar paque = new GregorianCalendar(2015,3,6,12,30);
-		GregorianCalendar gc = new GregorianCalendar(2015,0,1,9,30);
-		
-		System.out.println(DateManager.jourOuvrable(gc.getTime()));
-		System.out.println(DateManager.jourOuvrable(paque.getTime()));
-		System.out.println(DateManager.jourOuvrable(date));
+//		System.out.println(DateManager.dateToString());
+//		System.out.println(DateManager.valueOf(dateSQL));
+//		System.out.println(DateManager.valueOf(DateManager.addMonthFromToday(5)));
+//		System.out.println(DateManager.valueOf(DateManager.addMonthFromDate(dateSQL,5)));
+//	
+//		GregorianCalendar paque = new GregorianCalendar(2015,3,6,12,30);
+//		GregorianCalendar gc = new GregorianCalendar(2015,0,1,9,30);
+//		
+//		System.out.println(DateManager.jourOuvrable(gc.getTime()));
+//		System.out.println(DateManager.jourOuvrable(paque.getTime()));
+//		System.out.println(DateManager.jourOuvrable(date));
 		
 		Client c = null;
 		try {

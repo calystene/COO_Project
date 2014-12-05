@@ -11,6 +11,7 @@ public class FactorySQL {
 	private static FactorySQL singleton;
 
 	private FactorySQL() { 
+		System.out.println("Nouvelle connexion");
 		try {
 			Class.forName("org.hsqldb.jdbcDriver");
 		} catch (ClassNotFoundException e) {
@@ -51,11 +52,16 @@ public class FactorySQL {
 		try {
 			st = conn.prepareStatement(sql,ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			rs = st.executeQuery();
+			
+			conn.close();
+			singleton=null;
+			System.out.println("Fermeture connexion");
 			return rs;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Erreur éxécution requête");
 		}
+		
 		return null;
 	}
 	

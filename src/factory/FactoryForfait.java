@@ -147,7 +147,7 @@ public class FactoryForfait {
 		int numClient = rs.getInt("numero");
 		
 		c = FactoryClient.getInstance().rechercherClient(nomClient, numClient); // On récupère l'objet Client associé au forfait
-		
+		System.out.println("POINT 2");
 		f = new Forfait(c, type, dFinValidite, hDispo, prix, libelle); // On crée le forfait
 		
 		cacheForfait.put(f.getNumero(), f);
