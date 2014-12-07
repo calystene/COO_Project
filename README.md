@@ -30,10 +30,9 @@ TODO
     * FactorySalle : **OK**
  * Codage des Factory
     * FactoryClient : **OK** 
-    * FactoryForfait : In progress
-    * FactoryReservation : In progress
-    * FactoryPlageHoraire : In progress
-    * FactorySalle : In progress
+    * FactoryForfait : **OK**
+    * FactoryReservation : **KO**
+    * FactorySalle : In progress Manon
     * FactorySQL : **OK**
 
 -----------
@@ -58,17 +57,14 @@ TODO
 -----------
 
 * **Partie Base de données**
-   * Création de la base
+   * Création de la base[23~
       * Elaborer MCD : In progress
       * Création de la base : **OK**
    * Création des méthodes JDBC
       * FactoryClient : **OK**
-      * FactoryForfait : In progress
-      * FactoryTarif : KO
+      * FactoryForfait : **OK**
       * FactoryReservation : KO
-      * FactoryTrancheHoraire : KO
-      * FactorySalle : KO
-   * Tests du code : KO
+      * FactorySalle : In progress Manon
 
 -----------
 
