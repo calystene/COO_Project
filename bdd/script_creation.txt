@@ -50,18 +50,14 @@ FOREIGN KEY (fk_client) REFERENCES CLIENT (id_client),
 FOREIGN KEY (fk_salle) REFERENCES SALLE (id_salle)
 )
 
-CREATE TABLE PLAGE_HORAIRE (
-id_trancheH int PRIMARY KEY,
-heure_debut int,
-heure_fin int,
-duree int,
-tranche varchar(5)
-)
 
 CREATE TABLE RESER_PLAGEHORAIRE (
 fk_reservation int,
-fk_plagehoraire int,
-PRIMARY KEY(fk_reservation, fk_plagehoraire)
+no_plagehoraire int,
+heure_debut int,
+heure_fin int,
+duree int,
+PRIMARY KEY(fk_reservation, no_plagehoraire)
 )
 
 

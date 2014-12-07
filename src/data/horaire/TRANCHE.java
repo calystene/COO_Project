@@ -1,6 +1,6 @@
 package data.horaire;
 
-public enum Tranche {
+public enum TRANCHE {
 	MATIN,
 	AM,
 	SOIR

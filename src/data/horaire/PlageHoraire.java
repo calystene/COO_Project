@@ -9,10 +9,10 @@ public class PlageHoraire {
 	private int heureDebut;
 	private int heureFin;
 	private int duree;
-	private Tranche tranche;
+	private TRANCHE tranche;
 	
 	
-	public PlageHoraire(int hD, int hF, Tranche t) throws ExceptionPlageIncorrect {
+	public PlageHoraire(int hD, int hF, TRANCHE t) throws ExceptionPlageIncorrect {
 		heureDebut = hD;
 		heureFin = hF;
 		duree = hD - hF;
@@ -43,7 +43,7 @@ public class PlageHoraire {
 	}
 
 
-	public Tranche getTranche() {
+	public TRANCHE getTranche() {
 		return tranche;
 	}
 	

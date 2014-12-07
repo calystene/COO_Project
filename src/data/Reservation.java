@@ -30,7 +30,7 @@ public class Reservation {
 		prix = p;
 		client = c;
 		salle = s;
-	};
+	}
 
 	/**
 	 * Set the value of dateReservation
@@ -125,5 +125,13 @@ public class Reservation {
 		return datePriseReservation;
 	}
 
+	public int hashCode() {
+		int hash = 1;
+		hash = hash * 31 + dateReservation.hashCode();
+		hash = hash * 21 + salle.hashCode();
+		hash = hash * 11 + client.hashCode();
+		
+		return Math.abs(hash);
+	}
 	
 }

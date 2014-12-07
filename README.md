@@ -28,12 +28,14 @@ TODO
     * FactoryReservation : **KO**
     * FactoryPlageHoraire : **KO**
     * FactorySalle : **OK**
+    * FactoryReserPlageH : **OK**
  * Codage des Factory
     * FactoryClient : **OK** 
     * FactoryForfait : **OK**
     * FactoryReservation : **KO**
     * FactorySalle : In progress Manon
     * FactorySQL : **OK**
+    * FactoryReserPlageH : In progress Thomas
 
 -----------
 * **Metier**
@@ -65,6 +67,7 @@ TODO
       * FactoryForfait : **OK**
       * FactoryReservation : KO
       * FactorySalle : In progress Manon
+      * FactoryReserPlageH : In progress Thomas
 
 -----------
 
