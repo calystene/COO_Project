@@ -1,8 +1,12 @@
 package data.forfait;
 
+import java.sql.SQLException;
 import java.util.Date;
 
 import data.Client;
+import exception.ExceptionClientInexistant;
+import exception.ExceptionForfaitInexistant;
+import factory.FactoryClient;
 
 /**
  * Class Forfait
@@ -20,6 +24,7 @@ public class Forfait {
 	
 	/**
 	 * Constructeur utiliser pour créer un forfait pour un client
+	 * Le numéro unique du Forfait est créé à partir du hashCode du type de forfait + celui du Client
 	 * @param c Le client à qui appartient le forfait
 	 * @param t Le type du forfait
 	 * @param dFinValidite Le date de fin de validité du forfait
@@ -38,9 +43,26 @@ public class Forfait {
 	}
 
 	
+	/**
+	 * Ce constructeur est fait pour pouvoir créer un forfait sans connaître le Client à l'avance
+	 * Le forfait ne peut avoir d'existence propre dans le BDD sans qu'un client lui soit attribué
+	 * @param t Le type de forfait
+	 * @param dFinValidite La date de fin de validite du forfait
+	 * @param hDispo Le nombre d'heure initial disponible
+	 * @param p Le prix du forfait
+	 * @param l Le libellé du forfait
+	 */
+	public Forfait(TYPE_FORFAIT t, Date dFinValidite, int hDispo, int p, String l) {
+		type = t;
+		dateFinValidite = dFinValidite;
+		heureDisponible = hDispo;
+		prix = p;
+		libelle = l;
+	}
+	
 	
 	/**
-	 * Constructeur pour crééer les différents Type de forfait disponible
+	 * Constructeur pour crééer les différents Type de forfait disponible.
 	 * Le forfait créer par ce constructeur n'a pas d'existence dans le BDD dans la table Forfait
 	 * @param t Le type du forfait
 	 * @param hDispo Le nombre d'heure initial du forfait
@@ -80,9 +102,12 @@ public class Forfait {
 	/**
 	 * Function Forfait.java
 	 * @return the client
+	 * @throws ExceptionForfaitInexistant 
+	 * @throws SQLException 
+	 * @throws ExceptionClientInexistant 
 	 */
-	public Client getClient() {
-		return client;
+	public Client getClient() throws SQLException, ExceptionClientInexistant {
+		return FactoryClient.getInstance().rechercherByForfait(this);
 	}
 
 

@@ -42,10 +42,10 @@ public class Main {
 			
 			ArrayList<Client> liste = FactoryClient.getInstance().listeClient();
 			
-			for(Client cli : liste) {
-				System.out.println(cli.getPrenom() + " " + cli.getNom());
-			}
-			
+//			for(Client cli : liste) {
+//				System.out.println(cli.getPrenom() + " " + cli.getNom());
+//			}
+			System.out.println(c.getNom()  + " " + c.getNumero());
 			
 			
 			
@@ -65,7 +65,7 @@ public class Main {
 				System.out.println(forfait.getLibelle() + "  " + forfait.getPrix() + " " + forfait.getHeureDisponible());
 			}
 			
-			System.out.println("--- " + forf.getClient().getNom() + " " + forf.getLibelle());
+			System.out.println("--- Cli : " + forf.getClient().getNom() + "; Forfait :" + forf.getLibelle());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

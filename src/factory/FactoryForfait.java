@@ -103,6 +103,9 @@ public class FactoryForfait {
 
 	
 	
+	
+	
+	
 	/**
 	 * Permet de rechercher un forfait avec son numéro
 	 * @param n
@@ -132,8 +135,7 @@ public class FactoryForfait {
 		
 		// Sinon
 		// Création de l'objet Forfait
-		Forfait f = null;
-		Client c = null; 
+		Forfait f = null; 
 		
 		// Données forfait
 		TYPE_FORFAIT type = getTypeForfait(rs.getString("fk_typeForfait"));
@@ -142,13 +144,8 @@ public class FactoryForfait {
 		int prix = rs.getInt("prix");;
 		String libelle = rs.getString("libelle");
 		
-		// Données client
-		String nomClient = rs.getString("nom");
-		int numClient = rs.getInt("numero");
-		
-		c = FactoryClient.getInstance().rechercherClient(nomClient, numClient); // On récupère l'objet Client associé au forfait
-		System.out.println("POINT 2");
-		f = new Forfait(c, type, dFinValidite, hDispo, prix, libelle); // On crée le forfait
+		f = new Forfait(type, dFinValidite, hDispo, prix, libelle); // On crée le forfait
+		f.setNumero(n);
 		
 		cacheForfait.put(f.getNumero(), f);
 		

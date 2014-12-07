@@ -8,8 +8,10 @@ import java.util.Iterator;
 
 import data.CarteFidelite;
 import data.Client;
+import data.forfait.Forfait;
 import exception.ExceptionClientExistant;
 import exception.ExceptionClientInexistant;
+import exception.ExceptionForfaitInexistant;
 
 public class FactoryClient {
 	private static FactoryClient singleton;
@@ -27,8 +29,6 @@ public class FactoryClient {
 		return singleton;
 	}
 
-	
-	
 	/**
 	 * Crée un nouveau Client et l'ajoute au cache et à la BDD
 	 * 
@@ -69,21 +69,16 @@ public class FactoryClient {
 				+ ",'"
 				+ c.getPrenom()
 				+ "','"
-				+ c.getNom()
-				+ "',"
-				+ c.getNumero()
-				+ ",0,0)";
-		
+				+ c.getNom() + "'," + c.getNumero() + ",0,0)";
+
 		FactorySQL.getInstance().executeUpdate(sql);
 
 		return c;
 	}
 
-	
-	
-	
 	/**
 	 * Recherche un client par nom et numéro
+	 * 
 	 * @param nom
 	 * @param numero
 	 * @return
@@ -96,24 +91,21 @@ public class FactoryClient {
 		// On recherche d'abord dans le cache
 		Iterator<Integer> it = cacheClients.keySet().iterator();
 		Client c;
-		
+
 		while (it.hasNext()) {
 			c = cacheClients.get(it);
-			
-			if (c!=null && c.getNom().equals(nom) && c.getNumero() == numero)
+
+			if (c != null && c.getNom().equals(nom) && c.getNumero() == numero)
 				return c;
 		}
 
 		// A ce stade le client n'est pas en cache, on recherche dans la BDD
 		String sql = "SELECT id_client, prenom, nom, numero, nbPoint, nbHeureGratuite FROM CLIENT WHERE numero="
-				+ numero
-				+ "AND nom='"
-				+ nom + "'";
+				+ numero + "AND nom='" + nom + "'";
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
 		rs.last(); // On place le curseur sur la dernière ligne
 		int nbLigne = rs.getRow(); // On récupère le numéro de ligne (si 0 alors
 									// client inexistant)
-		
 
 		if (nbLigne <= 0)
 			throw new ExceptionClientInexistant("Le client n'existe pas");
@@ -133,9 +125,6 @@ public class FactoryClient {
 		return c;
 	}
 
-	
-	
-	
 	/**
 	 * Recherche un client par prénom et nom
 	 * 
@@ -155,7 +144,8 @@ public class FactoryClient {
 		while (it.hasNext()) {
 			c = cacheClients.get(it);
 
-			if (c!=null && c.getPrenom().equals(prenom) && c.getNom().equals(nom))
+			if (c != null && c.getPrenom().equals(prenom)
+					&& c.getNom().equals(nom))
 				return c;
 		}
 
@@ -166,7 +156,7 @@ public class FactoryClient {
 		rs.last(); // On place le curseur sur la dernière ligne
 		int nbLigne = rs.getRow(); // On récupère le numéro de ligne (si 0 alors
 									// client inexistant)
-		//rs.beforeFirst(); // On replace le curseur avant la première ligne
+		// rs.beforeFirst(); // On replace le curseur avant la première ligne
 
 		// Si le client existe pas, on déclenche une Exception
 		if (nbLigne <= 0)
@@ -186,12 +176,46 @@ public class FactoryClient {
 
 		return c;
 	}
-	
-	
-	
-	
+
+	/**
+	 * Permet de rechercher un client selon un forfait
+	 * 
+	 * @param f
+	 * @return
+	 * @throws SQLException
+	 * @throws ExceptionForfaitInexistant 
+	 */
+	public Client rechercherByForfait(Forfait f) throws SQLException, ExceptionClientInexistant {
+		String sql = "SELECT prenom, nom, numero FROM CLIENT, FORFAIT WHERE fk_client=id_client AND id_forfait="
+				+ f.getNumero();
+		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
+		
+		// Données Client
+		String prenom = "";
+		String nom = "";
+		int numero = 0;
+
+		rs.last();
+		int nbLigne = rs.getRow();
+
+		// Si ligne <= 0 alors le client ou le forfait n'existe pas
+		if (nbLigne <= 0)
+			throw new ExceptionClientInexistant("Le client pour le forfait recherché n'existe pas");
+
+		prenom = rs.getString("prenom");
+		nom = rs.getString("nom");
+		numero = rs.getInt("numero");
+
+		Client c = new Client(prenom, nom, numero);
+
+		cacheClients.put(c.hashCode(), c);
+
+		return c;
+	}
+
 	/**
 	 * Retourne la liste des clients sans les remonter en cache
+	 * 
 	 * @return
 	 * @throws SQLException
 	 */
