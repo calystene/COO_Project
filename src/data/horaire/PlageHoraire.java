@@ -6,7 +6,6 @@ import exception.ExceptionPlageIncorrect;
  * Interface TrancheHoraire
  */
 public class PlageHoraire {
-
 	private int heureDebut;
 	private int heureFin;
 	private int duree;

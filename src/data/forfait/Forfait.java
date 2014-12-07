@@ -14,7 +14,6 @@ import factory.FactoryClient;
 public class Forfait {
 
 	private int numero;
-	private Client client;
 	private TYPE_FORFAIT type;
 	private Date dateFinValidite;
 	private int heureDisponible;
@@ -22,25 +21,6 @@ public class Forfait {
 	private String libelle;
 	
 	
-	/**
-	 * Constructeur utiliser pour créer un forfait pour un client
-	 * Le numéro unique du Forfait est créé à partir du hashCode du type de forfait + celui du Client
-	 * @param c Le client à qui appartient le forfait
-	 * @param t Le type du forfait
-	 * @param dFinValidite Le date de fin de validité du forfait
-	 * @param hDispo Le nombre d'heure disponible sur le forfait
-	 * @param p Le prix du forfait
-	 * @param l Le libellé du forfait
-	 */
-	public Forfait(Client c, TYPE_FORFAIT t, Date dFinValidite, int hDispo, int p, String l) {
-		numero = Math.abs(t.hashCode() + c.hashCode());
-		client = c;
-		type = t;
-		dateFinValidite = dFinValidite;
-		heureDisponible = hDispo;
-		prix = p;
-		libelle = l;
-	}
 
 	
 	/**
@@ -71,7 +51,6 @@ public class Forfait {
 	 */
 	public Forfait(TYPE_FORFAIT t, int hDispo, int p, String l) {
 		numero = 0;
-		client = null;
 		type = t;
 		dateFinValidite = null;
 		heureDisponible = hDispo;
@@ -110,14 +89,6 @@ public class Forfait {
 		return FactoryClient.getInstance().rechercherByForfait(this);
 	}
 
-
-	/**
-	 * Function Forfait.java
-	 * @param client the client to set
-	 */
-	public void setClient(Client client) {
-		this.client = client;
-	}
 
 
 	/**

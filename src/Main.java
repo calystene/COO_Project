@@ -54,7 +54,6 @@ public class Main {
 			System.out.println(e.getMessage());
 		} 
 		
-		System.out.println("POINT 1") ;
 		ArrayList<Forfait> listeF;
 		try {
 			listeF = FactoryForfait.getInstance().listeTypeForfait();

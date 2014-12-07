@@ -26,3 +26,42 @@ fk_typeForfait varchar(8),
 FOREIGN KEY (fk_client) REFERENCES CLIENT(id_client), 
 FOREIGN KEY (fk_typeForfait) REFERENCES TYPE_FORFAIT(id_typeForfait)
 )
+
+
+CREATE TABLE SALLE (
+id_salle int PRIMARY KEY,
+nom varchar(30),
+prix1H int,
+prix2H int,
+type_salle varchar(20)
+)
+
+
+CREATE TABLE RESERVATION(
+id_reservation int PRIMARY KEY,
+datePriseReservation Date NOT NULL,
+dateReservation Date NOT NULL,
+etatPaiement boolean,
+prix int,
+duree int,
+fk_client int,
+fk_salle int,
+FOREIGN KEY (fk_client) REFERENCES CLIENT (id_client),
+FOREIGN KEY (fk_salle) REFERENCES SALLE (id_salle)
+)
+
+CREATE TABLE PLAGE_HORAIRE (
+id_trancheH int PRIMARY KEY,
+heure_debut int,
+heure_fin int,
+duree int,
+tranche varchar(5)
+)
+
+CREATE TABLE RESER_PLAGEHORAIRE (
+fk_reservation int,
+fk_plagehoraire int,
+PRIMARY KEY(fk_reservation, fk_plagehoraire)
+)
+
+

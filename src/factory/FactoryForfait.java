@@ -77,8 +77,8 @@ public class FactoryForfait {
 		}
 
 		Date dateFinValidite = DateManager.addMonthFromToday(nb_moisValide);
-		Forfait f = new Forfait(c, t, dateFinValidite, nb_heureInit, prix, libelle);
-		
+		Forfait f = new Forfait(t, dateFinValidite, nb_heureInit, prix, libelle);
+		f.setNumero(idForfait);
 			
 		// On l'ajoute au cache et à la BDD
 		cacheForfait.put(f.getNumero(), f);
@@ -92,9 +92,9 @@ public class FactoryForfait {
 				+ "', "
 				+ nb_heureInit
 				+ ", "
-				+ c.hashCode()
+				+ c.hashCode() // L'identifiant du client
 				+ ", '"
-				+ t.toString() + "')";
+				+ t.toString() + "')"; // L'identifiant du type de forfait
 		
 		FactorySQL.getInstance().executeUpdate(sql);
 
@@ -174,6 +174,8 @@ public class FactoryForfait {
 		int hDispo;
 		int prix;
 		String libelle;
+		int idForfait;
+		
 		
 		while (rs.next()) {
 			type = getTypeForfait(rs.getString("fk_typeForfait"));
@@ -181,7 +183,11 @@ public class FactoryForfait {
 			hDispo = rs.getInt("nb_heureDisponible");
 			prix = rs.getInt("prix");
 			libelle = rs.getString("libelle");
-			f = new Forfait(c, type, dFinValidite, hDispo, prix, libelle);
+			
+			idForfait = Math.abs(type.hashCode() + c.hashCode());
+			
+			f = new Forfait(type, dFinValidite, hDispo, prix, libelle);
+			f.setNumero(idForfait);
 			
 			listeForfait.add(f);
 			cacheForfait.put(f.getNumero(), f);
@@ -224,6 +230,17 @@ public class FactoryForfait {
 	}
 	
 	
+	
+	/**
+	 * Permet la suppression d'un forfait dans le cache et dans la BDD
+	 * @param n
+	 */
+	public void supprimerForfait(int n) {
+		String sql = "DELETE FROM FORFAIT id_forfait=" + n;
+		
+		FactorySQL.getInstance().executeUpdate(sql);
+		cacheForfait.remove(n);
+	}
 	
 	
 	/**
