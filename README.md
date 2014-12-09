@@ -35,15 +35,13 @@ TODO
     * FactoryReservation : **KO**
     * FactorySalle : In progress Manon
     * FactorySQL : **OK**
-    * FactoryReserPlageH : In progress Thomas
 
 -----------
 * **Metier**
    *  Création des métiers de base
-      * CreationClient : KO
-      * AjoutForfait : KO
-      * CreationSalle : KO
-      * CreationTrancheHoraire : KO
+      * CreerClient : In progress Thomas
+      * CreerForfait : KO
+      * CreerSalle : KO
    * Création des métiers élaborés
       * CalculerTarif : KO
       * EffectuerReservation : KO
@@ -59,23 +57,22 @@ TODO
 -----------
 
 * **Partie Base de données**
-   * Création de la base[23~
+   * Création de la base
       * Elaborer MCD : In progress
       * Création de la base : **OK**
    * Création des méthodes JDBC
       * FactoryClient : **OK**
       * FactoryForfait : **OK**
-      * FactoryReservation : KO
-      * FactorySalle : In progress Manon
-      * FactoryReserPlageH : In progress Thomas
+      * FactoryReservation : **OK**
+      * FactorySalle : **OK**
 
 -----------
 
 * **Presentation**
    * Conception de l'interface
-      * Version papier : KO
+      * Version papier : **OK**
    * Programmation de l'inferface
-      * Ecran Menu : KO
+      * Ecran Menu : In progress Thomas
       * Ecran visualtion des réservations : KO
       * Ecran de reservation : KO
       * Ecran de création client : KO
