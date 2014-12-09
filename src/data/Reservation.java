@@ -11,7 +11,7 @@ import data.salle.Salle;
 public class Reservation {
 	private Date datePriseReservation;
 	private Date dateReservation;
-	private ArrayList<PlageHoraire> lesPlages;
+	private PlageHoraire plage;
 	private boolean etatPaiement;
 	private int prix;
 	private Client client;
@@ -21,16 +21,17 @@ public class Reservation {
 	//
 	// Constructors
 	//
-	public Reservation(Date dPR, Date dR, ArrayList<PlageHoraire> plages, int p,
-			Client c, Salle s) {
+	public Reservation(Date dPR, Date dR, PlageHoraire pl, int p, Client c,
+			Salle s, int duree) {
+
 		datePriseReservation = dPR;
 		dateReservation = dR;
-		lesPlages = plages;
+		plage = pl;
 		etatPaiement = false;
 		prix = p;
 		client = c;
 		salle = s;
-	}
+	};
 
 	/**
 	 * Set the value of dateReservation
@@ -89,12 +90,12 @@ public class Reservation {
 		return etatPaiement;
 	}
 
-	public ArrayList<PlageHoraire> getLesPlages() {
-		return lesPlages;
+	public PlageHoraire getPlage() {
+		return plage;
 	}
 
-	public void setLesPlages(ArrayList<PlageHoraire> lesPlages) {
-		this.lesPlages = lesPlages;
+	public void setPlages(PlageHoraire plage) {
+		this.plage = plage;
 	}
 
 	public int getPrix() {
@@ -125,13 +126,19 @@ public class Reservation {
 		return datePriseReservation;
 	}
 
+	/**
+	 * retourne le hashCode du client, sert d'ID dans la BDD et dans le HashMap
+	 * de FactoryClient
+	 * 
+	 * @return le hashCode du client
+	 */
 	public int hashCode() {
 		int hash = 1;
-		hash = hash * 31 + dateReservation.hashCode();
-		hash = hash * 21 + salle.hashCode();
-		hash = hash * 11 + client.hashCode();
+		hash = hash * 31 + plage.getTranche().hashCode();
+		hash = hash * 21 + client.hashCode();
+		hash = hash * 11 + dateReservation.hashCode();
 		
 		return Math.abs(hash);
 	}
-	
+
 }
