@@ -1,5 +1,0 @@
-/*C3*/SET SCHEMA PUBLIC
-DROP TABLE RESER_PLAGEHORAIRE
-DROP TABLE RESERVATION
-CREATE TABLE PLAGE_HORAIRE (\u000aid_plageHoraire int PRIMARY KEY,\u000aheure_debut int,\u000aheure_fin int,\u000atranche varchar(5)\u000a)\u000a\u000a
-\u000aCREATE TABLE RESERVATION(\u000aid_reservation int PRIMARY KEY,\u000adatePriseReservation Date NOT NULL,\u000adateReservation Date NOT NULL,\u000aetatPaiement boolean,\u000aprix int,\u000aduree int,\u000afk_client int,\u000afk_salle int,\u000afk_plageHoraire int,\u000aFOREIGN KEY (fk_plageHoraire) REFERENCES PLAGE_HORAIRE (id_plageHoraire),\u000aFOREIGN KEY (fk_client) REFERENCES CLIENT (id_client),\u000aFOREIGN KEY (fk_salle) REFERENCES SALLE (id_salle)\u000a)\u000a\u000a\u000a

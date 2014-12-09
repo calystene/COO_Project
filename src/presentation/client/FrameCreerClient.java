@@ -1,5 +1,7 @@
 package presentation.client;
 
+import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -19,10 +21,11 @@ public class FrameCreerClient extends JFrame {
 		// configuration de la fenêtre
 		setLocationRelativeTo(null);
 		setSize(300, 500);
-		getContentPane().setSize(300,500);
+		getContentPane().setSize(300,400);
+		setLayout(new BorderLayout());
 		//setDefaultCloseOperation();
 		
-		getContentPane().add(panel);
+		getContentPane().add(panel, BorderLayout.CENTER);
 		
 		pack();
 		setVisible(true);

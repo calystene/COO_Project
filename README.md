@@ -39,7 +39,7 @@ TODO
 -----------
 * **Metier**
    *  Création des métiers de base
-      * CreerClient : In progress Thomas
+      * CreerClient : **OK**
       * CreerForfait : KO
       * CreerSalle : KO
    * Création des métiers élaborés
@@ -58,7 +58,7 @@ TODO
 
 * **Partie Base de données**
    * Création de la base
-      * Elaborer MCD : In progress
+      * Elaborer MCD : **OK**
       * Création de la base : **OK**
    * Création des méthodes JDBC
       * FactoryClient : **OK**
@@ -72,10 +72,10 @@ TODO
    * Conception de l'interface
       * Version papier : **OK**
    * Programmation de l'inferface
-      * Ecran Menu : In progress Thomas
+      * Ecran Menu : **OK**
       * Ecran visualtion des réservations : KO
       * Ecran de reservation : KO
-      * Ecran de création client : KO
+      * Ecran de création client : **OK**
       * Ecran d'édition client : KO
 
 -----------
