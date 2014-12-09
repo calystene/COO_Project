@@ -1,8 +1,5 @@
-/*C2*/SET SCHEMA PUBLIC
-CREATE TABLE SALLE (\u000aid_salle int PRIMARY KEY,\u000anom varchar(30),\u000aprix1H int,\u000aprix2H int,\u000atype_salle varchar(20)\u000a)
-CREATE TABLE RESERVATION(\u000aid_reservation int PRIMARY KEY,\u000adatePriseReservation Date NOT NULL,\u000adateReservation Date NOT NULL,\u000aetatPaiement boolean,\u000aprix int,\u000aduree int,\u000afk_client int,\u000afk_salle int,\u000aFOREIGN KEY (fk_client) REFERENCES CLIENT (id_client),\u000aFOREIGN KEY (fk_salle) REFERENCES SALLE (id_salle)\u000a)
-CREATE TABLE PLAGE_HORAIRE (\u000aid_trancheH int PRIMARY KEY,\u000aheure_debut int,\u000aheure_fin int,\u000aduree int,\u000atranche varchar(5)\u000a)
-CREATE TABLE RESER_PLAGEHORAIRE (\u000afk_reservation int,\u000afk_plagehoraire int,\u000aPRIMARY KEY(fk_reservation, fk_plagehoraire)\u000a)
-DROP TABLE PLAGE_HORAIRE
+/*C3*/SET SCHEMA PUBLIC
 DROP TABLE RESER_PLAGEHORAIRE
-CREATE TABLE RESER_PLAGEHORAIRE (\u000afk_reservation int,\u000ano_plagehoraire int,\u000aheure_debut int,\u000aheure_fin int,\u000aduree int,\u000aPRIMARY KEY(fk_reservation, no_plagehoraire)\u000a)
+DROP TABLE RESERVATION
+CREATE TABLE PLAGE_HORAIRE (\u000aid_plageHoraire int PRIMARY KEY,\u000aheure_debut int,\u000aheure_fin int,\u000atranche varchar(5)\u000a)\u000a\u000a
+\u000aCREATE TABLE RESERVATION(\u000aid_reservation int PRIMARY KEY,\u000adatePriseReservation Date NOT NULL,\u000adateReservation Date NOT NULL,\u000aetatPaiement boolean,\u000aprix int,\u000aduree int,\u000afk_client int,\u000afk_salle int,\u000afk_plageHoraire int,\u000aFOREIGN KEY (fk_plageHoraire) REFERENCES PLAGE_HORAIRE (id_plageHoraire),\u000aFOREIGN KEY (fk_client) REFERENCES CLIENT (id_client),\u000aFOREIGN KEY (fk_salle) REFERENCES SALLE (id_salle)\u000a)\u000a\u000a\u000a
