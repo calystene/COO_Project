@@ -33,7 +33,7 @@ id_salle int PRIMARY KEY,
 nom varchar(30),
 prix1H int,
 prix2H int,
-type_salle varchar(20)
+OBtype_salle varchar(20)
 )
 
 CREATE TABLE PLAGE_HORAIRE (
