@@ -162,5 +162,28 @@ public class FactorySalle {
 		}
 		return lesSalles;
 	}
+
+	public Salle rechercheSalle(int id) throws SQLException, ExceptionSalleInexistante {
+		//On recherche dans le cache 
+		Salle s = cacheSalle.get(id);
+		if (s!=null){
+			return s;		
+		} else {
+		//Sinon on recherche dans la BDD
+		String sql = "SELECT id_salle, nom, prix1H, prix2H, type_salle FROM SALLE WHERE id_salle="+ id ;
+		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
+		rs.last();
+		int nbLigne = rs.getRow();
+		if (nbLigne<=0) throw new ExceptionSalleInexistante("La salle n'existe pas");
+
+		String nom = rs.getString("nom");
+		int prix1H = rs.getInt("prix1H");
+		int prix2H = rs.getInt("prix2H");
+		String typeSalle = rs.getString("type_salle");
+		
+	
+		return new Salle(nom, prix1H, prix2H, getTypeSalle(typeSalle));
+		}
+	}
 }
 	

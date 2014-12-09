@@ -25,11 +25,11 @@ public class FactoryPlageHoraire {
 		int idPlageHoraire = ph.hashCode();
 
 		// On vérifie si la Reservation existe en BDD
-		String sql = "SELECT COUNT(id_plageHoraire) as id_Plage_Horaire FROM PLAGEHORAIRE WHERE id_plageHoraire="+ idPlageHoraire;
+		String sql = "SELECT COUNT(id_plageHoraire) as id_plageHoraire FROM PLAGE_HORAIRE WHERE id_plageHoraire="+ idPlageHoraire;
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
 
 		while (rs.next()) {
-			if (rs.getInt("id_reservation") >= 1)
+			if (rs.getInt("id_plageHoraire") >= 1)
 				return ph;
 		}
 		
@@ -41,7 +41,7 @@ public class FactoryPlageHoraire {
 				+ heureD
 				+ ", "
 				+ heureF
-				+ ",' "
+				+ ",'"
 				+ t.toString()
 				+ "')";
 		
