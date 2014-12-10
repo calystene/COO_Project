@@ -153,7 +153,7 @@ public class FactoryReservation {
 			return r;		
 		} else {
 		//Sinon on recherche dans la BDD
-		String sql = "SELECT datePriseReservation, dateReservation, fk_plageHoraire, prix, client, salle, nom, numero ,duree FROM RESERVATION ,CLIENT WHERE id_reservation="+ idReservation + "AND client = id_client";
+		String sql = "SELECT datePriseReservation, dateReservation, fk_plageHoraire, prix, fk_client, fk_salle, nom, numero ,duree FROM RESERVATION, CLIENT WHERE id_reservation="+ idReservation + "AND fk_client = id_client";
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
 		rs.last();
 		int nbLigne = rs.getRow();
@@ -161,9 +161,12 @@ public class FactoryReservation {
 
 		Date dPR = rs.getDate("datePriseReservation");
 		Date dR = rs.getDate("dateReservation");
+		
 		PlageHoraire plage = FactoryPlageHoraire.getInstance().rechercherPlageHoraire(rs.getInt("fk_plageHoraire"));
+		
 		int p = rs.getInt("prix");
 		Client c = FactoryClient.getInstance().rechercherClient(rs.getString("nom"),rs.getInt("numero"));
+		System.out.println("HEre");
 		Salle s = FactorySalle.getInstance().rechercheSalle(rs.getInt("salle"));
 		int duree = rs.getInt("duree");
 	

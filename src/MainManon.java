@@ -38,7 +38,7 @@ public class MainManon {
 		
 		//FactoryReservation.getInstance().creerReservation(DateManager.dateToSQL(d1), DateManager.dateToSQL(d2), h, 20 ,c, s, 2);
 		//FactoryReservation.getInstance(). supprReservation(175590558);
-		FactoryReservation.getInstance(). rechercheReservation(175590558);  //NE PASSE PAS 
+		FactoryReservation.getInstance(). rechercheReservation(1255080453);  
 		
 	//	for (Salle s : FactorySalle.getInstance().listeSalleBDD() ){
 	//		System.out.println(s);	
