@@ -69,7 +69,8 @@ public class PanelCreerClient extends JPanel implements ActionListener {
 					
 					
 					try {
-						new CreerClient(prenom, nom, numero);
+						CreerClient ccli = new CreerClient();
+						ccli.nouveauClient(prenom, nom, numero);
 					} catch (ExceptionClientExistant e1) {
 						JOptionPane.showMessageDialog(parent,
 							   e1.getMessage(),

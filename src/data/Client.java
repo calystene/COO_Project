@@ -122,7 +122,7 @@ public class Client {
 	 * 
 	 */
 	public ArrayList<Reservation> getReservation () {
-		// FactoryReservation.getInstance().rechercherByClient(this);
+		//return FactoryReservation.getInstance().rechercherByClient(this);
 		return null;
 	}
 	
