@@ -18,6 +18,8 @@ import exception.ExceptionClientExistant;
 import metier.CreerClient;
 
 @SuppressWarnings("serial")
+
+
 public class PanelCreerClient extends JPanel implements ActionListener {
 	JFrame parent;
 	

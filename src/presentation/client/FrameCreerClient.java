@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 
 
 @SuppressWarnings("serial")
+
+
 public class FrameCreerClient extends JFrame {
 	/** procedure de lancement du programme 
 	 * @throws Exception **/	
