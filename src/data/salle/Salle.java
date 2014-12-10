@@ -1,5 +1,13 @@
 package data.salle;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import data.Reservation;
+import exception.ExceptionClientInexistant;
+import exception.ExceptionPlageInexistante;
+import factory.FactoryReservation;
+
 
 /**
  * Class Salle
@@ -88,6 +96,10 @@ public class Salle {
 	public String toString() {
 		return "Salle [nom=" + nom + ", typeSalle=" + typeSalle + ", prix1H="
 				+ prix1H + ", prix2H=" + prix2H + "]";
+	}
+	
+	public ArrayList<Reservation> getReservation() throws SQLException, ExceptionPlageInexistante, ExceptionClientInexistant {
+		return FactoryReservation.getInstance().rechercherBySalle(this);
 	}
 	
 	

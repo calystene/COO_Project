@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import util.date.DateManager;
 import data.Client;
 import data.Reservation;
 import data.horaire.PlageHoraire;
@@ -153,7 +154,9 @@ public class FactoryReservation {
 			return r;		
 		} else {
 		//Sinon on recherche dans la BDD
-		String sql = "SELECT datePriseReservation, dateReservation, fk_plageHoraire, prix, fk_client, fk_salle, nom, numero ,duree FROM RESERVATION, CLIENT WHERE id_reservation="+ idReservation + "AND fk_client = id_client";
+		String sql = "SELECT datePriseReservation, dateReservation, prix, duree, nom, numero, fk_plageHoraire, fk_salle FROM RESERVATION, CLIENT WHERE "
+				+ "id_reservation=" +  idReservation 
+				+ " AND fk_client = id_client";
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
 		rs.last();
 		int nbLigne = rs.getRow();
@@ -166,8 +169,8 @@ public class FactoryReservation {
 		
 		int p = rs.getInt("prix");
 		Client c = FactoryClient.getInstance().rechercherClient(rs.getString("nom"),rs.getInt("numero"));
-		System.out.println("HEre");
-		Salle s = FactorySalle.getInstance().rechercheSalle(rs.getInt("salle"));
+		Salle s = FactorySalle.getInstance().rechercheSalle(rs.getInt("fk_salle"));
+		
 		int duree = rs.getInt("duree");
 	
 		return new Reservation (dPR, dR,plage, p, c, s, duree);
@@ -186,7 +189,9 @@ public class FactoryReservation {
 	 */
 	public Reservation rechercheReservation(Date dR, Client c) throws SQLException, ExceptionPlageInexistante, ExceptionSalleInexistante, ExceptionReservationInexistante{
 		//On recherche dans la BDD
-		String sql = "SELECT datePriseReservation, dateReservation, fk_plageHoraire, prix, client, salle, nom, numero ,duree FROM RESERVATION ,CLIENT WHERE dateReservation="+ dR + "AND client =" + c.hashCode();
+		String sql = "SELECT datePriseReservation, dateReservation, prix, duree, fk_plageHoraire, fk_salle FROM RESERVATION, CLIENT WHERE "
+				+ "dateReservation='"+ DateManager.dateToSQL(dR) 
+				+ "' AND fk_client =" + c.hashCode();
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
 		rs.last();
 		int nbLigne = rs.getRow();
@@ -195,7 +200,7 @@ public class FactoryReservation {
 		Date dPR = rs.getDate("datePriseReservation");
 		PlageHoraire plage = FactoryPlageHoraire.getInstance().rechercherPlageHoraire(rs.getInt("fk_plageHoraire"));
 		int p = rs.getInt("prix");
-		Salle s = FactorySalle.getInstance().rechercheSalle(rs.getInt("salle"));
+		Salle s = FactorySalle.getInstance().rechercheSalle(rs.getInt("fk_salle"));
 		int duree = rs.getInt("duree");
 	
 		return new Reservation (dPR, dR,plage, p, c, s, duree);
@@ -238,9 +243,12 @@ public class FactoryReservation {
 	 * @throws ExceptionPlageInexistante 
 	 * @throws ExceptionSalleInexistante 
 	 */
-	public ArrayList<Reservation> listeReservationClient(Client cl) throws SQLException, ExceptionPlageInexistante, ExceptionSalleInexistante{
+	public ArrayList<Reservation> rechercherByClient(Client cl) throws SQLException, ExceptionPlageInexistante, ExceptionSalleInexistante{
 		ArrayList<Reservation> lesReservations = new ArrayList<Reservation>();
-		String sql = "SELECT datePriseReservation, dateReservation, fk_plageHoraire, prix, client, salle, nom, numero ,duree FROM RESERVATION ,CLIENT WHERE client =" +cl.hashCode();
+		String sql = "SELECT datePriseReservation, dateReservation, prix, duree, fk_plagehoraire, fk_salle FROM RESERVATION, CLIENT, SALLE WHERE "
+				+ "fk_salle = id_salle AND "
+				+ "fk_client = id_client AND "
+				+ "fk_client =" +cl.hashCode();
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
 
 		while (rs.next()) {
@@ -248,7 +256,7 @@ public class FactoryReservation {
 			Date dPR = rs.getDate("datePriseReservation");
 			PlageHoraire plage = FactoryPlageHoraire.getInstance().rechercherPlageHoraire(rs.getInt("fk_plageHoraire"));
 			int p = rs.getInt("prix");
-			Salle s = FactorySalle.getInstance().rechercheSalle(rs.getInt("salle"));
+			Salle s = FactorySalle.getInstance().rechercheSalle(rs.getInt("fk_salle"));
 			int duree = rs.getInt("duree");
 
 			Reservation r = new Reservation (dPR, dR,plage, p, cl, s, duree);
@@ -256,6 +264,7 @@ public class FactoryReservation {
 		}
 		return lesReservations;
 	}
+	
 	
 	/**
 	 *  Retourne la liste des reservation pour une salle precisée
@@ -265,14 +274,18 @@ public class FactoryReservation {
 	 * @throws ExceptionPlageInexistante 
 	 * @throws ExceptionClientInexistant 
 	 */
-	public ArrayList<Reservation> listeReservationSalle(Salle s) throws SQLException, ExceptionPlageInexistante, ExceptionClientInexistant{
+	public ArrayList<Reservation> rechercherBySalle(Salle s) throws SQLException, ExceptionPlageInexistante, ExceptionClientInexistant{
 		ArrayList<Reservation> lesReservations = new ArrayList<Reservation>();
-		String sql = "SELECT datePriseReservation, dateReservation, fk_plageHoraire, prix, client, salle, nom, numero ,duree FROM RESERVATION ,CLIENT WHERE salle =" + s.getNom().hashCode() + "AND client = id_client";
+		String sql = "SELECT datePriseReservation, dateReservation, prix, CLIENT.nom, numero, duree, heure_debut, heure_fin, tranche, fk_plageHoraire FROM RESERVATION, CLIENT, PLAGE_HORAIRE WHERE "
+				+ "fk_client = id_client AND "
+				+ "fk_plagehoraire = id_plagehoraire AND "
+				+ "fk_salle ='" + s.getNom().hashCode() + "'";
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
 
 		while (rs.next()) {
 			Date dR = rs.getDate("dateReservation");
 			Date dPR = rs.getDate("datePriseReservation");
+			
 			PlageHoraire plage = FactoryPlageHoraire.getInstance().rechercherPlageHoraire(rs.getInt("fk_plageHoraire"));
 			int p = rs.getInt("prix");
 			Client c = FactoryClient.getInstance().rechercherClient(rs.getString("nom"),rs.getInt("numero"));
@@ -281,6 +294,7 @@ public class FactoryReservation {
 			Reservation r = new Reservation (dPR, dR,plage, p, c, s, duree);
 			lesReservations.add(r);
 		}
+		
 		return lesReservations;
 	}
 	

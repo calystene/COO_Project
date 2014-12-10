@@ -90,19 +90,27 @@ public class FactoryClient {
 
 		// On recherche d'abord dans le cache
 		Iterator<Integer> it = cacheClients.keySet().iterator();
-		Client c;
-
+		Client c=null;
+		
 		while (it.hasNext()) {
+			it.next();
+
 			c = cacheClients.get(it);
 
-			if (c != null && c.getNom().equals(nom) && c.getNumero() == numero)
+			if (c != null && c.getNom().equals(nom) && c.getNumero() == numero) {
+				System.out.println(c.getNom() + " " + c.getNumero());
+				System.out.println(nom + " " + numero);
 				return c;
+				
+			}
 		}
 
 		// A ce stade le client n'est pas en cache, on recherche dans la BDD
 		String sql = "SELECT id_client, prenom, nom, numero, nbPoint, nbHeureGratuite FROM CLIENT WHERE numero="
-				+ numero + "AND nom='" + nom + "'";
+				+ numero + " AND nom='" + nom + "';";
+		
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
+		
 		rs.last(); // On place le curseur sur la dernière ligne
 		int nbLigne = rs.getRow(); // On récupère le numéro de ligne (si 0 alors
 									// client inexistant)

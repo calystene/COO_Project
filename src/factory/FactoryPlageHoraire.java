@@ -7,7 +7,6 @@ import data.horaire.TRANCHE;
 import exception.ExceptionPlageInexistante;
 
 public class FactoryPlageHoraire {
-	
 	private static FactoryPlageHoraire singleton;
 	
 	private FactoryPlageHoraire () {
@@ -24,7 +23,7 @@ public class FactoryPlageHoraire {
 		PlageHoraire ph = new PlageHoraire(heureD, heureF, t);
 		int idPlageHoraire = ph.hashCode();
 
-		// On vérifie si la Reservation existe en BDD
+		// On vérifie si la plage existe en BDD
 		String sql = "SELECT COUNT(id_plageHoraire) as id_plageHoraire FROM PLAGE_HORAIRE WHERE id_plageHoraire="+ idPlageHoraire;
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
 
@@ -33,7 +32,7 @@ public class FactoryPlageHoraire {
 				return ph;
 		}
 		
-		// On l'ajoute au cache et à la BDD
+		// Sinon on l'ajoute à la BDD
 		sql = "INSERT INTO plage_Horaire (id_plageHoraire, heure_debut, heure_fin, tranche )"
 				+ " VALUES ("
 				+ idPlageHoraire
@@ -67,7 +66,7 @@ public class FactoryPlageHoraire {
 		return new PlageHoraire (hD, hF, getTranche(t));
 	}
 
-	private TRANCHE getTranche (String s) {
+	public TRANCHE getTranche (String s) {
 		if(s.equals("MATIN")) {
 			return TRANCHE.MATIN;
 		} else if (s.equals("SOIR")) {

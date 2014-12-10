@@ -2,6 +2,7 @@ package data;
 
 import java.util.*;
 
+import util.date.DateManager;
 import data.horaire.PlageHoraire;
 import data.salle.Salle;
 
@@ -126,6 +127,11 @@ public class Reservation {
 		return datePriseReservation;
 	}
 
+	
+	public String toString () {
+		return "Réservation le " + DateManager.valueOf(getDatePriseReservation()) + " de la salle " + getSalle().getNom();
+	}
+	
 	/**
 	 * retourne le hashCode du client, sert d'ID dans la BDD et dans le HashMap
 	 * de FactoryClient

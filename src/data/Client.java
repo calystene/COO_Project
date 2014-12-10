@@ -4,7 +4,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import data.forfait.Forfait;
+import exception.ExceptionPlageInexistante;
+import exception.ExceptionSalleInexistante;
 import factory.FactoryForfait;
+import factory.FactoryReservation;
 
 /**
  * Class Client
@@ -118,12 +121,13 @@ public class Client {
 	
 	
 	/**
-	 * 
-	 * 
+	 * Remonté parésseuse des réservations du Client
+	 * @throws ExceptionSalleInexistante 
+	 * @throws ExceptionPlageInexistante 
+	 * @throws SQLException 
 	 */
-	public ArrayList<Reservation> getReservation () {
-		//return FactoryReservation.getInstance().rechercherByClient(this);
-		return null;
+	public ArrayList<Reservation> getReservation () throws SQLException, ExceptionPlageInexistante, ExceptionSalleInexistante {
+		return FactoryReservation.getInstance().rechercherByClient(this);
 	}
 	
 	

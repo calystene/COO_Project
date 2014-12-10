@@ -38,7 +38,7 @@ OBtype_salle varchar(20)
 
 CREATE TABLE PLAGE_HORAIRE (
 id_plageHoraire PRIMARY KEY,
-heure_debut int,
+OAheure_debut int,
 heure_fin int,
 tranche varchar(5)
 )
