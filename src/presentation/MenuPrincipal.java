@@ -55,7 +55,7 @@ public class MenuPrincipal extends JPanel implements ActionListener {
 		}
 		
 		if(e.getSource() == btnRechercherClient) {
-			
+			new FrameRechercheClient("Rechercher un client");
 		}
 		
 		if(e.getSource() == btnVisualiserPlanning) {
