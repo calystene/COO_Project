@@ -15,8 +15,15 @@ public class PlageHoraire {
 	public PlageHoraire(int hD, int hF, TRANCHE t){
 		heureDebut = hD;
 		heureFin = hF;
-		duree = hD - hF;
+		duree = hF - hD;
 		tranche = t;
+	}
+
+
+	@Override
+	public String toString() {
+		return "PlageHoraire [heureDebut=" + heureDebut + ", heureFin="
+				+ heureFin + ", duree=" + duree + ", tranche=" + tranche + "]";
 	}
 
 

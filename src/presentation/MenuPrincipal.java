@@ -12,7 +12,10 @@ import javax.swing.JPanel;
 
 import presentation.client.FrameCreerClient;
 
+<<<<<<< HEAD
+=======
 @SuppressWarnings("serial")
+>>>>>>> 163ff3b5031f2777eebff97955a4aaa607598467
 public class MenuPrincipal extends JPanel implements ActionListener {
 	JFrame parent;
 	
