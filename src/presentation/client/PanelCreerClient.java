@@ -1,24 +1,5 @@
 package presentation.client;
 
-<<<<<<< HEAD
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.LayoutManager;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
-public class PanelCreerClient extends JPanel implements ActionListener {
-	JButton btnValider = new JButton("Valider");
-	JButton btnEffacer = new JButton("Effecer");
-=======
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -44,7 +25,6 @@ public class PanelCreerClient extends JPanel implements ActionListener {
 	
 	JButton btnValider = new JButton("Valider");
 	JButton btnEffacer = new JButton("Effacer");
->>>>>>> 163ff3b5031f2777eebff97955a4aaa607598467
 	
 	JLabel lblNom = new JLabel("Nom");
 	JLabel lblPrenom = new JLabel("Prenom");
@@ -52,20 +32,7 @@ public class PanelCreerClient extends JPanel implements ActionListener {
 	
 	JTextField jtfNom = new JTextField();
 	JTextField jtfPrenom = new JTextField();
-<<<<<<< HEAD
 	JTextField jtfNumero = new JTextField();
-	
-	
-	public PanelCreerClient(JFrame pere) {
-		setPreferredSize(new Dimension(200,300));
-		setLayout(new GridLayout(2, 4));
-		
-		add(lblNom);
-		add(jtfNom);
-		add(lblPrenom);
-		add(jtfPrenom);
-=======
-	JTextField jtfNumero = new JTextField(9);
 	
 	JPanel panel = new JPanel(new GridLayout(4,2));
 	
@@ -90,16 +57,11 @@ public class PanelCreerClient extends JPanel implements ActionListener {
 		panel.add(btnValider);
 		
 		add(panel, BorderLayout.CENTER);
->>>>>>> 163ff3b5031f2777eebff97955a4aaa607598467
 	}
 
 	
 	
 	public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
-		if(e.getSource() == btnValider) {
-			//CreerClient();
-=======
 		if (e.getSource() == btnValider) {
 			if (jtfPrenom.getText().length() != 0 && jtfNom.getText().length() != 0 && jtfNumero.getText().length() != 0) {
 				if (jtfNumero.getText().length() == 9) {
@@ -131,7 +93,6 @@ public class PanelCreerClient extends JPanel implements ActionListener {
 				JOptionPane.showMessageDialog(parent,
 					    "Veuillez remplir tous les champs");
 			}
->>>>>>> 163ff3b5031f2777eebff97955a4aaa607598467
 		}
 		
 		if(e.getSource() == btnEffacer) {
