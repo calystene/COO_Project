@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import presentation.client.FrameCreerClient;
+import presentation.client.FrameRechercheClient;
 
 @SuppressWarnings("serial")
 
