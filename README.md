@@ -26,14 +26,14 @@ TODO
     * FactoryClient : **OK**
     * FactoryForfait : **OK**
     * FactoryReservation : **KO**
-    * FactoryPlageHoraire : **KO**
+    * FactoryPlageHoraire : **OK**
     * FactorySalle : **OK**
     * FactoryReserPlageH : **OK**
  * Codage des Factory
     * FactoryClient : **OK** 
     * FactoryForfait : **OK**
-    * FactoryReservation : **KO**
-    * FactorySalle : In progress Manon
+    * FactoryReservation : **OK**
+    * FactorySalle : **OK**
     * FactorySQL : **OK**
 
 -----------
@@ -73,6 +73,8 @@ TODO
       * Version papier : **OK**
    * Programmation de l'inferface
       * Ecran Menu : **OK**
+      * Ecran rechercher client : **OK**
+      * Ecran afficher infos client : **OK**
       * Ecran visualtion des réservations : KO
       * Ecran de reservation : KO
       * Ecran de création client : **OK**
