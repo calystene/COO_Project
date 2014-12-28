@@ -1,17 +1,20 @@
 package presentation.client;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
 import javax.swing.JPanel;
+
+
+
 
 
 
@@ -40,21 +43,46 @@ public class PanelInformationsClient extends JPanel implements ActionListener {
 		setLayout(new BorderLayout());
 
 		btnReservation.addActionListener(this);
-
 		btnForfait.addActionListener(this);
 
-		panel.setPreferredSize(new Dimension(400, 200));
-
+		// Panel contenant les infos du client
+		GridLayout glInfos = new GridLayout(2,2);
+		glInfos.setHgap(20); // gère l'espacement horizontal du grid layout
+		panel.setLayout(glInfos);
+		
 		panel.add(lblNom);
 		panel.add(lblPrenom);
 		panel.add(lblTelephone);
 		panel.add(lblIdentifiant);
-		panel.add(btnReservation);
-		panel.add(btnForfait);
 
+		JPanel infosClient = new JPanel();
+		infosClient.setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createLineBorder(Color.black), "Infos client"));
 
-		add(panel, BorderLayout.CENTER);
-
+		infosClient.add(panel);
+		
+		
+		
+		// Panel contenant les autres infos
+		JPanel infosReservation = new JPanel();
+		infosReservation.setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createLineBorder(Color.black), "Infos réservations"));
+		
+		
+		
+		
+		// Panel contenant les boutouns
+		JPanel bouttons = new JPanel();
+		bouttons.add(btnForfait);
+		bouttons.add(btnReservation);
+		
+		
+		
+		
+		add(infosClient, BorderLayout.NORTH);
+		add(bouttons, BorderLayout.CENTER);
+		add(infosReservation, BorderLayout.SOUTH);
+		
 	}
 	
 	public void actionPerformed(ActionEvent e, Client c) {

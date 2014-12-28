@@ -44,7 +44,7 @@ TODO
       * CreerSalle : KO
    * Création des métiers élaborés
       * CalculerTarif : KO
-      * EffectuerReservation : KO
+      * EffectuerReservation : In progress Thomas
          * reservationAuto : KO
          * reservationManu : KO
          * reservationMulti : KO
@@ -79,5 +79,6 @@ TODO
       * Ecran de reservation : KO
       * Ecran de création client : **OK**
       * Ecran d'édition client : KO
+      * Ecran pour effectuer une réservation : In progress Thomas
 
 -----------

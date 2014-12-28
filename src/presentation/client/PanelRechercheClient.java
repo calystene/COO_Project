@@ -44,6 +44,7 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 		setLayout(new BorderLayout());
 
 		btnRechercher.addActionListener(this);
+		btnEffacer.addActionListener(this);
 
 		panel.setPreferredSize(new Dimension(200, 150));
 
@@ -68,7 +69,7 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 					try {
 						//????????????
 						Client c =  RechercheClient.rechercherClient(nom, numero);
-						new FrameInformationsClient("Informations du client", c);
+						new FrameInformationsClient("Informations du client " + c.getNom(), c);	
 					} catch (ExceptionClientInexistant e1) {
 						JOptionPane.showMessageDialog(parent,
 								e1.getMessage(), "Erreur création",

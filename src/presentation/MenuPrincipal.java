@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 import presentation.client.FrameCreerClient;
 import presentation.client.FrameRechercheClient;
+import presentation.reservation.FrameEffectuerReservation;
 
 @SuppressWarnings("serial")
 
@@ -64,7 +65,7 @@ public class MenuPrincipal extends JPanel implements ActionListener {
 		}
 		
 		if(e.getSource() == btnCreerReservation) {
-			
+			new FrameEffectuerReservation("Effectuer une réservation");
 		}
 	}
 }
