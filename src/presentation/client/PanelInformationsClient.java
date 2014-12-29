@@ -39,7 +39,7 @@ public class PanelInformationsClient extends JPanel implements ActionListener {
 		JLabel lblIdentifiant = new JLabel("Identifiant : " + c.hashCode());
 		parent = pere;
 
-		setPreferredSize(new Dimension(400, 200));
+		//setPreferredSize(new Dimension(400, 200));
 		setLayout(new BorderLayout());
 
 		btnReservation.addActionListener(this);

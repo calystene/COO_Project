@@ -73,7 +73,7 @@ public class PanelEffectuerReservation extends JPanel implements ActionListener 
 		panelReservation.add(panelResaAuto, listContent[1]);
 		panelReservation.add(panelResaMulti, listContent[2]);
 		
-		panelReservation.setPreferredSize(new Dimension(500,400));
+		//panelReservation.setPreferredSize(new Dimension(500,250));
 		
 		
 		gbc.gridx = 0;
@@ -84,7 +84,7 @@ public class PanelEffectuerReservation extends JPanel implements ActionListener 
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		add(panelReservation);
+		add(panelReservation,gbc);
 	}
 
 	@Override
