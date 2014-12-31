@@ -8,6 +8,10 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -17,8 +21,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import metier.CreerReservation;
+import data.horaire.PlageHoraire;
 import data.horaire.TRANCHE;
 import data.salle.TYPE_SALLE;
+import exception.ExceptionClientInexistant;
+import exception.ExceptionCreneauNonDisponible;
+import exception.ExceptionJourFerie;
+import exception.ExceptionPlageInexistante;
+import exception.ExceptionSalleInexistante;
 
 public class PanelResaAuto extends JPanel implements ActionListener {
 	JLabel lblDate;
@@ -89,6 +100,7 @@ public class PanelResaAuto extends JPanel implements ActionListener {
 
 		btnRechercher = new JButton("Rechercher");
 		btnRechercher.setPreferredSize(new Dimension(125, 25));
+		btnRechercher.addActionListener(this);
 
 
 		// gbc.gridheight = 1;
@@ -187,7 +199,43 @@ public class PanelResaAuto extends JPanel implements ActionListener {
 		}
 		
 		if(e.getSource() == btnRechercher) {
-			CreerRervervation.rechercherPlageLibre();
+			Date d = new Date();
+			try {
+				d = new SimpleDateFormat("dd/MM/yyyy").parse(jtfDate.getText());
+			} catch (ParseException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			
+			TRANCHE t = (TRANCHE) cbTrancheH.getSelectedItem();
+			TYPE_SALLE ts = (TYPE_SALLE) cbTypeSalle.getSelectedItem();
+			int duree = Integer.parseInt(jtfDuree.getText());
+			try {
+				PlageHoraire pl = CreerReservation.verifPlageLibre(d, t, ts, duree);
+				
+				if(pl!=null) {
+					System.out.println("OK");
+					System.out.println(pl.toString());
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (ExceptionPlageInexistante e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (ExceptionClientInexistant e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (ExceptionSalleInexistante e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (ExceptionCreneauNonDisponible e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (ExceptionJourFerie e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 	}

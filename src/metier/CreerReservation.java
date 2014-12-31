@@ -15,6 +15,7 @@ import exception.ExceptionClientInexistant;
 import exception.ExceptionCreneauNonDisponible;
 import exception.ExceptionJourFerie;
 import exception.ExceptionPlageInexistante;
+import exception.ExceptionReservationExistante;
 import exception.ExceptionSalleInexistante;
 import factory.FactoryClient;
 import factory.FactoryPlageHoraire;
@@ -218,15 +219,17 @@ public class CreerReservation {
 	 * @throws ExceptionCreneauNonDisponible
 	 * @throws ExceptionSalleInexistante
 	 * @throws ExceptionPlageInexistante
+	 * @throws ExceptionReservationExistante 
 	 */
 	public static Reservation creerReservation(Date dateResa,
 			PlageHoraire plageH, int numeroC, String nomC, TYPE_SALLE typeS,
 			int duree) throws SQLException, ExceptionClientInexistant,
 			ExceptionPlageInexistante, ExceptionSalleInexistante,
-			ExceptionCreneauNonDisponible {
+			ExceptionCreneauNonDisponible, ExceptionReservationExistante {
 
 		Client c = FactoryClient.getInstance().rechercherClient(nomC, numeroC);
-		Date datePriseResa = DateManager.getDate();
+		java.sql.Date datePriseResaSQL = DateManager.dateToSQL(DateManager.getDate());
+		java.sql.Date dateResaSQL = DateManager.dateToSQL(dateResa);
 		Salle salle = getSalleLibre(dateResa, plageH.getTranche(), typeS, duree);
 
 		
@@ -245,6 +248,7 @@ public class CreerReservation {
 			prix += prix * 1.02;
 		}
 		
-		return null;
+		Reservation r = FactoryReservation.getInstance().creerReservation(datePriseResaSQL, dateResaSQL, plageH, prix, c, salle, duree);
+		return r;
 	}
 }
