@@ -14,7 +14,7 @@ public class Reservation {
 	private Date dateReservation;
 	private PlageHoraire plage;
 	private boolean etatPaiement;
-	private int prix;
+	private float prix;
 	private Client client;
 	private Salle salle;
 	private int duree;
@@ -22,7 +22,7 @@ public class Reservation {
 	//
 	// Constructors
 	//
-	public Reservation(Date dPR, Date dR, PlageHoraire pl, int p, Client c,
+	public Reservation(Date dPR, Date dR, PlageHoraire pl, float p, Client c,
 			Salle s, int duree) {
 
 		datePriseReservation = dPR;
@@ -99,7 +99,7 @@ public class Reservation {
 		this.plage = plage;
 	}
 
-	public int getPrix() {
+	public float getPrix() {
 		return prix;
 	}
 

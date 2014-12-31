@@ -46,7 +46,7 @@ public class FactoryReservation {
 	 * @return la reservation créée
 	 * @throws SQLException, ExceptionReservationExistante
 	 */
-	public Reservation creerReservation (Date dPR, Date dR, PlageHoraire plage, int p, Client c, Salle s, int duree) throws ExceptionReservationExistante, SQLException{
+	public Reservation creerReservation (Date dPR, Date dR, PlageHoraire plage, float p, Client c, Salle s, int duree) throws ExceptionReservationExistante, SQLException{
 		Reservation r = new Reservation (dPR, dR, plage, p, c, s, duree);
 		int idReservation = r.hashCode();
 		// On vérifie l'existence de la Reservation dans le cache
@@ -167,7 +167,7 @@ public class FactoryReservation {
 		
 		PlageHoraire plage = FactoryPlageHoraire.getInstance().rechercherPlageHoraire(rs.getInt("fk_plageHoraire"));
 		
-		int p = rs.getInt("prix");
+		float p = rs.getFloat("prix");
 		Client c = FactoryClient.getInstance().rechercherClient(rs.getString("nom"),rs.getInt("numero"));
 		Salle s = FactorySalle.getInstance().rechercheSalle(rs.getInt("fk_salle"));
 		
@@ -199,7 +199,7 @@ public class FactoryReservation {
 
 		Date dPR = rs.getDate("datePriseReservation");
 		PlageHoraire plage = FactoryPlageHoraire.getInstance().rechercherPlageHoraire(rs.getInt("fk_plageHoraire"));
-		int p = rs.getInt("prix");
+		float p = rs.getFloat("prix");
 		Salle s = FactorySalle.getInstance().rechercheSalle(rs.getInt("fk_salle"));
 		int duree = rs.getInt("duree");
 	
@@ -216,17 +216,20 @@ public class FactoryReservation {
 	 * @throws ExceptionClientInexistant 
 	 * @throws ExceptionSalleInexistante 
 	 */
-	public ArrayList<Reservation> listeReservationDate(Date dR) throws SQLException, ExceptionPlageInexistante, ExceptionClientInexistant, ExceptionSalleInexistante{
+	public ArrayList<Reservation> listeReservationDate(Date dR) throws SQLException, ExceptionPlageInexistante, ExceptionClientInexistant, ExceptionSalleInexistante {
 		ArrayList<Reservation> lesReservations = new ArrayList<Reservation>();
-		String sql = "SELECT datePriseReservation, dateReservation, fk_plageHoraire, prix, client, salle, nom, numero ,duree FROM RESERVATION ,CLIENT WHERE dateReservation =" +dR  + "AND client = id_client";
+		String sql = "SELECT datePriseReservation, dateReservation, fk_plageHoraire, prix, fk_salle, nom, numero, duree "
+				+ "FROM RESERVATION, CLIENT "
+				+ "WHERE dateReservation ='" +dR  + "' AND fk_client=id_client "
+				+ "ORDER BY dateReservation";
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
 
 		while (rs.next()) {
 			Date dPR = rs.getDate("datePriseReservation");
 			PlageHoraire plage = FactoryPlageHoraire.getInstance().rechercherPlageHoraire(rs.getInt("fk_plageHoraire"));
-			int p = rs.getInt("prix");
+			float p = rs.getFloat("prix");
 			Client c = FactoryClient.getInstance().rechercherClient(rs.getString("nom"),rs.getInt("numero"));
-			Salle s = FactorySalle.getInstance().rechercheSalle(rs.getInt("salle"));
+			Salle s = FactorySalle.getInstance().rechercheSalle(rs.getInt("fk_salle"));
 			int duree = rs.getInt("duree");
 
 			Reservation r = new Reservation (dPR, dR,plage, p, c, s, duree);
@@ -255,7 +258,7 @@ public class FactoryReservation {
 			Date dR = rs.getDate("dateReservation");
 			Date dPR = rs.getDate("datePriseReservation");
 			PlageHoraire plage = FactoryPlageHoraire.getInstance().rechercherPlageHoraire(rs.getInt("fk_plageHoraire"));
-			int p = rs.getInt("prix");
+			float p = rs.getFloat("prix");
 			Salle s = FactorySalle.getInstance().rechercheSalle(rs.getInt("fk_salle"));
 			int duree = rs.getInt("duree");
 
@@ -287,7 +290,7 @@ public class FactoryReservation {
 			Date dPR = rs.getDate("datePriseReservation");
 			
 			PlageHoraire plage = FactoryPlageHoraire.getInstance().rechercherPlageHoraire(rs.getInt("fk_plageHoraire"));
-			int p = rs.getInt("prix");
+			float p = rs.getFloat("prix");
 			Client c = FactoryClient.getInstance().rechercherClient(rs.getString("nom"),rs.getInt("numero"));
 			int duree = rs.getInt("duree");
 

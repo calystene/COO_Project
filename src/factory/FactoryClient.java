@@ -262,4 +262,12 @@ public class FactoryClient {
 		return lesClients;
 	}
 
+	public void majClient(Client c) {
+		String sql = "UPDATE CLIENT SET " 
+				+ "nbpoint = " + c.getCarteFidelite().getNbPoint() + ','
+				+ "nbheuregratuite = " + c.getCarteFidelite().getNbHeureGratuite() + " WHERE id_client=" + c.hashCode();
+		
+		FactorySQL.getInstance().executeUpdate(sql);
+	}
+
 }
