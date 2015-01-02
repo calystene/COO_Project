@@ -31,20 +31,26 @@ public class MainManon {
 
 	public static void main(String[] args) throws SQLException, ExceptionPlageInexistante, ParseException, ExceptionClientExistant, ExceptionSalleExistante, ExceptionReservationExistante, ExceptionClientInexistant, ExceptionSalleInexistante, ExceptionReservationInexistante{
 
-		Date d1 = new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2014");
+		Date d1 = new SimpleDateFormat("dd/MM/yyyy").parse("31/01/2015");
 		Date d2 = new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2014");
 		PlageHoraire h = FactoryPlageHoraire.getInstance().creerPlageHoraire(8, 10, TRANCHE.MATIN);
 		Client c = FactoryClient.getInstance().rechercherClient("Pierard", 637571940);
 		Salle s = FactorySalle.getInstance().rechercheSalle("pink");
 		
+//		FactorySalle.getInstance().creerSalle("Nirvana", 7, 10, TYPE_SALLE.PETITE_SALLE);
+//		FactorySalle.getInstance().creerSalle("Led Zeppelin", 10, 16, TYPE_SALLE.GRANDE_SALLE);
+//		FactorySalle.getInstance().creerSalle("Telephone", 10, 16, TYPE_SALLE.GRANDE_SALLE);
+//		FactorySalle.getInstance().creerSalle("KISS", 20, 30, TYPE_SALLE.SPECIFIQUE_SALLE);
+//		FactorySalle.getInstance().creerSalle("The Beatles", 20, 30, TYPE_SALLE.SPECIFIQUE_SALLE);
+		
 		//FactoryReservation.getInstance().creerReservation(DateManager.dateToSQL(d1), DateManager.dateToSQL(d2), h, 20 ,c, s, 2);
 		
-		h = FactoryPlageHoraire.getInstance().creerPlageHoraire(13, 15, TRANCHE.AM);
+		//h = FactoryPlageHoraire.getInstance().creerPlageHoraire(13, 15, TRANCHE.AM);
 		//FactoryReservation.getInstance().creerReservation(DateManager.dateToSQL(d1), DateManager.dateToSQL(d2), h, 20 ,c, s, 2);
 		
 		ArrayList<Reservation> liste = new ArrayList<Reservation>();
 		
-		liste = FactoryReservation.getInstance().listeReservationDate(DateManager.dateToSQL(DateManager.getDate()));
+		liste = FactoryReservation.getInstance().listeReservationDate(DateManager.dateToSQL(d1));
 		
 		for(Reservation r : liste) {
 			System.out.println(r.toString());

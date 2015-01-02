@@ -22,8 +22,7 @@ public class PlageHoraire {
 
 	@Override
 	public String toString() {
-		return "PlageHoraire [heureDebut=" + heureDebut + ", heureFin="
-				+ heureFin + ", duree=" + duree + ", tranche=" + tranche + "]";
+		return "De " + heureDebut + "h à " + heureFin + "h, soit " + duree + "h sur la tranche " + tranche;
 	}
 
 

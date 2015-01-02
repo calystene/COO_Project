@@ -84,9 +84,10 @@ public class FactorySalle {
 	 * @throws SQLException
 	 */
 	public Salle rechercheSalle(String nom) throws ExceptionSalleInexistante, SQLException{
+		int idSalle = Math.abs(nom.hashCode());
 		
-		//On recherche dans le cache 
-		Salle s = cacheSalle.get(nom.hashCode());
+		//On recherche dans le cache
+		Salle s = cacheSalle.get(idSalle);
 		if (s!=null){
 			return s;		
 		} else {
@@ -111,8 +112,10 @@ public class FactorySalle {
 	 * @param nom
 	 */
 	public void supprSalle(String nom){
+		int idSalle = Math.abs(nom.hashCode());
+		
 		//Suppression dans le cache
-		cacheSalle.remove(nom.hashCode());
+		cacheSalle.remove(idSalle);
 		//Suppression dans la BDD
 		String sql = "DELETE FROM SALLE WHERE nom='" + nom +"'" ;
 		FactorySQL.getInstance().executeUpdate(sql);

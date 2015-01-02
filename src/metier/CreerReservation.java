@@ -3,6 +3,7 @@ package metier;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Stack;
 
 import util.date.DateManager;
 import data.Client;
@@ -37,6 +38,7 @@ public class CreerReservation {
 			throw new ExceptionJourFerie("La date choisie est un jour férié");
 		}
 		
+		Stack<Reservation> stackReservation = new Stack<Reservation>();
 		ArrayList<Reservation> listeResa = new ArrayList<Reservation>();
 		int hDebut = 0;
 		int hFin = 0;
@@ -77,10 +79,26 @@ public class CreerReservation {
 		for (Salle s : listeSalle) {
 			if (s.getTypeSalle().equals(typeS)) {
 				listeResa = s.getReservation();
+				check = true;
 
 				// Si aucune réservation posé sur cette salle, alors les plages
 				// sont disponibles
 				if (listeResa.isEmpty()) {
+					switch ((TRANCHE) tranche) {
+					case MATIN:
+						hDebut = 9;
+						hFin = hDebut + duree;
+						break;
+					case AM:
+						hDebut = 13;
+						hFin = hDebut + duree;
+						break;
+					case SOIR:
+						hDebut = 20;
+						hFin = hDebut + duree;
+						break;
+					}
+					
 					return FactoryPlageHoraire.getInstance().creerPlageHoraire(
 							hDebut, hFin, tranche);
 				}
@@ -92,57 +110,99 @@ public class CreerReservation {
 						// On prend celles au même Tranche horaire et on vérifie
 						// que c'est le dernier de la liste
 						if (r.getPlage().getTranche().equals(tranche)) {
-							int hFinResa = r.getPlage().getHeureFin() + duree;
-
-							// On verifie si la duree demandé rentre sur le
-							// créneaux demandé
-							switch ((TRANCHE) tranche) {
-							case MATIN:
-								if (hFinResa > 13) {
-									check = false;
-								} else {
-									hDebut = r.getPlage().getHeureFin();
-									hFin = hDebut + duree;
-								}
-								break;
-							case AM:
-								if (hFinResa > 20) {
-									check = false;
-								} else {
-									hDebut = r.getPlage().getHeureFin();
-									hFin = hDebut + duree;
-								}
-								break;
-							case SOIR:
-								if (hFinResa > 24) {
-									check = false;
-								} else {
-									hDebut = r.getPlage().getHeureFin();
-									hFin = hDebut + duree;
-								}
-								break;
-							}
+							stackReservation.push(r);
 						}
 					}
 				}
+				
+				if(stackReservation.empty()) {
+					switch ((TRANCHE) tranche) {
+					case MATIN:
+						hDebut = 9;
+						hFin = hDebut + duree;
+						break;
+					case AM:
+						hDebut = 13;
+						hFin = hDebut + duree;
+						break;
+					case SOIR:
+						hDebut = 20;
+						hFin = hDebut + duree;
+						break;
+					}
+					
+					return FactoryPlageHoraire.getInstance().creerPlageHoraire(
+							hDebut, hFin, tranche);
+				}
+				
+				Reservation lastResa = stackReservation.peek();
+				int hFinResa = lastResa.getPlage().getHeureFin() + duree;
+
+				// On verifie si la duree demandé rentre sur le
+				// créneaux demandé
+				switch ((TRANCHE) tranche) {
+				case MATIN:
+					if (hFinResa > 13) {
+						check = false;
+					} else {
+						hDebut = lastResa.getPlage().getHeureFin();
+						hFin = hDebut + duree;
+					}
+					break;
+				case AM:
+					if (hFinResa > 20) {
+						check = false;
+					} else {
+						hDebut = lastResa.getPlage().getHeureFin();
+						hFin = hDebut + duree;
+					}
+					break;
+				case SOIR:
+					if (hFinResa > 24) {
+						check = false;
+					} else {
+						hDebut = lastResa.getPlage().getHeureFin();
+						hFin = hDebut + duree;
+					}
+					break;
+				}
+				
+				if (check) {
+					return FactoryPlageHoraire.getInstance().creerPlageHoraire(hDebut,
+							hFin, tranche);
+				}
+				
+				
 			}
-		}
-		if (check) {
-			return FactoryPlageHoraire.getInstance().creerPlageHoraire(hDebut,
-					hFin, tranche);
-		} else {
-			throw new ExceptionCreneauNonDisponible(
-					"Le créneaux demandé est indisponible pour ces critères");
-		}
+		}	
+
+		// Si l'algo n'a pas retourné de créneau avant cette étape, alors aucun créneaux n'est disponible
+		throw new ExceptionCreneauNonDisponible(
+				"Le créneaux demandé est indisponible pour ces critères");
 	}
 
+	
+	/** Même principe que l'algo verifPlageLibre mais retourne une salle et non une plage
+	 * 
+	 * @param date
+	 * @param tranche
+	 * @param typeS
+	 * @param duree
+	 * @return
+	 * @throws SQLException
+	 * @throws ExceptionPlageInexistante
+	 * @throws ExceptionClientInexistant
+	 * @throws ExceptionSalleInexistante
+	 * @throws ExceptionCreneauNonDisponible
+	 */
 	public static Salle getSalleLibre(Date date, TRANCHE tranche,
 			TYPE_SALLE typeS, int duree) throws SQLException,
 			ExceptionPlageInexistante, ExceptionClientInexistant,
 			ExceptionSalleInexistante, ExceptionCreneauNonDisponible {
 
 		ArrayList<Reservation> listeResa = new ArrayList<Reservation>();
-
+		Stack<Reservation> stackReservation = new Stack<Reservation>();
+		
 		// Boolean servant à la vérification de l'existence d'une plage libre
 		boolean check = true;
 		Salle salleLibre = null;
@@ -153,6 +213,8 @@ public class CreerReservation {
 
 		for (Salle s : listeSalle) {
 			if (s.getTypeSalle().equals(typeS)) {
+				check = true;
+				salleLibre = s;
 				listeResa = s.getReservation();
 
 				// Si aucune réservation posé sur cette salle, alors les plages
@@ -165,47 +227,50 @@ public class CreerReservation {
 				for (Reservation r : listeResa) {
 					// On prend celles à la même date
 					if (r.getDateReservation().equals((date))) {
-						// On prend celles au même Tranche horaire et on vérifie
-						// que c'est le dernier de la liste
+						// On prend celles au même Tranche horaire
 						if (r.getPlage().getTranche().equals(tranche)) {
-							int hFinResa = r.getPlage().getHeureFin() + duree;
-
-							// On verifie si la duree demandé rentre sur le
-							// créneaux demandé
-							switch ((TRANCHE) tranche) {
-							case MATIN:
-								if (hFinResa > 13) {
-									check = false;
-								} else {
-									salleLibre = s;
-								}
-								break;
-							case AM:
-								if (hFinResa > 20) {
-									check = false;
-								} else {
-									salleLibre = s;
-								}
-								break;
-							case SOIR:
-								if (hFinResa > 24) {
-									check = false;
-								} else {
-									salleLibre = s;
-								}
-								break;
-							}
+							stackReservation.push(r);	
 						}
 					}
 				}
+				
+				// Si la pile est vide pour la tranche horaire demandé, alors la salle est libre
+				if(stackReservation.empty()) {
+					return salleLibre;
+				}
+				
+				Reservation lastResa = stackReservation.peek();
+				int hFinResa = lastResa.getPlage().getHeureFin() + duree;
+				
+				// On verifie si la duree demandé rentre sur le
+				// créneaux demandé
+				switch ((TRANCHE) tranche) {
+				case MATIN:
+					if (hFinResa > 13) {
+						check = false;
+					}
+					break;
+				case AM:
+					if (hFinResa > 20) {
+						check = false;
+					}
+					break;
+				case SOIR:
+					if (hFinResa > 24) {
+						check = false;
+					}
+					break;
+				}
+				
+				if (check) {
+					return salleLibre;
+				}
 			}
 		}
-		if (check) {
-			return salleLibre;
-		} else {
-			throw new ExceptionCreneauNonDisponible(
-					"Le créneaux demandé est indisponible pour ces critères");
-		}
+		
+		
+		throw new ExceptionCreneauNonDisponible(
+				"Le créneaux demandé est indisponible pour ces critères");
 	}
 
 	/**
@@ -231,21 +296,21 @@ public class CreerReservation {
 		java.sql.Date datePriseResaSQL = DateManager.dateToSQL(DateManager.getDate());
 		java.sql.Date dateResaSQL = DateManager.dateToSQL(dateResa);
 		Salle salle = getSalleLibre(dateResa, plageH.getTranche(), typeS, duree);
-
+		System.out.println(salle.toString());
 		
 		// Calul du prix
-		int prix  = 0;
+		float prix  = 0;
 		if(duree==1) {
 			prix = salle.getPrix1H();
 		} else if(duree==2) {
 			prix = salle.getPrix2H();
 		} else if(duree > 2) {
-			int nbFois2H = duree / 2;
+			int nbFois2H = (duree / 2);
 			prix = (nbFois2H * salle.getPrix2H()) + salle.getPrix1H();
 		}
 		
 		if(plageH.getTranche().equals(TRANCHE.SOIR)) {
-			prix += prix * 1.02;
+			prix *= 1.02;
 		}
 		
 		Reservation r = FactoryReservation.getInstance().creerReservation(datePriseResaSQL, dateResaSQL, plageH, prix, c, salle, duree);

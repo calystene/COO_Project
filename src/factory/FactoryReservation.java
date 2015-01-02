@@ -79,7 +79,7 @@ public class FactoryReservation {
 				+ ", "
 				+ c.hashCode()
 				+ ",'"
-				+ s.getNom().hashCode()
+				+ s.hashCode()
 				+ "', "
 				+ duree
 				+",'"
@@ -282,7 +282,8 @@ public class FactoryReservation {
 		String sql = "SELECT datePriseReservation, dateReservation, prix, CLIENT.nom, numero, duree, heure_debut, heure_fin, tranche, fk_plageHoraire FROM RESERVATION, CLIENT, PLAGE_HORAIRE WHERE "
 				+ "fk_client = id_client AND "
 				+ "fk_plagehoraire = id_plagehoraire AND "
-				+ "fk_salle ='" + s.getNom().hashCode() + "'";
+				+ "fk_salle ='" + s.hashCode() + "' "
+				+ "ORDER BY datereservation, heure_debut";
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
 
 		while (rs.next()) {

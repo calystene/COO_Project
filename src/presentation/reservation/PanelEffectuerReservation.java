@@ -65,7 +65,7 @@ public class PanelEffectuerReservation extends JPanel implements ActionListener 
 		panelReservation.setLayout(cl);
 		
 		JPanel panelResaManuel = new PanelResaManuel();
-		JPanel panelResaAuto = new PanelResaAuto();
+		JPanel panelResaAuto = new PanelResaAuto(parent);
 		JPanel panelResaMulti = new PanelResaMulti();
 		
 		// On ajoute les différents panel de réservation

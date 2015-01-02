@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,22 +15,33 @@ import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 
+import util.date.DateManager;
+import metier.CreerClient;
 import metier.CreerReservation;
+import metier.RechercheClient;
+import data.Client;
+import data.Reservation;
 import data.horaire.PlageHoraire;
 import data.horaire.TRANCHE;
 import data.salle.TYPE_SALLE;
+import exception.ExceptionClientExistant;
 import exception.ExceptionClientInexistant;
 import exception.ExceptionCreneauNonDisponible;
 import exception.ExceptionJourFerie;
 import exception.ExceptionPlageInexistante;
+import exception.ExceptionReservationExistante;
 import exception.ExceptionSalleInexistante;
 
+@SuppressWarnings("serial")
 public class PanelResaAuto extends JPanel implements ActionListener {
+	JFrame parent;
+
 	JLabel lblDate;
 	JLabel lblInfoDate;
 	JLabel lblTrancheH;
@@ -49,7 +59,9 @@ public class PanelResaAuto extends JPanel implements ActionListener {
 
 	GridBagConstraints gbc;
 
-	public PanelResaAuto() {
+	public PanelResaAuto(JFrame parent) {
+		this.parent = parent;
+
 		setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createLineBorder(Color.black),
 				"Réservation automatique"));
@@ -63,10 +75,10 @@ public class PanelResaAuto extends JPanel implements ActionListener {
 		// Initialisation des composants du panel
 		lblDate = new JLabel("Date réservation");
 		lblDate.setPreferredSize(new Dimension(100, 25));
-		
+
 		lblInfoDate = new JLabel("JJ-MM-AAAA");
-		lblInfoDate.setPreferredSize(new Dimension(150,25));
-		
+		lblInfoDate.setPreferredSize(new Dimension(150, 25));
+
 		lblTrancheH = new JLabel("Tranche horaire");
 		lblTrancheH.setPreferredSize(new Dimension(100, 25));
 
@@ -87,7 +99,8 @@ public class PanelResaAuto extends JPanel implements ActionListener {
 		cbTrancheH.setPreferredSize(new Dimension(125, 25));
 		cbTrancheH.addActionListener(this);
 
-		TYPE_SALLE[] salle = { TYPE_SALLE.PETITE_SALLE,	TYPE_SALLE.GRANDE_SALLE, TYPE_SALLE.SPECIFIQUE_SALLE };
+		TYPE_SALLE[] salle = { TYPE_SALLE.PETITE_SALLE,
+				TYPE_SALLE.GRANDE_SALLE, TYPE_SALLE.SPECIFIQUE_SALLE };
 		cbTypeSalle = new JComboBox<TYPE_SALLE>(salle);
 		cbTypeSalle.setPreferredSize(new Dimension(125, 25));
 		cbTypeSalle.addActionListener(this);
@@ -102,16 +115,8 @@ public class PanelResaAuto extends JPanel implements ActionListener {
 		btnRechercher.setPreferredSize(new Dimension(125, 25));
 		btnRechercher.addActionListener(this);
 
-
-		// gbc.gridheight = 1;
-		// gbc.gridwidth = 1;
-		// gbc.ipadx = 1;
-		// gbc.ipady = 1;
-		// gbc.weightx = 1.0;
-		// gbc.weighty = 1.0;
-
 		gbc.insets = new Insets(3, 5, 3, 5);
-		
+
 		// Première ligne
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -124,7 +129,7 @@ public class PanelResaAuto extends JPanel implements ActionListener {
 		gbc.gridx = 2;
 		gbc.gridy = 0;
 		panel.add(lblInfoDate);
-		
+
 		// Deuxieme ligne
 		gbc.gridx = 0;
 		gbc.gridy = 1;
@@ -170,8 +175,8 @@ public class PanelResaAuto extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == cbTrancheH) {
-			switch((TRANCHE) cbTrancheH.getSelectedItem()) {
+		if (e.getSource() == cbTrancheH) {
+			switch ((TRANCHE) cbTrancheH.getSelectedItem()) {
 			case MATIN:
 				lblInfosTranche.setText("[9h,13h]");
 				break;
@@ -183,9 +188,9 @@ public class PanelResaAuto extends JPanel implements ActionListener {
 				break;
 			}
 		}
-		
-		if(e.getSource() == cbTypeSalle) {
-			switch((TYPE_SALLE) cbTypeSalle.getSelectedItem()) {
+
+		if (e.getSource() == cbTypeSalle) {
+			switch ((TYPE_SALLE) cbTypeSalle.getSelectedItem()) {
 			case PETITE_SALLE:
 				lblInfosSalle.setText("1h : 7€ / 2h : 10€");
 				break;
@@ -197,46 +202,150 @@ public class PanelResaAuto extends JPanel implements ActionListener {
 				break;
 			}
 		}
-		
-		if(e.getSource() == btnRechercher) {
+
+		if (e.getSource() == btnRechercher) {
 			Date d = new Date();
-			try {
-				d = new SimpleDateFormat("dd/MM/yyyy").parse(jtfDate.getText());
-			} catch (ParseException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
+			PlageHoraire ph = null;
+			Client c = null;
+			TRANCHE t = null;
+			TYPE_SALLE ts = null;
+			int duree = 0;
+			Reservation r;
 			
-			TRANCHE t = (TRANCHE) cbTrancheH.getSelectedItem();
-			TYPE_SALLE ts = (TYPE_SALLE) cbTypeSalle.getSelectedItem();
-			int duree = Integer.parseInt(jtfDuree.getText());
+			// Recherche du créneau de libre
 			try {
-				PlageHoraire pl = CreerReservation.verifPlageLibre(d, t, ts, duree);
-				
-				if(pl!=null) {
-					System.out.println("OK");
-					System.out.println(pl.toString());
-				}
+				// On récupère les saisies
+				d = new SimpleDateFormat("dd-MM-yyyy").parse(jtfDate.getText());
+				t = (TRANCHE) cbTrancheH.getSelectedItem();
+				ts = (TYPE_SALLE) cbTypeSalle.getSelectedItem();
+				duree = Integer.parseInt(jtfDuree.getText());
+
+				ph = CreerReservation.verifPlageLibre(d, t, ts,
+						duree);
+
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (ExceptionPlageInexistante e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (ExceptionClientInexistant e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (ExceptionSalleInexistante e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (ExceptionCreneauNonDisponible e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				JOptionPane.showMessageDialog(parent,
+						"Le créneau horaire choisi n'est pas disponible",
+						"Non disponible", JOptionPane.WARNING_MESSAGE);
 			} catch (ExceptionJourFerie e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				JOptionPane.showMessageDialog(parent,
+						"La date choisie est un jour férié",
+						"Jour férié", JOptionPane.WARNING_MESSAGE);
+			} catch (ParseException e1) {
+				JOptionPane.showMessageDialog(parent,
+						"Le format de la date n'est pas correct",
+						"Erreur parsing date", JOptionPane.WARNING_MESSAGE);
+			}
+			
+			if (ph != null) {
+				Object[] options = {"Oui", "Non"};
+				int choice = JOptionPane.showOptionDialog(parent,
+						"Le créneaux horaire " + ph + " est disponible. Souhaitez-vous le réserver ?",
+						"Créneau Disponible", 
+						JOptionPane.YES_NO_CANCEL_OPTION,
+						JOptionPane.INFORMATION_MESSAGE,
+						null,
+						options,
+						options[0]);
+				
+				// Récupération du choix
+				if(choice==0) {
+					String nom = JOptionPane.showInputDialog(parent,
+							"Saisir le nom du client :",
+							"Nom du client",
+							JOptionPane.QUESTION_MESSAGE);
+					int numero = Integer.parseInt(JOptionPane.showInputDialog(parent,
+							"Saisir le numéro du client :",
+							"Numéro du client",
+							JOptionPane.QUESTION_MESSAGE));
+					
+					if(nom.length()!=0 && numero!=0) {
+					
+						// Récupération de la donnée client
+						try {
+							// On recherche le client en base, s'il n'existe pas on le crée
+							c = RechercheClient.rechercherClient(nom, numero);
+						} catch (SQLException e1) {
+							JOptionPane.showMessageDialog(parent,
+									   e1.getMessage(),
+									    "Erreur création",
+									    JOptionPane.ERROR_MESSAGE);
+						} catch (ExceptionClientInexistant e1) {
+							try {
+								// Si client inexistant alors on le crée
+								c = CreerClient.nouveauClient(nom, numero);
+							} catch (ExceptionClientExistant e2) {
+								JOptionPane.showMessageDialog(parent,
+										   e1.getMessage(),
+										    "Erreur création",
+										    JOptionPane.WARNING_MESSAGE);
+							} catch (SQLException e2) {
+								JOptionPane.showMessageDialog(parent,
+										   e1.getMessage(),
+										    "Erreur création",
+										    JOptionPane.ERROR_MESSAGE);
+							}
+						}
+						
+						try {
+							// Création de la réservation
+							r = CreerReservation.creerReservation(d, ph, c.getNumero(), c.getNom(), ts, duree);
+							
+							// JOptionPane affichant le résumé de la réservation
+							JOptionPane.showMessageDialog(parent,
+									   "Résumé de la réservation :\n" +
+											   "Client : " + r.getClient() + "\n" +
+											   "Date : " + DateManager.valueOf(r.getDateReservation()) + "\n" +
+											   "Date max confirmation : " + DateManager.valueOf(DateManager.addOneWeekFromDate(r.getDatePriseReservation())) + "\n" +
+											   "Plage horaire : " + r.getPlage() + "\n" +
+											   "Prix : " + r.getPrix() + "€\n" +
+											   "Salle : " + r.getSalle(),
+									    "Réservation réussie",
+									    JOptionPane.INFORMATION_MESSAGE);
+							
+						} catch (SQLException e1) {
+							JOptionPane.showMessageDialog(parent,
+									   e1.getMessage(),
+									    "Erreur création",
+									    JOptionPane.ERROR_MESSAGE);
+						} catch (ExceptionClientInexistant e1) {
+							JOptionPane.showMessageDialog(parent,
+									   e1.getMessage(),
+									    "Erreur création",
+									    JOptionPane.WARNING_MESSAGE);
+						} catch (ExceptionPlageInexistante e1) {
+							JOptionPane.showMessageDialog(parent,
+									   e1.getMessage(),
+									    "Erreur création",
+									    JOptionPane.WARNING_MESSAGE);
+						} catch (ExceptionSalleInexistante e1) {
+							JOptionPane.showMessageDialog(parent,
+									   e1.getMessage(),
+									    "Erreur création",
+									    JOptionPane.WARNING_MESSAGE);
+						} catch (ExceptionCreneauNonDisponible e1) {
+							JOptionPane.showMessageDialog(parent,
+									   e1.getMessage(),
+									    "Erreur création",
+									    JOptionPane.WARNING_MESSAGE);
+						} catch (ExceptionReservationExistante e1) {
+							JOptionPane.showMessageDialog(parent,
+									   e1.getMessage(),
+									    "Erreur création",
+									    JOptionPane.WARNING_MESSAGE);
+						}
+					}
+				}
 			}
 		}
-		
+
 	}
 }

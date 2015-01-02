@@ -129,6 +129,17 @@ public class DateManager {
 	}
 
 	
+	/**
+	 * Ajoute une semaine à la date fournit en paramètre
+	 * @param d la date initial
+	 * @return La nouvelle date
+	 */
+	static public Date addOneWeekFromDate(Date d) {
+		GregorianCalendar calendar = new java.util.GregorianCalendar();
+		calendar.setTime(d);
+		calendar.add(Calendar.DATE, 7);
+		return calendar.getTime();
+	}
 	
 	
 	/**
@@ -155,7 +166,6 @@ public class DateManager {
 			dMonth = c2.get(Calendar.MONTH);
 			dDay = c2.get(Calendar.DAY_OF_MONTH);
 
-			System.out.println(d.toString() + " et " + date.toString());
 			if ((dateMonth == dMonth) && (dateDay == dDay))
 				return false;
 		}

@@ -92,10 +92,13 @@ public class Salle {
 		this.typeSalle = typeSalle;
 	}
 
+	public int hashCode() {
+		return Math.abs(nom.hashCode());
+	}
+	
 	@Override
 	public String toString() {
-		return "Salle [nom=" + nom + ", typeSalle=" + typeSalle + ", prix1H="
-				+ prix1H + ", prix2H=" + prix2H + "]";
+		return "Salle " + nom + " du type " + typeSalle + "(" + prix1H + "€, " + prix2H + "€)" ;
 	}
 	
 	public ArrayList<Reservation> getReservation() throws SQLException, ExceptionPlageInexistante, ExceptionClientInexistant {
