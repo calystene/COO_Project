@@ -114,8 +114,9 @@ public class CreerReservation {
 						}
 					}
 				}
-				
+				System.out.println("HERE " + s.toString() + " " + stackReservation.size());
 				if(stackReservation.empty()) {
+					
 					switch ((TRANCHE) tranche) {
 					case MATIN:
 						hDebut = 9;
@@ -167,12 +168,13 @@ public class CreerReservation {
 					break;
 				}
 				
+				System.out.println(s.toString());
 				if (check) {
 					return FactoryPlageHoraire.getInstance().creerPlageHoraire(hDebut,
 							hFin, tranche);
 				}
 				
-				
+				stackReservation.clear();
 			}
 		}	
 
@@ -265,6 +267,8 @@ public class CreerReservation {
 				if (check) {
 					return salleLibre;
 				}
+				
+				stackReservation.clear();
 			}
 		}
 		
