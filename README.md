@@ -25,7 +25,7 @@ TODO
  * Création des factory
     * FactoryClient : **OK**
     * FactoryForfait : **OK**
-    * FactoryReservation : **KO**
+    * FactoryReservation : **OK**
     * FactoryPlageHoraire : **OK**
     * FactorySalle : **OK**
     * FactoryReserPlageH : **OK**
@@ -43,12 +43,12 @@ TODO
       * CreerForfait : KO
       * CreerSalle : KO
    * Création des métiers élaborés
-      * CalculerTarif : KO
-      * EffectuerReservation : In progress Thomas
-         * reservationAuto : KO
-         * reservationManu : KO
+      * CalculerTarif : **OK**
+      * EffectuerReservation : In progressThomas
+         * reservationAuto : **OK**
+         * reservationManu : In Progress Thomas
          * reservationMulti : KO
-      * VisualiserReservation : KO
+      * VisualiserReservation : **OK**
       * EditionClient : In progress Manon
          * confirmerReservation : In progress Manon
          * vendreForfait : In progress Manon
@@ -75,8 +75,8 @@ TODO
       * Ecran Menu : **OK**
       * Ecran rechercher client : **OK**
       * Ecran afficher infos client : **OK**
-      * Ecran visualtion des réservations : KO
-      * Ecran de reservation : KO
+      * Ecran visualtion des réservations : **OK**
+      * Ecran de reservation : **OK**
       * Ecran de création client : **OK**
       * Ecran d'édition client : In progress Manon
       * Ecran pour effectuer une réservation : In progress Thomas
