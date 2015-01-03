@@ -1,26 +1,24 @@
-package presentation.reservation;
+package presentation.planning;
 
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class FrameEffectuerReservation extends JFrame {
-
+public class FrameVisualiserPlanning extends JFrame {
 	JPanel panel;
-
-	 public FrameEffectuerReservation(String title) {
+	
+	public FrameVisualiserPlanning(String title) {
 		super(title);
-
-		panel = new PanelEffectuerReservation(this);
-
+		
+		panel = new PanelVisualiserPlanning(this);
+		
 		// configuration de la fenêtre
 		setLocationRelativeTo(null);
-		setSize(300, 500);
-		// setDefaultCloseOperation();
-
+		setSize(500, 600);
+		
 		getContentPane().add(panel);
-		getContentPane().setSize(300, 400);
+		getContentPane().setSize(500, 600);
 		setLayout(new BorderLayout());
 		// setDefaultCloseOperation();
 
