@@ -40,7 +40,7 @@ TODO
 * **Metier**
    *  Création des métiers de base
       * CreerClient : **OK**
-      * CreerForfait : KO
+      * CreerForfait : In Progress Manon
       * CreerSalle : KO
    * Création des métiers élaborés
       * CalculerTarif : **OK**
@@ -52,7 +52,7 @@ TODO
       * EditionClient : In progress Manon
          * confirmerReservation : In progress Manon
          * vendreForfait : In progress Manon
-      * AnnulerReservation : KO
+      * AnnulerReservation : In progress Manon
 
 -----------
 
