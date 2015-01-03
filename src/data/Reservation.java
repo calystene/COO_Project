@@ -129,7 +129,7 @@ public class Reservation {
 
 	
 	public String toString () {
-		return "Réservation le " + DateManager.valueOf(getDatePriseReservation()) + " de la salle " + getSalle().getNom();
+		return "Réservation le " + DateManager.valueOf(getDateReservation()) + " de la salle " + getSalle().getNom();
 	}
 	
 	/**

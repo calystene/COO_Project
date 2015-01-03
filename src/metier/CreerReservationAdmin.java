@@ -23,12 +23,7 @@ import factory.FactoryPlageHoraire;
 import factory.FactoryReservation;
 import factory.FactorySalle;
 
-public class CreerReservation {
-
-	public CreerReservation() {
-		// TODO Auto-generated constructor stub
-	}
-
+public class CreerReservationAdmin {
 	public static PlageHoraire verifPlageLibre(Date date, TRANCHE tranche,
 			TYPE_SALLE typeS, int duree) throws SQLException,
 			ExceptionPlageInexistante, ExceptionClientInexistant,
@@ -86,7 +81,7 @@ public class CreerReservation {
 			if (s.getTypeSalle().equals(typeS)) {
 				listeResa = s.getReservation();
 				check = true;
-
+				
 				// Si aucune réservation posé sur cette salle, alors les plages
 				// sont disponibles
 				if (listeResa.isEmpty()) {
@@ -153,9 +148,12 @@ public class CreerReservation {
 							hDebut, hFin, tranche);
 				}
 				
+			
+				
+				/** On vérifie que l'on ne puisse pas poser une réservation de façon normal (auto) **/
 				Reservation lastResa = stackReservation.peek();
 				int hFinResa = lastResa.getPlage().getHeureFin() + duree;
-
+				
 				// On verifie si la duree demandé rentre sur le
 				// créneaux demandé
 				switch ((TRANCHE) tranche) {
@@ -185,10 +183,34 @@ public class CreerReservation {
 					break;
 				}
 				
-				System.out.println(s.toString());
+
 				if (check) {
 					return FactoryPlageHoraire.getInstance().creerPlageHoraire(hDebut,
 							hFin, tranche);
+				}
+				
+				
+				/** Si la réservation n'est pas possible de façon auto, alors on dépile jusqu'à temps de voir si une réservation est hors délais de confirmation et correspond à la durée
+				 * demandé **/
+				while(!stackReservation.isEmpty()) {
+					Reservation resaStack = stackReservation.pop();
+					Date dateMaxValidite = DateManager.addOneWeekFromDate(resaStack.getDatePriseReservation());
+					
+					if((DateManager.getDate().compareTo(dateMaxValidite) == 1) && (resaStack.getEtatPaiement() == false)) {
+						System.out.println("1. Durée demandé " + duree + " et duree de la resa : " + resaStack.getDuree());
+						System.out.println("1. " + resaStack.toString());
+						if(duree==resaStack.getDuree()) {
+							hDebut = resaStack.getPlage().getHeureDebut();
+							hFin = resaStack.getPlage().getHeureFin();
+							
+							//FactoryReservation.getInstance().supprReservation(resaStack.hashCode()); // On supprime la réservation hors délais non confirmée
+							
+							return FactoryPlageHoraire.getInstance().creerPlageHoraire(hDebut, hFin, tranche);
+						} else {
+							throw new ExceptionCreneauNonDisponible("La durée de la nouvelle réservation doit être égale à celle supprimée");
+						}
+						
+					}
 				}
 				
 				stackReservation.clear();
@@ -291,6 +313,24 @@ public class CreerReservation {
 					return salleLibre;
 				}
 				
+				
+				while(!stackReservation.isEmpty()) {
+					Reservation resaStack = stackReservation.pop();
+					Date dateMaxValidite = DateManager.addOneWeekFromDate(resaStack.getDatePriseReservation());
+					
+					if((DateManager.getDate().compareTo(dateMaxValidite) == 1) && (resaStack.getEtatPaiement() == false)) {
+						System.out.println("2. Durée demandé " + duree + " et duree de la resa : " + resaStack.getDuree());
+						if(duree==resaStack.getDuree()) {							
+							FactoryReservation.getInstance().supprReservation(resaStack.hashCode()); // On supprime la réservation hors délais non confirmée
+							
+							return resaStack.getSalle();
+						} else {
+							throw new ExceptionCreneauNonDisponible("La durée de la nouvelle réservation doit être égale à celle supprimée");
+						}
+						
+					}
+				}
+				
 				stackReservation.clear();
 			}
 		}
@@ -322,8 +362,7 @@ public class CreerReservation {
 		Client c = FactoryClient.getInstance().rechercherClient(nomC, numeroC);
 		java.sql.Date datePriseResaSQL = DateManager.dateToSQL(DateManager.getDate());
 		java.sql.Date dateResaSQL = DateManager.dateToSQL(dateResa);
-		Salle salle = getSalleLibre(dateResa, plageH.getTranche(), typeS, duree);
-		System.out.println(salle.toString());
+		Salle salle = getSalleLibre(dateResa, plageH.getTranche(), typeS, duree); // La suppression de la réservation hors délais non confirmé se fait dans cette méthode
 		
 		// Calul du prix
 		float prix  = 0;

@@ -233,7 +233,7 @@ public class PanelResaAuto extends JPanel implements ActionListener {
 				e1.printStackTrace();
 			} catch (ExceptionCreneauNonDisponible e1) {
 				JOptionPane.showMessageDialog(parent,
-						"Le créneau horaire choisi n'est pas disponible",
+						e1.getMessage(),
 						"Non disponible", JOptionPane.WARNING_MESSAGE);
 			} catch (ExceptionJourFerie e1) {
 				JOptionPane.showMessageDialog(parent,

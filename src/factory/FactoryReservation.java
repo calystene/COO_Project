@@ -294,7 +294,7 @@ public class FactoryReservation {
 			float p = rs.getFloat("prix");
 			Client c = FactoryClient.getInstance().rechercherClient(rs.getString("nom"),rs.getInt("numero"));
 			int duree = rs.getInt("duree");
-
+			System.out.println("Ici durée Fact :" + duree);
 			Reservation r = new Reservation (dPR, dR,plage, p, c, s, duree);
 			lesReservations.add(r);
 		}
