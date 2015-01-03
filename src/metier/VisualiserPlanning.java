@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import util.date.DateManager;
 import data.Reservation;
 import data.salle.Salle;
 import data.salle.TYPE_SALLE;
@@ -43,7 +44,17 @@ public class VisualiserPlanning {
 			tabResult[i][1] = r.getPlage().getTranche(); // la tranche horaire
 			tabResult[i][2] = r.getPlage().getHeureDebut(); // L'heure de début de la plage
 			tabResult[i][3] = r.getPlage().getHeureFin(); // L'heure de fin de la plage
-			tabResult[i][4] = r.getEtatPaiement(); // L'état de la réservation
+			
+			// L'état de la réservation
+			Date dateMaxResa = DateManager.addOneWeekFromDate(r.getDatePriseReservation());
+			if(r.getEtatPaiement()==false && DateManager.getDate().compareTo(dateMaxResa)==1) {
+				tabResult[i][4] = "Hors-délais";
+			} else if (r.getEtatPaiement()==false) {
+				tabResult[i][4] = "Non";
+			} else {
+				tabResult[i][4] = "Oui";
+			}
+
 			tabResult[i][5] = r.getClient().getNom(); // Le nom du client
 			i++;
 		}

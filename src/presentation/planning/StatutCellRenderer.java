@@ -13,13 +13,13 @@ public class StatutCellRenderer extends DefaultTableCellRenderer {
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 		super.getTableCellRendererComponent(table, value, isSelected, hasFocus,	row, column);
 
-		boolean etat = (boolean) value;
+		String etat = (String) value;
 		
-		if(etat) {
-			setText("Oui");
+		if(etat.equals("Oui")) {
 			setBackground(Color.GREEN);
-		} else {
-			setText("Non");
+		} else if(etat.equals("Non")) {
+			setBackground(Color.YELLOW);
+		} else if(etat.equals("Hors-délais")) {
 			setBackground(Color.RED);
 		}
 		setFont(this.getFont().deriveFont(Font.BOLD));

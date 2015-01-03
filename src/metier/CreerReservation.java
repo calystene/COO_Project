@@ -317,6 +317,9 @@ public class CreerReservation {
 			prix *= 1.02;
 		}
 		
+		// Ajout des points de fidelité au client 
+		RechercheClient.ajouterPointFidelite(c.getNom(), c.getNumero(), 5);
+		
 		Reservation r = FactoryReservation.getInstance().creerReservation(datePriseResaSQL, dateResaSQL, plageH, prix, c, salle, duree);
 		return r;
 	}
