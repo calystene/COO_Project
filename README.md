@@ -49,9 +49,9 @@ TODO
          * reservationManu : KO
          * reservationMulti : KO
       * VisualiserReservation : KO
-      * EditionClient : KO
-         * confirmerReservation : KO
-         * vendreForfait : KO
+      * EditionClient : In progress Manon
+         * confirmerReservation : In progress Manon
+         * vendreForfait : In progress Manon
       * AnnulerReservation : KO
 
 -----------
@@ -78,7 +78,7 @@ TODO
       * Ecran visualtion des réservations : KO
       * Ecran de reservation : KO
       * Ecran de création client : **OK**
-      * Ecran d'édition client : KO
+      * Ecran d'édition client : In progress Manon
       * Ecran pour effectuer une réservation : In progress Thomas
 
 -----------
