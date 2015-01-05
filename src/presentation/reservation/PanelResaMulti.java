@@ -268,7 +268,7 @@ public class PanelResaMulti extends JPanel implements ActionListener {
 			if (!ph.isEmpty()) {
 				Object[] options = {"Oui", "Non"};
 				int choice = JOptionPane.showOptionDialog(parent,
-						"Les réservations pour le créneaux horaire sont disponibles. Souhaitez-vous les réserver ?",
+						"Les réservations pour le créneaux choisies sont disponibles. Souhaitez-vous les réserver ?",
 						"Créneaux Disponibles", 
 						JOptionPane.YES_NO_CANCEL_OPTION,
 						JOptionPane.INFORMATION_MESSAGE,
