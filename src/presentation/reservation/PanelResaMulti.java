@@ -10,7 +10,10 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -21,11 +24,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import util.date.DateManager;
 import metier.CreerClient;
-import metier.CreerReservationAdmin;
 import metier.CreerReservationMulti;
 import metier.RechercheClient;
-import util.date.DateManager;
 import data.Client;
 import data.Reservation;
 import data.horaire.PlageHoraire;
@@ -35,7 +37,7 @@ import exception.ExceptionClientExistant;
 import exception.ExceptionClientInexistant;
 import exception.ExceptionCreneauNonDisponible;
 import exception.ExceptionJourFerie;
-import exception.ExceptionPlageInexistante;
+import exception.ExceptionResaMultiImpossible;
 import exception.ExceptionReservationExistante;
 import exception.ExceptionSalleInexistante;
 
@@ -219,12 +221,13 @@ public class PanelResaMulti extends JPanel implements ActionListener {
 		
 		if(e.getSource() == btnReserver) {
 			Date d = new Date();
-			PlageHoraire ph = null;
+			Queue<PlageHoraire> ph = new LinkedList<PlageHoraire>();
 			Client c = null;
 			TRANCHE t = null;
 			TYPE_SALLE ts = null;
 			int duree = 0;
-			Reservation r;
+			int nbSemaine = 0;
+			ArrayList<Reservation> listeR;
 			
 			// Recherche du créneau de libre
 			try {
@@ -233,22 +236,17 @@ public class PanelResaMulti extends JPanel implements ActionListener {
 				t = (TRANCHE) cbTrancheH.getSelectedItem();
 				ts = (TYPE_SALLE) cbTypeSalle.getSelectedItem();
 				duree = Integer.parseInt(jtfDuree.getText());
-
-				ph = CreerReservationMulti.verifPlageLibre(d, t, ts,
-							duree);
+				nbSemaine = Integer.valueOf(jtfNbSemaine.getText());
+				
+				ph = CreerReservationMulti.verifPlagesLibres(d, t, ts,
+							duree, nbSemaine);
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ExceptionPlageInexistante e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					
 				} catch (ExceptionClientInexistant e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					
 				} catch (ExceptionSalleInexistante e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ExceptionCreneauNonDisponible e1) {
+					
+				} catch (ExceptionResaMultiImpossible e1) {
 					JOptionPane.showMessageDialog(parent,
 							e1.getMessage(),
 							"Non disponible", JOptionPane.WARNING_MESSAGE);
@@ -260,13 +258,17 @@ public class PanelResaMulti extends JPanel implements ActionListener {
 					JOptionPane.showMessageDialog(parent,
 							"Le format de la date n'est pas correct",
 							"Erreur parsing date", JOptionPane.WARNING_MESSAGE);
+				} catch (ExceptionCreneauNonDisponible e1) {
+					JOptionPane.showMessageDialog(parent,
+							e1.getMessage(),
+							"Non disponible", JOptionPane.WARNING_MESSAGE);
 				}
 			
 			
-			if (ph != null) {
+			if (!ph.isEmpty()) {
 				Object[] options = {"Oui", "Non"};
 				int choice = JOptionPane.showOptionDialog(parent,
-						"Les réservations pour le créneaux horaire " + ph + " sont disponibles. Souhaitez-vous les réserver ?",
+						"Les réservations pour le créneaux horaire sont disponibles. Souhaitez-vous les réserver ?",
 						"Créneaux Disponibles", 
 						JOptionPane.YES_NO_CANCEL_OPTION,
 						JOptionPane.INFORMATION_MESSAGE,
@@ -314,21 +316,22 @@ public class PanelResaMulti extends JPanel implements ActionListener {
 						}
 						
 						try {
-							// Création de la réservation
-							r = CreerReservationMulti.creerReservation(d, ph, c.getNumero(), c.getNom(), ts, duree);
+							// Création des réservations
+							listeR = CreerReservationMulti.creerReservationMulti(d, ph, c.getNumero(), c.getNom(), ts, duree);
 							
-							// JOptionPane affichant le résumé de la réservation
+							String listeResa = "";
+							
+							for(Reservation r : listeR) {
+								listeResa += DateManager.valueOf(r.getDateReservation()) + " - ";
+							}
+							
+							// Résumé des dates réservées
 							JOptionPane.showMessageDialog(parent,
-									   "Résumé de la réservation :\n" +
-											   "Client : " + r.getClient() + "\n" +
-											   "Date : " + DateManager.valueOf(r.getDateReservation()) + "\n" +
-											   "Date max confirmation : " + DateManager.valueOf(DateManager.addOneWeekFromDate(r.getDatePriseReservation())) + "\n" +
-											   "Plage horaire : " + r.getPlage() + "\n" +
-											   "Prix : " + r.getPrix() + "€\n" +
-											   "Salle : " + r.getSalle(),
+									   "Les réservations ont été effectuées pour les dates suivantes : \n"
+											   + listeResa,
 									    "Réservation réussie",
 									    JOptionPane.INFORMATION_MESSAGE);
-							
+						
 						} catch (SQLException e1) {
 							JOptionPane.showMessageDialog(parent,
 									   e1.getMessage(),
@@ -339,22 +342,12 @@ public class PanelResaMulti extends JPanel implements ActionListener {
 									   e1.getMessage(),
 									    "Erreur création",
 									    JOptionPane.WARNING_MESSAGE);
-						} catch (ExceptionPlageInexistante e1) {
+						}  catch (ExceptionReservationExistante e1) {
 							JOptionPane.showMessageDialog(parent,
 									   e1.getMessage(),
 									    "Erreur création",
 									    JOptionPane.WARNING_MESSAGE);
-						} catch (ExceptionSalleInexistante e1) {
-							JOptionPane.showMessageDialog(parent,
-									   e1.getMessage(),
-									    "Erreur création",
-									    JOptionPane.WARNING_MESSAGE);
-						} catch (ExceptionCreneauNonDisponible e1) {
-							JOptionPane.showMessageDialog(parent,
-									   e1.getMessage(),
-									    "Erreur création",
-									    JOptionPane.WARNING_MESSAGE);
-						} catch (ExceptionReservationExistante e1) {
+						} catch (ExceptionResaMultiImpossible e1) {
 							JOptionPane.showMessageDialog(parent,
 									   e1.getMessage(),
 									    "Erreur création",
