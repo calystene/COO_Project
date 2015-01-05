@@ -25,6 +25,7 @@ import javax.swing.table.TableCellEditor;
 import presentation.planning.NomCellRenderer;
 import metier.RechercheClient;
 import data.Client;
+import data.Reservation;
 import exception.ExceptionClientInexistant;
 import exception.ExceptionPlageInexistante;
 import exception.ExceptionReservationInexistante;
@@ -46,22 +47,26 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 	JLabel lblNom = new JLabel("Nom :");
 	JLabel lblNumero = new JLabel("Numero :");
 
-	JTextField jtfNom = new JTextField("barrois");
-	JTextField jtfNumero = new JTextField("642203927");
+	JTextField jtfNom = new JTextField("Pierard");
+	JTextField jtfNumero = new JTextField("637571940");
 
 	//Objet Panel2
 	JPanel panel2 = new JPanel();
 	
 	JLabel lblNom2 = new JLabel("Nom :");
-	JLabel lblNumero2 = new JLabel("Téléphone :");
-	JLabel lblPrenom2 = new JLabel("Prénom :");
+	JLabel lblNumero2 = new JLabel("Tï¿½lï¿½phone :");
+	JLabel lblPrenom2 = new JLabel("Prï¿½nom :");
 	JLabel lblIdentifiant2 = new JLabel("Identifiant :");
+	JLabel lblPointFid = new JLabel("Nbr points carte fidelitï¿½ :");
+	JLabel lblHeureDisp = new JLabel("Nbr heure carte fidelitï¿½ :");
 	JLabel lblNom2T = new JLabel("");
 	JLabel lblNumero2T = new JLabel("");
 	JLabel lblPrenom2T = new JLabel("");
 	JLabel lblIdentifiant2T = new JLabel("");
+	JLabel lblPointFidT = new JLabel("");
+	JLabel lblHeureDispT = new JLabel("");
 
-	JButton btnAfficherRes2 = new JButton("Afficher les réservations");
+	JButton btnAfficherRes2 = new JButton("Afficher les rï¿½servations");
 	JButton btnAfficherFor2 = new JButton("Afficher les forfaits");
 	
 	//Objet Panel3
@@ -77,7 +82,7 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 	JPanel panel4 = new JPanel();
 	JPanel panelTableauF = new JPanel();
 	JTable tableF = new JTable();
-	JButton creerForfait = new JButton("Créer un forfait");
+	JButton creerForfait = new JButton("Crï¿½er un forfait");
 	
 	
 	public PanelRechercheClient(JFrame pere) {
@@ -105,7 +110,7 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 			btnEffacer.addActionListener(this);
 			
 			//Panel2
-			panel2.setLayout(new GridLayout(5, 2));
+			panel2.setLayout(new GridLayout(7, 2));
 			panel2.setPreferredSize(new Dimension(300, 200));
 			panel2.setVisible(false);
 			
@@ -117,6 +122,10 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 			panel2.add(lblNumero2T);
 			panel2.add(lblIdentifiant2);
 			panel2.add(lblIdentifiant2T);
+			panel2.add(lblHeureDisp);
+			panel2.add(lblHeureDispT);
+			panel2.add(lblPointFid);
+			panel2.add(lblPointFidT);
 			panel2.add(btnAfficherRes2);		
 			panel2.add(btnAfficherFor2);
 			
@@ -150,11 +159,12 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 			panel3.add(panelBouton, BorderLayout.SOUTH);
 	
 			panel3.setBorder(BorderFactory.createTitledBorder(
-					BorderFactory.createLineBorder(Color.black), "Réservations du client"));
+					BorderFactory.createLineBorder(Color.black), "Rï¿½servations du client"));
 			panelBouton.setBorder(BorderFactory.createTitledBorder(
-					BorderFactory.createLineBorder(Color.black), "Sélectionner une ligne"));
+					BorderFactory.createLineBorder(Color.black), "Sï¿½lectionner une ligne"));
 			
 			supprR.addActionListener(this);
+			confR.addActionListener(this);
 			
 			//Panel4
 			panel4.setLayout(new BorderLayout());
@@ -173,7 +183,7 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 			panelD.add(panel3, BorderLayout.NORTH);
 			panelD.add(panel4, BorderLayout.SOUTH);
 					
-		//Ajout des panels gauche et droit à la frame principale
+		//Ajout des panels gauche et droit ï¿½ la frame principale
 			setLayout(new BorderLayout());
 			add(panelG, BorderLayout.WEST);
 			add(panelD, BorderLayout.EAST);
@@ -193,6 +203,8 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 						lblPrenom2T.setText(c.getPrenom());
 						lblNumero2T.setText("0"+Integer.toString(c.getNumero()));
 						lblIdentifiant2T.setText(Integer.toString(c.hashCode()));
+						lblHeureDispT.setText(Integer.toString(c.getCarteFidelite().getNbHeureGratuite()));
+						lblPointFidT.setText(Integer.toString(c.getCarteFidelite().getNbPoint()));
 						panel2.setVisible(true);
 					} catch (ExceptionClientInexistant e1) {
 						JOptionPane.showMessageDialog(parent,e1.getMessage(), "Le client n'existe pas",JOptionPane.WARNING_MESSAGE);
@@ -200,7 +212,7 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 						JOptionPane.showMessageDialog(parent,e2.getMessage(), "Le client n'existe pas",JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
-					JOptionPane.showMessageDialog(parent,"Le numéro doit faire 9 caractères");
+					JOptionPane.showMessageDialog(parent,"Le numï¿½ro doit faire 9 caractï¿½res");
 				}
 			} else {
 				JOptionPane.showMessageDialog(parent,"Veuillez remplir tous les champs");
@@ -305,11 +317,7 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 						e2.getMessage(), "Le client n'existe pas",
 						JOptionPane.ERROR_MESSAGE);
 			} catch (ExceptionPlageInexistante e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
 			} catch (ExceptionSalleInexistante e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
 			}
 			
 			panel3.setVisible(false);
@@ -324,11 +332,7 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 				c = RechercheClient.rechercherClient(nom, numero);
 				new FrameCreerForfait("Creer un forfait",c);
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
 			} catch (ExceptionClientInexistant e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
 			}
 
 		}
@@ -336,11 +340,41 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 		if (e.getSource() == supprR) {
 			int i= tableR.getSelectedRow();
 			int idReservation = (int) tableR.getValueAt(i,0);
-			if (tableR.getValueAt(i,7) == "Possible"){
-			JOptionPane.showMessageDialog(parent, idReservation);
+			if (tableR.getValueAt(i,7) == "Non" | tableR.getValueAt(i,7) == "Hors-dï¿½lais"){
+			JOptionPane.showMessageDialog(parent, "Rï¿½servation supprimï¿½e!");
 			RechercheClient.supprReservation(idReservation);
+			parent.revalidate();
+			parent.repaint();
 			} else {
-				JOptionPane.showMessageDialog(parent, "Suppression impossible! Réservation deja confirmée");
+				JOptionPane.showMessageDialog(parent, "Suppression impossible! Rï¿½servation deja confirmï¿½e");
+			}
+		}
+		
+		if (e.getSource() == confR) {
+			int i= tableR.getSelectedRow();
+			if (i==-1){
+				JOptionPane.showMessageDialog(parent, "Aucune ligne selectionnï¿½e");
+			} else {
+			int idReservation = (int) tableR.getValueAt(i,0);
+			if (tableR.getValueAt(i,7) == "Non" | tableR.getValueAt(i,7) == "Hors-dï¿½lais"){
+				
+			//JOptionPane.showMessageDialog(parent, "Rï¿½servation confirmï¿½e!");
+			Reservation r;
+			try {
+				r = RechercheClient.rechercheReservation(idReservation);
+				new FrameConfimationReservation("Confirmer la rï¿½servation",r);
+				
+			//	RechercheClient.setEtatPaiementBDD(true, r);
+			//	parent.revalidate();
+			//	parent.repaint();
+			} catch (SQLException | ExceptionReservationInexistante
+					| ExceptionPlageInexistante | ExceptionClientInexistant
+					| ExceptionSalleInexistante e1) {
+			}
+
+			} else {
+				JOptionPane.showMessageDialog(parent, "Rï¿½servation deja confirmï¿½e");
+			}
 			}
 		}
 			

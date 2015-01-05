@@ -242,6 +242,14 @@ public class FactoryForfait {
 	}
 	
 	
+	public void majForfait(Forfait f) {
+		String sql = "UPDATE FORFAIT SET " +
+				"NB_HEUREDISPONIBLE=" + f.getHeureDisponible() +
+				" WHERE id_forfait=" + f.getNumero();
+		
+		FactorySQL.getInstance().executeUpdate(sql);
+	}
+	
 	/**
 	 * Permet de faire la conversion entre l'objet TYPE_FORFAIT et le varchar typeForfait contenu dans la BDD
 	 * @param s Le varchar typeForfait issu de la BDD
