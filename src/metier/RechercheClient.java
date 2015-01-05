@@ -1,15 +1,74 @@
 package metier;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import data.Client;
+import data.Reservation;
+import data.forfait.Forfait;
 import exception.ExceptionClientInexistant;
+import exception.ExceptionPlageInexistante;
+import exception.ExceptionReservationInexistante;
+import exception.ExceptionSalleInexistante;
 import factory.FactoryClient;
+import factory.FactoryForfait;
+import factory.FactoryReservation;
 
 public class RechercheClient {
 
 	public static Client rechercherClient(String nom ,int numero) throws SQLException, ExceptionClientInexistant{
 		return FactoryClient.getInstance().rechercherClient(nom, numero);
+	}
+	
+		public static Object[][] VisualiserReserClient(Client c) throws SQLException, ExceptionPlageInexistante, ExceptionSalleInexistante, ExceptionReservationInexistante {
+		ArrayList<Reservation> listeRes = FactoryReservation.getInstance().rechercherByClient(c);
+		
+		// On converti le résultat en tableau à 2 dimensions pour qu'il soit lisible par le TableAbstractModel
+				Object[][] tabResult = new Object[listeRes.size()][9]; // Ici le 9 correspond aux 9 colonnes du tableaux planning
+				
+				int i =0;
+				for(Reservation r : listeRes) {
+					tabResult[i][0] = r.hashCode();
+					tabResult[i][1] = r.getDatePriseReservation();
+					tabResult[i][2] = r.getDateReservation();
+					tabResult[i][3] = r.getSalle().getNom();
+					tabResult[i][4] = r.getPlage().getHeureDebut();
+					tabResult[i][5] = r.getPlage().getHeureFin();
+					tabResult[i][6] = r.getPrix();
+					if (!r.getEtatPaiement()){
+						tabResult[i][7] = "Possible";
+					} else {
+						tabResult[i][7] = "";
+					}
+					if (!r.getEtatPaiement()){
+						tabResult[i][8] = "Non confirmée";
+					} else {
+						tabResult[i][8] = "Confirmée";
+					}					
+					i++;
+				}
+				return tabResult;
+	}
+
+	public static Object[][] VisualiserForfaitClient(Client c) throws SQLException {
+		ArrayList<Forfait> listeF = FactoryForfait.getInstance().rechercherByClient(c);
+		
+		// On converti le résultat en tableau à 2 dimensions pour qu'il soit lisible par le TableAbstractModel
+		Object[][] tabResult = new Object[listeF.size()][4]; // Ici le 4 correspond aux 4 colonnes du tableaux planning
+		
+		int i =0;
+		for(Forfait r : listeF) {
+			tabResult[i][0] = r.hashCode();
+			tabResult[i][1] = r.getHeureDisponible();
+			tabResult[i][2] = r.getDateFinValidite();
+			tabResult[i][3] = r.getType();
+			i++;
+		}
+		return tabResult;
+}
+
+	public static void supprReservation(int idReservation) {
+		FactoryReservation.getInstance().supprReservation(idReservation);		
 	}
 	
 	public static void ajouterPointFidelite(String nom, int numero, int points) throws SQLException, ExceptionClientInexistant {

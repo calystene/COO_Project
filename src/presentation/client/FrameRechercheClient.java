@@ -14,25 +14,14 @@ public class FrameRechercheClient extends JFrame {
 	
 	public FrameRechercheClient(String title) {
 		super(title);
-		
 		panel = new PanelRechercheClient(this);
 		
 		// configuration de la fenêtre
+		setSize(1100, 300);
 		setLocationRelativeTo(null);
-		setSize(300, 500);
-
-		getContentPane().setSize(300,500);
-		//setDefaultCloseOperation();
-		
-		getContentPane().add(panel);
-
-		getContentPane().setSize(300,400);
 		setLayout(new BorderLayout());
-		//setDefaultCloseOperation();
-		
-		getContentPane().add(panel, BorderLayout.CENTER);
-		
+		getContentPane().add(panel,BorderLayout.CENTER);		
 		pack();
 		setVisible(true);
-	}//fin main
+	}
 }
