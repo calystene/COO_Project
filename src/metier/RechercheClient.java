@@ -25,8 +25,10 @@ public class RechercheClient {
 			int nbHeureGratuite = c.getCarteFidelite().getNbHeureGratuite();
 			nbHeureGratuite += 1;
 			c.getCarteFidelite().setNbHeureGratuite(nbHeureGratuite);
+		} else {
+			c.getCarteFidelite().setNbPoint(nbPoints);
 		}
-		
+
 		FactoryClient.getInstance().majClient(c);
 	}
 }

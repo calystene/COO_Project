@@ -1,6 +1,5 @@
 package presentation.planning;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -23,11 +22,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import data.horaire.TRANCHE;
 import data.salle.TYPE_SALLE;
 import exception.ExceptionClientInexistant;
 import exception.ExceptionPlageInexistante;
 
+@SuppressWarnings("serial")
 public class PanelVisualiserPlanning extends JPanel implements ActionListener {
 	JFrame parent;
 	GridBagConstraints gbc;

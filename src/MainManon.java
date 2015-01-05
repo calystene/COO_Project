@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import metier.RechercheClient;
+
 import org.hsqldb.DatabaseManager;
 
 import util.date.DateManager;
@@ -53,10 +55,16 @@ public class MainManon {
 		liste = FactoryReservation.getInstance().listeReservationDate(DateManager.dateToSQL(d1));
 		
 		for(Reservation r : liste) {
-			System.out.println(r.toString());
-			System.out.println(r.getClient().toString());
+			System.out.println(r + " " + r.hashCode()  + " - Hash Client : "  + r.getClient().hashCode() + " - Hash Tranche :" + r.getPlage().getTranche().toString().hashCode());
 		}
 		
+		//FactoryReservation.getInstance().supprReservation(965600399);
+		
+		for(Reservation r : liste) {
+			System.out.println(r + " " + r.hashCode()  + " "  + r.getClient() + " " + r.getPlage());
+		}
+		
+		//RechercheClient.ajouterPointFidelite("Pierard",637571940,10);
 		//FactoryReservation.getInstance(). supprReservation(175590558);
 		//Reservation reser = FactoryReservation.getInstance(). rechercheReservation(d2, c); 
 		

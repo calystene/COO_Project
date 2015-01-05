@@ -23,7 +23,7 @@ public class Reservation {
 	// Constructors
 	//
 	public Reservation(Date dPR, Date dR, PlageHoraire pl, float p, Client c,
-			Salle s, int duree) {
+			Salle s, int d) {
 
 		datePriseReservation = dPR;
 		dateReservation = dR;
@@ -32,6 +32,7 @@ public class Reservation {
 		prix = p;
 		client = c;
 		salle = s;
+		duree = d;
 	};
 
 	/**
@@ -140,7 +141,7 @@ public class Reservation {
 	 */
 	public int hashCode() {
 		int hash = 1;
-		hash = hash * 31 + plage.getTranche().hashCode();
+		hash = hash * 31 + plage.getTranche().toString().hashCode();
 		hash = hash * 21 + client.hashCode();
 		hash = hash * 11 + dateReservation.hashCode();
 		

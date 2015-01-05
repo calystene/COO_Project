@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class FrameEffectuerReservation extends JFrame {
 
 	JPanel panel;

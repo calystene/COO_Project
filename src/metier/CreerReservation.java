@@ -268,22 +268,19 @@ public class CreerReservation {
 					if (hFinResa > 13) {
 						check = false;
 					}
-					
-					if(hFinResa>13) throw new ExceptionCreneauNonDisponible("Plage horaire illegal");
+
 					break;
 				case AM:
 					if (hFinResa > 20) {
 						check = false;
 					}
-					
-					if(hFinResa>20) throw new ExceptionCreneauNonDisponible("Plage horaire illegal");
+
 					break;
 				case SOIR:
 					if (hFinResa > 24) {
 						check = false;
 					}
 					
-					if(hFinResa>24) throw new ExceptionCreneauNonDisponible("Plage horaire illegal");
 					break;
 				}
 				

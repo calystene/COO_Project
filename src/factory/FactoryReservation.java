@@ -49,6 +49,7 @@ public class FactoryReservation {
 	public Reservation creerReservation (Date dPR, Date dR, PlageHoraire plage, float p, Client c, Salle s, int duree) throws ExceptionReservationExistante, SQLException{
 		Reservation r = new Reservation (dPR, dR, plage, p, c, s, duree);
 		int idReservation = r.hashCode();
+		
 		// On vérifie l'existence de la Reservation dans le cache
 				if (cacheReservation.containsKey(idReservation))
 					throw new ExceptionReservationExistante("La reservation existe déjà");
@@ -100,8 +101,10 @@ public class FactoryReservation {
 		//Suppression dans le cache
 		cacheReservation.remove(idReservation);
 		//Suppression dans la BDD
-		String sql = "DELETE FROM RESERVATION WHERE id_reservation='" + idReservation +"'" ;
+		String sql = "DELETE FROM RESERVATION WHERE id_reservation=" + idReservation;
+		
 		FactorySQL.getInstance().executeUpdate(sql);
+		
 	}
 	
 //	/**
@@ -227,6 +230,7 @@ public class FactoryReservation {
 		while (rs.next()) {
 			Date dPR = rs.getDate("datePriseReservation");
 			PlageHoraire plage = FactoryPlageHoraire.getInstance().rechercherPlageHoraire(rs.getInt("fk_plageHoraire"));
+			
 			float p = rs.getFloat("prix");
 			Client c = FactoryClient.getInstance().rechercherClient(rs.getString("nom"),rs.getInt("numero"));
 			Salle s = FactorySalle.getInstance().rechercheSalle(rs.getInt("fk_salle"));
@@ -294,7 +298,7 @@ public class FactoryReservation {
 			float p = rs.getFloat("prix");
 			Client c = FactoryClient.getInstance().rechercherClient(rs.getString("nom"),rs.getInt("numero"));
 			int duree = rs.getInt("duree");
-			System.out.println("Ici durée Fact :" + duree);
+
 			Reservation r = new Reservation (dPR, dR,plage, p, c, s, duree);
 			lesReservations.add(r);
 		}

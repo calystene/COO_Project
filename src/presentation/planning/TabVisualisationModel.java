@@ -10,6 +10,7 @@ import data.salle.TYPE_SALLE;
 import exception.ExceptionClientInexistant;
 import exception.ExceptionPlageInexistante;
 
+@SuppressWarnings("serial")
 public class TabVisualisationModel extends AbstractTableModel {
 	private final String[] entetes = {"Nom salle","Tranche","Heure début", "Heure fin", "Confirmée", "Client"};
 	private final Object[][] datas;

@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class PanelEffectuerReservation extends JPanel implements ActionListener {
 	JFrame parent;
 	CardLayout cl;

@@ -23,7 +23,6 @@ import javax.swing.JTextField;
 
 import util.date.DateManager;
 import metier.CreerClient;
-import metier.CreerReservation;
 import metier.CreerReservationAdmin;
 import metier.RechercheClient;
 import data.Client;
@@ -40,6 +39,7 @@ import exception.ExceptionReservationExistante;
 import exception.ExceptionSalleInexistante;
 
 
+@SuppressWarnings("serial")
 public class PanelResaManuel extends JPanel implements ActionListener {
 	JFrame parent;
 
