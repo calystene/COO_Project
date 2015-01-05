@@ -107,7 +107,7 @@ public class FactoryClient {
 
 		// A ce stade le client n'est pas en cache, on recherche dans la BDD
 		String sql = "SELECT id_client, prenom, nom, numero, nbPoint, nbHeureGratuite FROM CLIENT WHERE numero="
-				+ numero + " AND nom='" + nom + "';";
+				+ numero + " AND LCASE(nom)=LCASE('" + nom + "');";
 		
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
 		
@@ -158,8 +158,8 @@ public class FactoryClient {
 		}
 
 		// A ce stade le client n'est pas en cache, on recherche dans la BDD
-		String sql = "SELECT id_client, prenom, nom, numero, nbPoint, nbHeureGratuite FROM CLIENT WHERE prenom='"
-				+ prenom + "' AND NOM='" + nom + "'";
+		String sql = "SELECT id_client, prenom, nom, numero, nbPoint, nbHeureGratuite FROM CLIENT WHERE LCASE(prenom)=LCASE('"
+				+ prenom + "') AND LCASE(NOM)=LCASE('" + nom + "')";
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
 		rs.last(); // On place le curseur sur la dernière ligne
 		int nbLigne = rs.getRow(); // On récupère le numéro de ligne (si 0 alors
