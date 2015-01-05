@@ -13,7 +13,7 @@ import exception.ExceptionSalleInexistante;
 @SuppressWarnings("serial")
 public class TabRechercheClientReseservaionModel extends AbstractTableModel {
 	
-	String  title[] = {"Id_Reservation","Date_Limite_Reservation","Date_Reservation","Salle","H_Début","H_Fin","Prix","Supression","Etat_Confirmation"};
+	String  title[] = {"Id_Reservation","Date_Limite_Reservation","Date_Reservation","Salle","H_DÃ©but","H_Fin","Prix","Confirmation"};
 	private final Object[][] datas;
 	
 	public TabRechercheClientReseservaionModel(Client c) throws SQLException, ExceptionPlageInexistante, ExceptionSalleInexistante, ExceptionReservationInexistante {

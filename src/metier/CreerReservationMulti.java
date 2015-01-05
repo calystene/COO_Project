@@ -255,6 +255,13 @@ public class CreerReservationMulti {
 				"Le créneaux demandé est indisponible pour ces critères");
 	}
 
+	public static ArrayList<PlageHoraire> verifPlagesLibres(Date date, TRANCHE tranche,
+			TYPE_SALLE typeS, int duree, int nbSemaine) {
+		
+		
+		return null;
+	}
+	
 	/**
 	 * Même principe que l'algo verifPlageLibre mais retourne une salle et non
 	 * une plage
@@ -441,6 +448,8 @@ public class CreerReservationMulti {
 		return r;
 	}
 
+	
+	
 	public static ArrayList<Reservation> creerReservationMulti(Date dateResa,
 			PlageHoraire plageH, int numeroC, String nomC, TYPE_SALLE typeS,
 			int duree, int nbSemaine) throws ExceptionResaMultiImpossible,
@@ -456,6 +465,7 @@ public class CreerReservationMulti {
 				r = creerReservation(nextDate, plageH, numeroC, nomC, typeS,
 						duree);
 				listeResa.add(r);
+				nextDate = DateManager.addOneWeekFromDate(nextDate);
 			}
 		} catch (SQLException | ExceptionClientInexistant
 				| ExceptionPlageInexistante | ExceptionSalleInexistante

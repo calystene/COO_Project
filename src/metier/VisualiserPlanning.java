@@ -47,9 +47,9 @@ public class VisualiserPlanning {
 			
 			// L'état de la réservation
 			Date dateMaxResa = DateManager.addOneWeekFromDate(r.getDatePriseReservation());
-			if(r.getEtatPaiement()==false && DateManager.getDate().compareTo(dateMaxResa)==1) {
+			if(!r.getEtatPaiement() && DateManager.getDate().compareTo(dateMaxResa)==1) {
 				tabResult[i][4] = "Hors-délais";
-			} else if (r.getEtatPaiement()==false) {
+			} else if (!r.getEtatPaiement()) {
 				tabResult[i][4] = "Non";
 			} else {
 				tabResult[i][4] = "Oui";

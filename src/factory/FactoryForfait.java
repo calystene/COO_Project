@@ -41,7 +41,7 @@ public class FactoryForfait {
 	public Forfait creerForfait(Client c, TYPE_FORFAIT t) throws ExceptionForfaitExistant,
 			SQLException {
 
-		int idForfait = Math.abs(t.hashCode() + c.hashCode());
+		int idForfait = Math.abs(t.toString().hashCode() + c.hashCode());
 		String msgException = "Le forfait existe déjà";
 
 		// On vérifie l'existence du forfait dans le cache
@@ -183,8 +183,7 @@ public class FactoryForfait {
 			hDispo = rs.getInt("nb_heureDisponible");
 			prix = rs.getInt("prix");
 			libelle = rs.getString("libelle");
-			
-			idForfait = Math.abs(type.hashCode() + c.hashCode());
+			idForfait = rs.getInt("id_forfait");
 			
 			f = new Forfait(type, dFinValidite, hDispo, prix, libelle);
 			f.setNumero(idForfait);

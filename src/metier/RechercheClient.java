@@ -3,6 +3,7 @@ package metier;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import util.date.DateManager;
 import data.Client;
 import data.Reservation;
 import data.forfait.Forfait;
@@ -24,7 +25,7 @@ public class RechercheClient {
 		ArrayList<Reservation> listeRes = FactoryReservation.getInstance().rechercherByClient(c);
 		
 		// On converti le résultat en tableau à 2 dimensions pour qu'il soit lisible par le TableAbstractModel
-				Object[][] tabResult = new Object[listeRes.size()][9]; // Ici le 9 correspond aux 9 colonnes du tableaux planning
+				Object[][] tabResult = new Object[listeRes.size()][8]; // Ici le 9 correspond aux 9 colonnes du tableaux planning
 				
 				int i =0;
 				for(Reservation r : listeRes) {
@@ -39,12 +40,7 @@ public class RechercheClient {
 						tabResult[i][7] = "Possible";
 					} else {
 						tabResult[i][7] = "";
-					}
-					if (!r.getEtatPaiement()){
-						tabResult[i][8] = "Non confirmée";
-					} else {
-						tabResult[i][8] = "Confirmée";
-					}					
+					}			
 					i++;
 				}
 				return tabResult;
@@ -56,11 +52,11 @@ public class RechercheClient {
 		// On converti le résultat en tableau à 2 dimensions pour qu'il soit lisible par le TableAbstractModel
 		Object[][] tabResult = new Object[listeF.size()][4]; // Ici le 4 correspond aux 4 colonnes du tableaux planning
 		
-		int i =0;
+		int i = 0;
 		for(Forfait r : listeF) {
-			tabResult[i][0] = r.hashCode();
+			tabResult[i][0] = r.getNumero();;
 			tabResult[i][1] = r.getHeureDisponible();
-			tabResult[i][2] = r.getDateFinValidite();
+			tabResult[i][2] = DateManager.valueOf(r.getDateFinValidite());
 			tabResult[i][3] = r.getType();
 			i++;
 		}

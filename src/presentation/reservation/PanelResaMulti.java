@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 
 import metier.CreerClient;
 import metier.CreerReservationAdmin;
+import metier.CreerReservationMulti;
 import metier.RechercheClient;
 import util.date.DateManager;
 import data.Client;
@@ -233,7 +234,7 @@ public class PanelResaMulti extends JPanel implements ActionListener {
 				ts = (TYPE_SALLE) cbTypeSalle.getSelectedItem();
 				duree = Integer.parseInt(jtfDuree.getText());
 
-				ph = CreerReservationAdmin.verifPlageLibre(d, t, ts,
+				ph = CreerReservationMulti.verifPlageLibre(d, t, ts,
 							duree);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -265,8 +266,8 @@ public class PanelResaMulti extends JPanel implements ActionListener {
 			if (ph != null) {
 				Object[] options = {"Oui", "Non"};
 				int choice = JOptionPane.showOptionDialog(parent,
-						"Le créneaux horaire " + ph + " est disponible. Souhaitez-vous le réserver ?",
-						"Créneau Disponible", 
+						"Les réservations pour le créneaux horaire " + ph + " sont disponibles. Souhaitez-vous les réserver ?",
+						"Créneaux Disponibles", 
 						JOptionPane.YES_NO_CANCEL_OPTION,
 						JOptionPane.INFORMATION_MESSAGE,
 						null,
@@ -314,7 +315,7 @@ public class PanelResaMulti extends JPanel implements ActionListener {
 						
 						try {
 							// Création de la réservation
-							r = CreerReservationAdmin.creerReservation(d, ph, c.getNumero(), c.getNom(), ts, duree);
+							r = CreerReservationMulti.creerReservation(d, ph, c.getNumero(), c.getNom(), ts, duree);
 							
 							// JOptionPane affichant le résumé de la réservation
 							JOptionPane.showMessageDialog(parent,
