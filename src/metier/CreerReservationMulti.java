@@ -20,7 +20,6 @@ import exception.ExceptionPlageInexistante;
 import exception.ExceptionResaMultiImpossible;
 import exception.ExceptionReservationExistante;
 import exception.ExceptionSalleInexistante;
-import factory.FactoryPlageHoraire;
 import factory.FactoryReservation;
 import factory.FactorySalle;
 

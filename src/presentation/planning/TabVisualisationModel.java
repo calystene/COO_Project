@@ -12,7 +12,7 @@ import exception.ExceptionPlageInexistante;
 
 @SuppressWarnings("serial")
 public class TabVisualisationModel extends AbstractTableModel {
-	private final String[] entetes = {"Nom salle","Tranche","Heure début", "Heure fin", "Confirmée", "Client"};
+	private final String[] entetes = {"Nom salle","Date","Tranche","Heure début", "Heure fin", "Confirmée", "Client"};
 	private final Object[][] datas;
 	
 	public TabVisualisationModel(TYPE_SALLE ts, Date d) throws SQLException, ExceptionPlageInexistante, ExceptionClientInexistant {
@@ -20,6 +20,11 @@ public class TabVisualisationModel extends AbstractTableModel {
 		datas = VisualiserPlanning.planningSalleDate(ts, d);
 	}
 
+	public TabVisualisationModel(TYPE_SALLE ts) throws SQLException, ExceptionPlageInexistante, ExceptionClientInexistant {
+		super();
+		datas = VisualiserPlanning.planningSalle(ts);
+	}
+	
 	@Override
 	public int getColumnCount() {
 		return entetes.length;

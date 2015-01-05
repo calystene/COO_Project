@@ -16,7 +16,7 @@ public class FrameVisualiserPlanning extends JFrame {
 		
 		// configuration de la fenêtre
 		setLocationRelativeTo(null);
-		setSize(500, 600);
+		setSize(650, 600);
 		
 		getContentPane().add(panel);
 		getContentPane().setSize(500, 600);
