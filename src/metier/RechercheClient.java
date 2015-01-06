@@ -1,6 +1,5 @@
 package metier;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,7 +15,6 @@ import exception.ExceptionSalleInexistante;
 import factory.FactoryClient;
 import factory.FactoryForfait;
 import factory.FactoryReservation;
-import factory.FactorySQL;
 
 public class RechercheClient {
 
@@ -24,7 +22,7 @@ public class RechercheClient {
 			throws SQLException, ExceptionClientInexistant {
 		return FactoryClient.getInstance().rechercherClient(nom, numero);
 	}
-
+	
 	public static Object[][] VisualiserReserClient(Client c)
 			throws SQLException, ExceptionPlageInexistante,
 			ExceptionSalleInexistante, ExceptionReservationInexistante {
@@ -120,19 +118,6 @@ public class RechercheClient {
 		FactoryReservation.getInstance().majReservation(r);
 	}
 
-	public static boolean getEtatPaiementBDD(Reservation r)
-			throws SQLException, ExceptionReservationInexistante {
-		String sql = "SELECT etatPaiement FROM RESERVATION WHERE id_reservation="
-				+ r.hashCode();
-		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
-		rs.last();
-		int nbLigne = rs.getRow();
-		if (nbLigne <= 0)
-			throw new ExceptionReservationInexistante(
-					"La Reservation n'existe pas");
-		Boolean etat = rs.getBoolean("etatPaiement");
-		return etat;
-	}
 
 	public static Reservation rechercheReservation(int idReservation)
 			throws SQLException, ExceptionReservationInexistante,

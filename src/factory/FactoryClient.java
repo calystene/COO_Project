@@ -85,7 +85,7 @@ public class FactoryClient {
 	 * @throws SQLException
 	 * @throws ExceptionClientInexistant
 	 */
-	public Client rechercherClient(String nom, int numero) throws SQLException,
+	public Client rechercherClient(String pnom, int numero) throws SQLException,
 			ExceptionClientInexistant {
 
 		// On recherche d'abord dans le cache
@@ -97,17 +97,14 @@ public class FactoryClient {
 
 			c = cacheClients.get(it);
 
-			if (c != null && c.getNom().equals(nom) && c.getNumero() == numero) {
-				System.out.println(c.getNom() + " " + c.getNumero());
-				System.out.println(nom + " " + numero);
-				return c;
-				
+			if (c != null && c.getNom().equals(pnom) && c.getNumero() == numero) {
+				return c;		
 			}
 		}
 
 		// A ce stade le client n'est pas en cache, on recherche dans la BDD
 		String sql = "SELECT id_client, prenom, nom, numero, nbPoint, nbHeureGratuite FROM CLIENT WHERE numero="
-				+ numero + " AND LCASE(nom)=LCASE('" + nom + "');";
+				+ numero + " AND LCASE(nom)=LCASE('" + pnom + "');";
 		
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
 		
@@ -120,6 +117,7 @@ public class FactoryClient {
 
 		// A ce stade le client existe, on récupère les informations et on
 		// return le Client
+		String nom = rs.getString("nom");
 		String prenom = rs.getString("prenom");
 		int nbPoint = rs.getInt("nbPoint");
 		int nbHeureGratuite = rs.getInt("nbHeureGratuite");
@@ -142,7 +140,7 @@ public class FactoryClient {
 	 * @throws SQLException
 	 * @throws ExceptionClientInexistant
 	 */
-	public Client rechercherClient(String prenom, String nom)
+	public Client rechercherClient(String pprenom, String pnom)
 			throws SQLException, ExceptionClientInexistant {
 
 		// On recherche d'abord dans le cache
@@ -152,14 +150,14 @@ public class FactoryClient {
 		while (it.hasNext()) {
 			c = cacheClients.get(it);
 
-			if (c != null && c.getPrenom().equals(prenom)
-					&& c.getNom().equals(nom))
+			if (c != null && c.getPrenom().equals(pprenom)
+					&& c.getNom().equals(pnom))
 				return c;
 		}
 
 		// A ce stade le client n'est pas en cache, on recherche dans la BDD
 		String sql = "SELECT id_client, prenom, nom, numero, nbPoint, nbHeureGratuite FROM CLIENT WHERE LCASE(prenom)=LCASE('"
-				+ prenom + "') AND LCASE(NOM)=LCASE('" + nom + "')";
+				+ pprenom + "') AND LCASE(NOM)=LCASE('" + pnom + "')";
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
 		rs.last(); // On place le curseur sur la dernière ligne
 		int nbLigne = rs.getRow(); // On récupère le numéro de ligne (si 0 alors
@@ -172,6 +170,8 @@ public class FactoryClient {
 
 		// A ce stade le client existe, on récupère les informations et on
 		// return le Client
+		String nom = rs.getString("nom");
+		String prenom = rs.getString("prenom");
 		int numero = rs.getInt("numero");
 		int nbPoint = rs.getInt("nbPoint");
 		int nbHeureGratuite = rs.getInt("nbHeureGratuite");

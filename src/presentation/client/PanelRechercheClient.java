@@ -22,7 +22,10 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellEditor;
 
+import presentation.planning.DateCellRenderer;
+import presentation.planning.HeureCellRenderer;
 import presentation.planning.NomCellRenderer;
+import presentation.planning.StatutCellRenderer;
 import metier.RechercheClient;
 import data.Client;
 import data.Reservation;
@@ -37,6 +40,7 @@ import factory.FactoryReservation;
 @SuppressWarnings("serial")
 public class PanelRechercheClient  extends JPanel implements ActionListener {
 	JFrame parent;
+	Client c;
 	
 	//Objet Panel1
 	JPanel panel1 = new JPanel();
@@ -54,11 +58,11 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 	JPanel panel2 = new JPanel();
 	
 	JLabel lblNom2 = new JLabel("Nom :");
-	JLabel lblNumero2 = new JLabel("T�l�phone :");
-	JLabel lblPrenom2 = new JLabel("Pr�nom :");
+	JLabel lblNumero2 = new JLabel("Téléphone :");
+	JLabel lblPrenom2 = new JLabel("Prénom :");
 	JLabel lblIdentifiant2 = new JLabel("Identifiant :");
-	JLabel lblPointFid = new JLabel("Nbr points carte fidelit� :");
-	JLabel lblHeureDisp = new JLabel("Nbr heure carte fidelit� :");
+	JLabel lblPointFid = new JLabel("Nbr points carte fidelité :");
+	JLabel lblHeureDisp = new JLabel("Nbr heure carte fidelité :");
 	JLabel lblNom2T = new JLabel("");
 	JLabel lblNumero2T = new JLabel("");
 	JLabel lblPrenom2T = new JLabel("");
@@ -66,7 +70,7 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 	JLabel lblPointFidT = new JLabel("");
 	JLabel lblHeureDispT = new JLabel("");
 
-	JButton btnAfficherRes2 = new JButton("Afficher les r�servations");
+	JButton btnAfficherRes2 = new JButton("Afficher les réservations");
 	JButton btnAfficherFor2 = new JButton("Afficher les forfaits");
 	
 	//Objet Panel3
@@ -82,7 +86,7 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 	JPanel panel4 = new JPanel();
 	JPanel panelTableauF = new JPanel();
 	JTable tableF = new JTable();
-	JButton creerForfait = new JButton("Cr�er un forfait");
+	JButton creerForfait = new JButton("Créer un forfait");
 	
 	
 	public PanelRechercheClient(JFrame pere) {
@@ -159,9 +163,9 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 			panel3.add(panelBouton, BorderLayout.SOUTH);
 	
 			panel3.setBorder(BorderFactory.createTitledBorder(
-					BorderFactory.createLineBorder(Color.black), "R�servations du client"));
+					BorderFactory.createLineBorder(Color.black), "Réservations du client"));
 			panelBouton.setBorder(BorderFactory.createTitledBorder(
-					BorderFactory.createLineBorder(Color.black), "S�lectionner une ligne"));
+					BorderFactory.createLineBorder(Color.black), "Sélectionner une ligne"));
 			
 			supprR.addActionListener(this);
 			confR.addActionListener(this);
@@ -198,13 +202,13 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 					String nom = jtfNom.getText();
 					int numero = Integer.parseInt(jtfNumero.getText());
 					try {
-						Client c =  RechercheClient.rechercherClient(nom, numero);
+						c =  RechercheClient.rechercherClient(nom, numero);
 						lblNom2T.setText(c.getNom());
 						lblPrenom2T.setText(c.getPrenom());
 						lblNumero2T.setText("0"+Integer.toString(c.getNumero()));
 						lblIdentifiant2T.setText(Integer.toString(c.hashCode()));
-						lblHeureDispT.setText(Integer.toString(c.getCarteFidelite().getNbHeureGratuite()));
-						lblPointFidT.setText(Integer.toString(c.getCarteFidelite().getNbPoint()));
+						lblHeureDispT.setText(Integer.toString(c.getCarteFidelite().getNbHeureGratuite()) + "h");
+						lblPointFidT.setText(Integer.toString(c.getCarteFidelite().getNbPoint()) + " points");
 						panel2.setVisible(true);
 					} catch (ExceptionClientInexistant e1) {
 						JOptionPane.showMessageDialog(parent,e1.getMessage(), "Le client n'existe pas",JOptionPane.WARNING_MESSAGE);
@@ -212,7 +216,7 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 						JOptionPane.showMessageDialog(parent,e2.getMessage(), "Le client n'existe pas",JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
-					JOptionPane.showMessageDialog(parent,"Le num�ro doit faire 9 caract�res");
+					JOptionPane.showMessageDialog(parent,"Le numéro doit faire 9 caractères");
 				}
 			} else {
 				JOptionPane.showMessageDialog(parent,"Veuillez remplir tous les champs");
@@ -229,7 +233,7 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 				tableR.removeAll();
 			} catch (NullPointerException e2) {}
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setPreferredSize(new Dimension(750,250));
+			scrollPane.setPreferredSize(new Dimension(750,220));
 			
 			//Parametre tableauR
 			String nom = jtfNom.getText();
@@ -245,19 +249,24 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 				}
 				tableR.setAutoCreateRowSorter(true);
 				tableR.getTableHeader().setPreferredSize(new Dimension(750,30));
-				tableR.setPreferredSize(new Dimension(750,250));
+				//tableR.setPreferredSize(new Dimension(750,250));
 				
 				tableR.getColumnModel().getColumn(0).setCellRenderer(new NomCellRenderer());
-				//tableR.getColumnModel().getColumn(7).setCellRenderer(new BoutonCellRenderer());
-				//tableR.getColumnModel().getColumn(8).setCellRenderer(new BoutonCellRenderer());
-				//tableR.getColumnModel().getColumn(8).setCellRenderer(new BoutonCellRenderer());
-				
-				//tableR.getColumnModel().getColumn(8).setCellRenderer(new ButtonRenderer());
-				//tableR.getColumnModel().getColumn(8).setCellEditor((TableCellEditor) new ButtonEditor(new JCheckBox()));
+				tableR.getColumnModel().getColumn(1).setCellRenderer(new DateCellRenderer());
+				tableR.getColumnModel().getColumn(2).setCellRenderer(new DateCellRenderer());
+				tableR.getColumnModel().getColumn(3).setCellRenderer(new NomCellRenderer());
+				tableR.getColumnModel().getColumn(4).setCellRenderer(new HeureCellRenderer());
+				tableR.getColumnModel().getColumn(5).setCellRenderer(new HeureCellRenderer());
+				tableR.getColumnModel().getColumn(6).setCellRenderer(new NomCellRenderer());
+				tableR.getColumnModel().getColumn(7).setCellRenderer(new StatutCellRenderer());
 				
 				panelTableauR.removeAll();
+				
+				tableR.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				
+				scrollPane.setViewportView(tableR);
 				panelTableauR.add(tableR.getTableHeader());
-				panelTableauR.add(scrollPane.add(tableR));
+				panelTableauR.add(scrollPane);
 				
 				parent.revalidate();
 				parent.repaint();
@@ -340,29 +349,29 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 		if (e.getSource() == supprR) {
 			int i= tableR.getSelectedRow();
 			int idReservation = (int) tableR.getValueAt(i,0);
-			if (tableR.getValueAt(i,7) == "Non" | tableR.getValueAt(i,7) == "Hors-d�lais"){
-			JOptionPane.showMessageDialog(parent, "R�servation supprim�e!");
+			if (tableR.getValueAt(i,7) == "Non" | tableR.getValueAt(i,7) == "Hors-délais"){
+			JOptionPane.showMessageDialog(parent, "Réservation supprimée!");
 			RechercheClient.supprReservation(idReservation);
 			parent.revalidate();
 			parent.repaint();
 			} else {
-				JOptionPane.showMessageDialog(parent, "Suppression impossible! R�servation deja confirm�e");
+				JOptionPane.showMessageDialog(parent, "Suppression impossible! Réservation deja confirmée");
 			}
 		}
 		
 		if (e.getSource() == confR) {
 			int i= tableR.getSelectedRow();
 			if (i==-1){
-				JOptionPane.showMessageDialog(parent, "Aucune ligne selectionn�e");
+				JOptionPane.showMessageDialog(parent, "Aucune ligne selectionnée");
 			} else {
 			int idReservation = (int) tableR.getValueAt(i,0);
-			if (tableR.getValueAt(i,7) == "Non" | tableR.getValueAt(i,7) == "Hors-d�lais"){
+			if (tableR.getValueAt(i,7) == "Non" | tableR.getValueAt(i,7) == "Hors-délais"){
 				
-			//JOptionPane.showMessageDialog(parent, "R�servation confirm�e!");
+			//JOptionPane.showMessageDialog(parent, "Réservation confirmée!");
 			Reservation r;
 			try {
 				r = RechercheClient.rechercheReservation(idReservation);
-				new FrameConfimationReservation("Confirmer la r�servation",r);
+				new FrameConfimationReservation("Confirmer la réservation",r);
 				
 			//	RechercheClient.setEtatPaiementBDD(true, r);
 			//	parent.revalidate();
@@ -370,10 +379,11 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 			} catch (SQLException | ExceptionReservationInexistante
 					| ExceptionPlageInexistante | ExceptionClientInexistant
 					| ExceptionSalleInexistante e1) {
+				e1.printStackTrace();
 			}
 
 			} else {
-				JOptionPane.showMessageDialog(parent, "R�servation deja confirm�e");
+				JOptionPane.showMessageDialog(parent, "Réservation deja confirmée");
 			}
 			}
 		}

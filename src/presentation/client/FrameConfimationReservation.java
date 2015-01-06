@@ -6,10 +6,10 @@ import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import data.Client;
 import data.Reservation;
 import exception.ExceptionClientInexistant;
 
+@SuppressWarnings("serial")
 public class FrameConfimationReservation extends JFrame {
 	
 	JPanel panel;
@@ -24,7 +24,7 @@ public class FrameConfimationReservation extends JFrame {
 		setSize(600, 500);
 		getContentPane().setSize(600, 500);
 		//setDefaultCloseOperation();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		getContentPane().add(panel);
 		getContentPane().setSize(600, 500);

@@ -157,7 +157,7 @@ public class FactoryReservation {
 			return r;		
 		} else {
 		//Sinon on recherche dans la BDD
-		String sql = "SELECT datePriseReservation, dateReservation, prix, duree, nom, numero, fk_plageHoraire, fk_salle FROM RESERVATION, CLIENT WHERE "
+		String sql = "SELECT datePriseReservation, dateReservation, prix, duree, nom, numero, etatpaiement, fk_plageHoraire, fk_salle FROM RESERVATION, CLIENT WHERE "
 				+ "id_reservation=" +  idReservation 
 				+ " AND fk_client = id_client";
 		ResultSet rs = FactorySQL.getInstance().getResultSet(sql);
@@ -291,7 +291,7 @@ public class FactoryReservation {
 	 */
 	public ArrayList<Reservation> rechercherBySalle(Salle s) throws SQLException, ExceptionPlageInexistante, ExceptionClientInexistant{
 		ArrayList<Reservation> lesReservations = new ArrayList<Reservation>();
-		String sql = "SELECT datePriseReservation, dateReservation, prix, CLIENT.nom, numero, duree, heure_debut, heure_fin, tranche, fk_plageHoraire FROM RESERVATION, CLIENT, PLAGE_HORAIRE WHERE "
+		String sql = "SELECT datePriseReservation, dateReservation, prix, CLIENT.nom, numero, duree, heure_debut, heure_fin, tranche, etatpaiement, fk_plageHoraire FROM RESERVATION, CLIENT, PLAGE_HORAIRE WHERE "
 				+ "fk_client = id_client AND "
 				+ "fk_plagehoraire = id_plagehoraire AND "
 				+ "fk_salle ='" + s.hashCode() + "' "
@@ -308,6 +308,8 @@ public class FactoryReservation {
 			int duree = rs.getInt("duree");
 
 			Reservation r = new Reservation (dPR, dR,plage, p, c, s, duree);
+			r.setEtatPaiement(rs.getBoolean("etatpaiement"));
+			
 			lesReservations.add(r);
 		}
 		

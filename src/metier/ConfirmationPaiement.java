@@ -2,17 +2,14 @@ package metier;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 
-import data.Client;
 import data.Reservation;
 import data.forfait.Forfait;
-import data.forfait.TYPE_FORFAIT;
 import data.horaire.TRANCHE;
-import exception.ExceptionForfaitExistant;
 import exception.ExceptionReservationInexistante;
 import factory.FactoryClient;
 import factory.FactoryForfait;
+import factory.FactoryReservation;
 import factory.FactorySQL;
 
 public class ConfirmationPaiement {
@@ -55,9 +52,8 @@ public class ConfirmationPaiement {
 			prixNew *= 1.02;
 		}
 		
-		String sql = "UPDATE reservation SET prix ="+prixNew+" where id_reservation="+r.hashCode();
-		FactorySQL.getInstance().executeUpdate(sql);
-		
+		r.setPrix(prixNew);
+		FactoryReservation.getInstance().majReservation(r);
 	}
 
 	public static void utilisationForfait(Reservation r, Forfait f) {
@@ -88,8 +84,7 @@ public class ConfirmationPaiement {
 			prixNew *= 1.02;
 		}
 		
-		String sql = "UPDATE reservation SET prix ="+prixNew+" where id_reservation="+r.hashCode();
-		FactorySQL.getInstance().executeUpdate(sql);
-		
+		r.setPrix(prixNew);
+		FactoryReservation.getInstance().majReservation(r);
 	}
 }
