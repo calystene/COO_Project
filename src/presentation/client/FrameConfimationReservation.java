@@ -13,9 +13,11 @@ import exception.ExceptionClientInexistant;
 public class FrameConfimationReservation extends JFrame {
 	
 	JPanel panel;
+	JFrame parent;
 	
-	public FrameConfimationReservation(String title, Reservation r) throws SQLException, ExceptionClientInexistant {
+	public FrameConfimationReservation(JFrame parent, String title, Reservation r) throws SQLException, ExceptionClientInexistant {
 		super(title);
+		this.parent = parent;
 		
 		panel = new PanelConfirmationReservation(this,r);
 		
@@ -36,4 +38,5 @@ public class FrameConfimationReservation extends JFrame {
 		pack();
 		setVisible(true);
 	}
+	
 }

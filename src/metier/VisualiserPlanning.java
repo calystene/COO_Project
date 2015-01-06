@@ -10,6 +10,7 @@ import data.salle.Salle;
 import data.salle.TYPE_SALLE;
 import exception.ExceptionClientInexistant;
 import exception.ExceptionPlageInexistante;
+import factory.FactoryReservation;
 import factory.FactorySalle;
 
 public class VisualiserPlanning {
@@ -57,6 +58,7 @@ public class VisualiserPlanning {
 			
 			// L'état de la réservation
 			Date dateMaxResa = DateManager.addOneWeekFromDate(r.getDatePriseReservation());
+
 			if(!r.getEtatPaiement() && DateManager.getDate().compareTo(dateMaxResa)==1) {
 				tabResult[i][5] = "Hors-délais";
 			} else if (!r.getEtatPaiement()) {
@@ -121,5 +123,21 @@ public class VisualiserPlanning {
 			i++;
 		}
 		return tabResult;
+	}
+	
+	public static void suppHorsdelais() throws SQLException, ExceptionPlageInexistante, ExceptionClientInexistant {
+		ArrayList<Salle> listeSalle = FactorySalle.getInstance().listeSalleBDD();
+		
+		for (Salle s : listeSalle) {
+			ArrayList<Reservation> listeResa = s.getReservation();
+			
+			for(Reservation r : listeResa) {
+				Date dateMax = DateManager.addOneWeekFromDate(r.getDatePriseReservation());
+				
+				if(DateManager.getDate().compareTo(dateMax) ==1)  {
+					FactoryReservation.getInstance().supprReservation(r.hashCode());
+				}
+			}
+		}
 	}
 }

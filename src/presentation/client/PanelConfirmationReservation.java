@@ -123,13 +123,16 @@ public class PanelConfirmationReservation extends JPanel implements ActionListen
 		panel3.setLayout(new GridBagLayout());
 		panel3.setPreferredSize(new Dimension(250, 80));
 		
-		int numForfait = Integer.valueOf(cbForfait.getSelectedItem().toString());
+		
 		try {
+			int numForfait = Integer.valueOf(cbForfait.getSelectedItem().toString());
 			Forfait f = FactoryForfait.getInstance().rechercherForfait(numForfait);
 			lblHeureF.setText("Reste " + String.valueOf(f.getHeureDisponible()) + "h");
 		} catch (SQLException | ExceptionForfaitInexistant
 				| ExceptionClientInexistant e1) {
 			e1.printStackTrace();
+		} catch (NullPointerException e2) {
+			
 		}
 		
 		gbc.insets = new Insets(2, 10, 2, 10);

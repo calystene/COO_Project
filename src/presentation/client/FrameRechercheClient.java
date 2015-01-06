@@ -24,4 +24,5 @@ public class FrameRechercheClient extends JFrame {
 		pack();
 		setVisible(true);
 	}
+
 }

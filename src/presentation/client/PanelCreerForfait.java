@@ -17,7 +17,9 @@ import javax.swing.JPanel;
 import metier.CreerForfait;
 import data.Client;
 import data.forfait.TYPE_FORFAIT;
+import exception.ExceptionClientInexistant;
 import exception.ExceptionForfaitExistant;
+import exception.ExceptionForfaitInexistant;
 
 
 @SuppressWarnings("serial")
@@ -55,7 +57,7 @@ public class PanelCreerForfait extends JPanel implements ActionListener {
 		
 		panel.setVisible(true);
 		
-		//Ajout du panel à la frame principale
+		//Ajout du panel ï¿½ la frame principale
 		setLayout(new BorderLayout());
 		add(panel);
 	}
@@ -75,13 +77,13 @@ public class PanelCreerForfait extends JPanel implements ActionListener {
 			try {
 
 				CreerForfait.CreerForfaitClient(client, t);
-				JOptionPane.showMessageDialog(parent, "Création réussie! Merci d'avoir choisi ce forfait");
+				JOptionPane.showMessageDialog(parent, "CrÃ©ation rÃ©ussie! Merci d'avoir choisi ce forfait");
 			} catch (ExceptionForfaitExistant e1) {
-				JOptionPane.showMessageDialog(parent, "Echec de création! Le client possède déja ce forfait");
-				e1.printStackTrace();
+				JOptionPane.showMessageDialog(parent, "Echec de crÃ©ation! Le client possÃ©de dÃ©ja ce forfait");
 			} catch (SQLException e1) {
 				JOptionPane.showMessageDialog(parent, "Erreur creation forfait");
-				e1.printStackTrace();
+			} catch (ExceptionForfaitInexistant | ExceptionClientInexistant e1) {
+				JOptionPane.showMessageDialog(parent, "Erreur lors du rechargement du forfait");
 			}
 		}
 	}

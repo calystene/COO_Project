@@ -321,12 +321,11 @@ public class FactoryReservation {
 	 * @param r
 	 */
 	public void majReservation(Reservation r) {
-		System.out.println(r.hashCode());
 		String sql = "UPDATE RESERVATION SET " 
 				+ "etatpaiement='" + r.getEtatPaiement() + "',"
 				+ "prix = " + r.getPrix() + " WHERE id_reservation=" + r.hashCode();
 		
-		System.out.println("maj" + FactorySQL.getInstance().executeUpdate(sql));
+		FactorySQL.getInstance().executeUpdate(sql);
 	}
 	
 }

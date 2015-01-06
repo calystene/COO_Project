@@ -224,113 +224,16 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 		}
 		
 		if (e.getSource() == btnEffacer) {
-			jtfNom.setText(" ");
-			jtfNumero.setText(" ");
+			jtfNom.setText("");
+			jtfNumero.setText("");
 		}
 		
 		if (e.getSource() == btnAfficherRes2) {
-			try {
-				tableR.removeAll();
-			} catch (NullPointerException e2) {}
-			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setPreferredSize(new Dimension(750,220));
-			
-			//Parametre tableauR
-			String nom = jtfNom.getText();
-			int numero = Integer.parseInt(jtfNumero.getText());
-			Client c;
-			try {
-				c = RechercheClient.rechercherClient(nom, numero);
-				try {
-					tableR = new JTable(new TabRechercheClientReseservaionModel(c));
-				} catch (ExceptionReservationInexistante e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				tableR.setAutoCreateRowSorter(true);
-				tableR.getTableHeader().setPreferredSize(new Dimension(750,30));
-				//tableR.setPreferredSize(new Dimension(750,250));
-				
-				tableR.getColumnModel().getColumn(0).setCellRenderer(new NomCellRenderer());
-				tableR.getColumnModel().getColumn(1).setCellRenderer(new DateCellRenderer());
-				tableR.getColumnModel().getColumn(2).setCellRenderer(new DateCellRenderer());
-				tableR.getColumnModel().getColumn(3).setCellRenderer(new NomCellRenderer());
-				tableR.getColumnModel().getColumn(4).setCellRenderer(new HeureCellRenderer());
-				tableR.getColumnModel().getColumn(5).setCellRenderer(new HeureCellRenderer());
-				tableR.getColumnModel().getColumn(6).setCellRenderer(new NomCellRenderer());
-				tableR.getColumnModel().getColumn(7).setCellRenderer(new StatutCellRenderer());
-				
-				panelTableauR.removeAll();
-				
-				tableR.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-				
-				scrollPane.setViewportView(tableR);
-				panelTableauR.add(tableR.getTableHeader());
-				panelTableauR.add(scrollPane);
-				
-				parent.revalidate();
-				parent.repaint();
-			} catch (ExceptionClientInexistant e1) {
-				JOptionPane.showMessageDialog(parent,
-						e1.getMessage(), "Le client n'existe pas",
-						JOptionPane.WARNING_MESSAGE);
-			} catch (SQLException e2) {
-				JOptionPane.showMessageDialog(parent,
-						e2.getMessage(), "Le client n'existe pas",
-						JOptionPane.ERROR_MESSAGE);
-			} catch (ExceptionPlageInexistante e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (ExceptionSalleInexistante e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		
-			panel4.setVisible(false);
-			panel3.setVisible(true);
+			loadTableReservation();
 		}
 		
 		if (e.getSource() == btnAfficherFor2) {
-			try {
-				tableF.removeAll();
-			} catch (NullPointerException e2) {}
-			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setPreferredSize(new Dimension(750,250));
-			
-			//Parametre tableauF
-			String nom = jtfNom.getText();
-			int numero = Integer.parseInt(jtfNumero.getText());
-			Client c;
-			try {
-				c = RechercheClient.rechercherClient(nom, numero);
-				tableF = new JTable(new TabRechercheClientForfaitModel(c));
-				tableF.setAutoCreateRowSorter(true);
-				tableF.getTableHeader().setPreferredSize(new Dimension(750,30));
-				tableF.setPreferredSize(new Dimension(750,250));
-				
-				tableF.getColumnModel().getColumn(0).setCellRenderer(new NomCellRenderer());
-				tableF.getColumnModel().getColumn(3).setCellRenderer(new TypeForfaitCellRenderer());
-			
-				panelTableauF.removeAll();
-				panelTableauF.add(tableF.getTableHeader());
-				panelTableauF.add(scrollPane.add(tableF));
-				
-				parent.revalidate();
-				parent.repaint();
-			} catch (ExceptionClientInexistant e1) {
-				JOptionPane.showMessageDialog(parent,
-						e1.getMessage(), "Le client n'existe pas",
-						JOptionPane.WARNING_MESSAGE);
-			} catch (SQLException e2) {
-				JOptionPane.showMessageDialog(parent,
-						e2.getMessage(), "Le client n'existe pas",
-						JOptionPane.ERROR_MESSAGE);
-			} catch (ExceptionPlageInexistante e1) {
-			} catch (ExceptionSalleInexistante e1) {
-			}
-			
-			panel3.setVisible(false);
-			panel4.setVisible(true);
+			loadTableForfait();
 		}
 		
 		if (e.getSource() == creerForfait) {
@@ -343,7 +246,7 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 			} catch (SQLException e1) {
 			} catch (ExceptionClientInexistant e1) {
 			}
-
+			
 		}
 		
 		if (e.getSource() == supprR) {
@@ -352,6 +255,15 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 			if (tableR.getValueAt(i,7) == "Non" | tableR.getValueAt(i,7) == "Hors-délais"){
 			JOptionPane.showMessageDialog(parent, "Réservation supprimée!");
 			RechercheClient.supprReservation(idReservation);
+			
+			// On retire les 5 points de fidélité gagné par le client lors de la réservation
+			int nbPoints = c.getCarteFidelite().getNbPoint() -5;
+			nbPoints = (nbPoints<0)?0:nbPoints;
+			c.getCarteFidelite().setNbPoint(nbPoints);
+			FactoryClient.getInstance().majClient(c);
+			
+			loadTableReservation();
+			
 			parent.revalidate();
 			parent.repaint();
 			} else {
@@ -371,7 +283,7 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 			Reservation r;
 			try {
 				r = RechercheClient.rechercheReservation(idReservation);
-				new FrameConfimationReservation("Confirmer la réservation",r);
+				new FrameConfimationReservation(parent,"Confirmer la réservation",r);
 				
 			//	RechercheClient.setEtatPaiementBDD(true, r);
 			//	parent.revalidate();
@@ -390,5 +302,110 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 			
 	}
 	
-
+	public void loadTableReservation() {
+		try {
+			tableR.removeAll();
+		} catch (NullPointerException e2) {}
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setPreferredSize(new Dimension(750,220));
+		
+		//Parametre tableauR
+		String nom = jtfNom.getText();
+		int numero = Integer.parseInt(jtfNumero.getText());
+		
+		try {
+			c = RechercheClient.rechercherClient(nom, numero);
+			try {
+				tableR = new JTable(new TabRechercheClientReseservaionModel(c));
+			} catch (ExceptionReservationInexistante e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			tableR.setAutoCreateRowSorter(true);
+			tableR.getTableHeader().setPreferredSize(new Dimension(750,30));
+			//tableR.setPreferredSize(new Dimension(750,250));
+			
+			tableR.getColumnModel().getColumn(0).setCellRenderer(new NomCellRenderer());
+			tableR.getColumnModel().getColumn(1).setCellRenderer(new DateCellRenderer());
+			tableR.getColumnModel().getColumn(2).setCellRenderer(new DateCellRenderer());
+			tableR.getColumnModel().getColumn(3).setCellRenderer(new NomCellRenderer());
+			tableR.getColumnModel().getColumn(4).setCellRenderer(new HeureCellRenderer());
+			tableR.getColumnModel().getColumn(5).setCellRenderer(new HeureCellRenderer());
+			tableR.getColumnModel().getColumn(6).setCellRenderer(new NomCellRenderer());
+			tableR.getColumnModel().getColumn(7).setCellRenderer(new StatutCellRenderer());
+			
+			panelTableauR.removeAll();
+			
+			tableR.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			
+			scrollPane.setViewportView(tableR);
+			panelTableauR.add(tableR.getTableHeader());
+			panelTableauR.add(scrollPane);
+			
+			parent.revalidate();
+			parent.repaint();
+		} catch (ExceptionClientInexistant e1) {
+			JOptionPane.showMessageDialog(parent,
+					e1.getMessage(), "Le client n'existe pas",
+					JOptionPane.WARNING_MESSAGE);
+		} catch (SQLException e2) {
+			JOptionPane.showMessageDialog(parent,
+					e2.getMessage(), "Le client n'existe pas",
+					JOptionPane.ERROR_MESSAGE);
+		} catch (ExceptionPlageInexistante e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ExceptionSalleInexistante e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	
+		panel4.setVisible(false);
+		panel3.setVisible(true);
+	}
+	
+	
+	
+	public void loadTableForfait() {
+		try {
+			tableF.removeAll();
+		} catch (NullPointerException e2) {}
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setPreferredSize(new Dimension(750,250));
+		
+		//Parametre tableauF
+		String nom = jtfNom.getText();
+		int numero = Integer.parseInt(jtfNumero.getText());
+		Client c;
+		try {
+			c = RechercheClient.rechercherClient(nom, numero);
+			tableF = new JTable(new TabRechercheClientForfaitModel(c));
+			tableF.setAutoCreateRowSorter(true);
+			tableF.getTableHeader().setPreferredSize(new Dimension(750,30));
+			tableF.setPreferredSize(new Dimension(750,250));
+			
+			tableF.getColumnModel().getColumn(0).setCellRenderer(new NomCellRenderer());
+			tableF.getColumnModel().getColumn(3).setCellRenderer(new TypeForfaitCellRenderer());
+		
+			panelTableauF.removeAll();
+			panelTableauF.add(tableF.getTableHeader());
+			panelTableauF.add(scrollPane.add(tableF));
+			
+			parent.revalidate();
+			parent.repaint();
+		} catch (ExceptionClientInexistant e1) {
+			JOptionPane.showMessageDialog(parent,
+					e1.getMessage(), "Le client n'existe pas",
+					JOptionPane.WARNING_MESSAGE);
+		} catch (SQLException e2) {
+			JOptionPane.showMessageDialog(parent,
+					e2.getMessage(), "Le client n'existe pas",
+					JOptionPane.ERROR_MESSAGE);
+		} catch (ExceptionPlageInexistante e1) {
+		} catch (ExceptionSalleInexistante e1) {
+		}
+		
+		panel3.setVisible(false);
+		panel4.setVisible(true);
+	}
 }

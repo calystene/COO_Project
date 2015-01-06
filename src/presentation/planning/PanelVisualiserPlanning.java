@@ -22,6 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import metier.VisualiserPlanning;
 import data.salle.TYPE_SALLE;
 import exception.ExceptionClientInexistant;
 import exception.ExceptionPlageInexistante;
@@ -34,10 +35,13 @@ public class PanelVisualiserPlanning extends JPanel implements ActionListener {
 	JComboBox<TYPE_SALLE> cbTypeSalle;
 	JTextField jtfDate;
 	JButton btnVisualiser;
+	JButton btnPurger;
 	
 	JPanel panelTableau;
 	JTable table;
 	JScrollPane scrollPane;
+	
+	
 	
 	public PanelVisualiserPlanning(JFrame parent) {
 		this.parent = parent;
@@ -47,7 +51,7 @@ public class PanelVisualiserPlanning extends JPanel implements ActionListener {
 		
 		// Config de la partie haute de la fenêtre (Paramètres visualisation)
 		JPanel panelParam = new JPanel();
-		panelParam.setLayout(new GridLayout(1,3,5,2));
+		panelParam.setLayout(new GridLayout(1,4,5,2));
 		panelParam.setPreferredSize(new Dimension(610, 50));
 		
 		TYPE_SALLE[] tabTypeSalle = {TYPE_SALLE.PETITE_SALLE, TYPE_SALLE.GRANDE_SALLE, TYPE_SALLE.SPECIFIQUE_SALLE};
@@ -58,9 +62,13 @@ public class PanelVisualiserPlanning extends JPanel implements ActionListener {
 		btnVisualiser = new JButton("Visualiser");
 		btnVisualiser.addActionListener(this);
 		
+		btnPurger = new JButton("Supp. Hors-Délais");
+		btnPurger.addActionListener(this);
+		
 		panelParam.add(cbTypeSalle);
 		panelParam.add(jtfDate);
 		panelParam.add(btnVisualiser);
+		panelParam.add(btnPurger);
 		
 		panelParam.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createLineBorder(Color.black), "Paramètres de visualisation"));
@@ -93,6 +101,22 @@ public class PanelVisualiserPlanning extends JPanel implements ActionListener {
 				loadTabSalleDate();
 			} else {
 				loadTabSalle();
+			}
+		}
+		
+		if (e.getSource() == btnPurger) {
+			try {
+				VisualiserPlanning.suppHorsdelais();
+				if(jtfDate.getText().length()!=0) {
+					loadTabSalleDate();
+				} else {
+					loadTabSalle();
+				}
+			} catch (SQLException | ExceptionPlageInexistante
+					| ExceptionClientInexistant e1) {
+				JOptionPane.showMessageDialog(parent,
+						"Une erreur  c'est produite lors de la suppression des réservations hors-délais",
+						"Erreur parsing date", JOptionPane.WARNING_MESSAGE);
 			}
 		}
 	}

@@ -41,7 +41,7 @@ public class RechercheClient {
 		int i = 0;
 		for (Reservation r : listeRes) {
 			tabResult[i][0] = r.hashCode();
-			tabResult[i][1] = r.getDatePriseReservation();
+			tabResult[i][1] = DateManager.addOneWeekFromDate(r.getDatePriseReservation());
 			tabResult[i][2] = r.getDateReservation();
 			tabResult[i][3] = r.getSalle().getNom();
 			tabResult[i][4] = r.getPlage().getHeureDebut();
