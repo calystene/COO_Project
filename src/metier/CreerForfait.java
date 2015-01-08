@@ -13,23 +13,27 @@ import factory.FactoryForfait;
 public class CreerForfait {
 
 	public static Forfait CreerForfaitClient(Client c, TYPE_FORFAIT t)
-			throws ExceptionForfaitExistant, SQLException,
-			ExceptionForfaitInexistant, ExceptionClientInexistant {
+			throws ExceptionForfaitExistant, SQLException {
 		int idForfait = Math.abs(c.hashCode() + t.toString().hashCode());
 
-		Forfait f = FactoryForfait.getInstance().rechercherForfait(idForfait);
-		if (f.getHeureDisponible() == 0) {
-			if (t.equals(TYPE_FORFAIT.A_GRANDE)
-					|| t.equals(TYPE_FORFAIT.A_PETITE)) {
-				f.setHeureDisponible(12);
-			} else {
-				f.setHeureDisponible(24);
+		Forfait f;
+		try {
+			f = FactoryForfait.getInstance().rechercherForfait(idForfait);
+
+			if (f.getHeureDisponible() == 0) {
+				if (t.equals(TYPE_FORFAIT.A_GRANDE)
+						|| t.equals(TYPE_FORFAIT.A_PETITE)) {
+					f.setHeureDisponible(12);
+				} else {
+					f.setHeureDisponible(24);
+				}
+
+				FactoryForfait.getInstance().majForfait(f);
+				return f;
 			}
-			
-			FactoryForfait.getInstance().majForfait(f);
-			return f;
-		} else {
-			return FactoryForfait.getInstance().creerForfait(c, t);
+		} catch (ExceptionForfaitInexistant | ExceptionClientInexistant e) {
+
 		}
+		return FactoryForfait.getInstance().creerForfait(c, t);
 	}
 }

@@ -185,7 +185,7 @@ public class CreerReservation {
 					break;
 				}
 				
-				System.out.println(s.toString());
+				
 				if (check) {
 					return FactoryPlageHoraire.getInstance().creerPlageHoraire(hDebut,
 							hFin, tranche);
@@ -320,7 +320,7 @@ public class CreerReservation {
 		java.sql.Date datePriseResaSQL = DateManager.dateToSQL(DateManager.getDate());
 		java.sql.Date dateResaSQL = DateManager.dateToSQL(dateResa);
 		Salle salle = getSalleLibre(dateResa, plageH.getTranche(), typeS, duree);
-		System.out.println(salle.toString());
+		
 		
 		// Calul du prix
 		float prix  = 0;

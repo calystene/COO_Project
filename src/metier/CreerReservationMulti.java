@@ -106,7 +106,7 @@ public class CreerReservationMulti {
 
 				Reservation lastResa = stackReservation.peek();
 				int hFinResa = lastResa.getPlage().getHeureFin() + duree;
-				System.out.println("2. " + hFinResa);
+				
 				// On verifie si la duree demandé rentre sur le
 				// créneaux demandé
 				switch ((TRANCHE) tranche) {
@@ -139,9 +139,7 @@ public class CreerReservationMulti {
 
 					if ((DateManager.getDate().compareTo(dateMaxValidite) == 1)
 							&& (resaStack.getEtatPaiement() == false)) {
-						System.out.println("2. Durée demandé " + duree
-								+ " et duree de la resa : "
-								+ resaStack.getDuree());
+						
 						if (duree == resaStack.getDuree()) {
 							FactoryReservation.getInstance().supprReservation(
 									resaStack.hashCode()); // On supprime la
@@ -197,19 +195,6 @@ public class CreerReservationMulti {
 							+ DateManager.valueOf(nextDate));
 		}
 
-		/**
-		for (Reservation resa : listeResa) {
-			FactoryReservation.getInstance().creerReservation(
-					resa.getDatePriseReservation(), resa.getDateReservation(),
-					resa.getPlage(), resa.getPrix(), resa.getClient(),
-					resa.getSalle(), resa.getDuree());
-			RechercheClient.ajouterPointFidelite(nomC, numeroC, 5);
-		}**/
-		/**
-		if(nbSemaine>=4) {
-			RechercheClient.ajouterPointFidelite(nomC, numeroC, 40);
-		}
-		**/
 		return listeResa;
 	}
 }

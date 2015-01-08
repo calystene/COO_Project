@@ -82,9 +82,7 @@ public class PanelCreerForfait extends JPanel implements ActionListener {
 				JOptionPane.showMessageDialog(parent, "Echec de création! Le client posséde déja ce forfait");
 			} catch (SQLException e1) {
 				JOptionPane.showMessageDialog(parent, "Erreur creation forfait");
-			} catch (ExceptionForfaitInexistant | ExceptionClientInexistant e1) {
-				JOptionPane.showMessageDialog(parent, "Erreur lors du rechargement du forfait");
-			}
+			} 
 		}
 	}
 }

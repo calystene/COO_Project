@@ -22,12 +22,8 @@ public class FrameCreerClient extends JFrame {
 		setLocationRelativeTo(null);
 		setSize(300, 500);
 		getContentPane().setSize(300,100);
-		//setDefaultCloseOperation();
-		
 		getContentPane().add(panel);
-		getContentPane().setSize(300,180);
 		setLayout(new BorderLayout());
-		//setDefaultCloseOperation();
 		
 		getContentPane().add(panel, BorderLayout.CENTER);
 		

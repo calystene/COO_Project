@@ -21,12 +21,8 @@ public class FrameCreerForfait extends JFrame {
 		setLocationRelativeTo(null);
 		setSize(300, 500);
 		getContentPane().setSize(900,80);
-		//setDefaultCloseOperation();
-		
 		getContentPane().add(panel);
-		getContentPane().setSize(900,80);
 		setLayout(new BorderLayout());
-		//setDefaultCloseOperation();
 		
 		getContentPane().add(panel, BorderLayout.CENTER);
 		

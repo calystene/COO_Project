@@ -163,11 +163,11 @@ public class PanelVisualiserPlanning extends JPanel implements ActionListener {
 			parent.revalidate();
 			parent.repaint();
 		} catch (SQLException e1) {
-			e1.printStackTrace();
+			
 		} catch (ExceptionPlageInexistante e1) {
-			e1.printStackTrace();
+			
 		} catch (ExceptionClientInexistant e1) {
-			e1.printStackTrace();
+			
 		}
 	}
 	
@@ -218,11 +218,11 @@ public class PanelVisualiserPlanning extends JPanel implements ActionListener {
 					"Utilisé le format de date suivant : JJ-MM-AAAA",
 					"Erreur parsing date", JOptionPane.WARNING_MESSAGE);
 		} catch (SQLException e1) {
-			e1.printStackTrace();
+			
 		} catch (ExceptionPlageInexistante e1) {
-			e1.printStackTrace();
+			
 		} catch (ExceptionClientInexistant e1) {
-			e1.printStackTrace();
+			
 		}
 	}
 	

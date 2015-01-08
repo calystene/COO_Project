@@ -12,11 +12,11 @@ public class ControleurTableResultat  implements ListSelectionListener{
             return;
         ListSelectionModel lsm = (ListSelectionModel)listSelectionEvent.getSource();
         if (lsm.isSelectionEmpty()) {
-            System.out.println("No rows selected");
+           
         }
         else{
             int selectedRow = lsm.getMinSelectionIndex();
-            System.out.println("The row "+selectedRow+" is now selected");
+           
  
         }
     }

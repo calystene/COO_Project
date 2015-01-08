@@ -318,11 +318,11 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 			try {
 				tableR = new JTable(new TabRechercheClientReseservaionModel(c));
 			} catch (ExceptionReservationInexistante e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+
 			}
 			tableR.setAutoCreateRowSorter(true);
 			tableR.getTableHeader().setPreferredSize(new Dimension(750,30));
+			tableR.getTableHeader().setReorderingAllowed(false);
 			//tableR.setPreferredSize(new Dimension(750,250));
 			
 			tableR.getColumnModel().getColumn(0).setCellRenderer(new NomCellRenderer());
@@ -353,11 +353,9 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 					e2.getMessage(), "Le client n'existe pas",
 					JOptionPane.ERROR_MESSAGE);
 		} catch (ExceptionPlageInexistante e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+
 		} catch (ExceptionSalleInexistante e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+
 		}
 	
 		panel4.setVisible(false);
@@ -383,6 +381,7 @@ public class PanelRechercheClient  extends JPanel implements ActionListener {
 			tableF.setAutoCreateRowSorter(true);
 			tableF.getTableHeader().setPreferredSize(new Dimension(750,30));
 			tableF.setPreferredSize(new Dimension(750,250));
+			tableF.getTableHeader().setReorderingAllowed(false);
 			
 			tableF.getColumnModel().getColumn(0).setCellRenderer(new NomCellRenderer());
 			tableF.getColumnModel().getColumn(3).setCellRenderer(new TypeForfaitCellRenderer());

@@ -197,8 +197,7 @@ public class CreerReservationAdmin {
 					Date dateMaxValidite = DateManager.addOneWeekFromDate(resaStack.getDatePriseReservation());
 					
 					if((DateManager.getDate().compareTo(dateMaxValidite) == 1) && (resaStack.getEtatPaiement() == false)) {
-						System.out.println("1. Durée demandé " + duree + " et duree de la resa : " + resaStack.getPlage().getDuree());
-						System.out.println("1. " + resaStack.toString());
+						
 						if(duree==resaStack.getDuree()) {
 							hDebut = resaStack.getPlage().getHeureDebut();
 							hFin = resaStack.getPlage().getHeureFin();
@@ -282,7 +281,7 @@ public class CreerReservationAdmin {
 				
 				Reservation lastResa = stackReservation.peek();
 				int hFinResa = lastResa.getPlage().getHeureFin() + duree;
-				System.out.println("2. " + hFinResa);
+				
 				// On verifie si la duree demandé rentre sur le
 				// créneaux demandé
 				switch ((TRANCHE) tranche) {
@@ -313,7 +312,7 @@ public class CreerReservationAdmin {
 					Date dateMaxValidite = DateManager.addOneWeekFromDate(resaStack.getDatePriseReservation());
 					
 					if((DateManager.getDate().compareTo(dateMaxValidite) == 1) && (resaStack.getEtatPaiement() == false)) {
-						System.out.println("2. Durée demandé " + duree + " et duree de la resa : " + resaStack.getDuree());
+						
 						if(duree==resaStack.getDuree()) {							
 							FactoryReservation.getInstance().supprReservation(resaStack.hashCode()); // On supprime la réservation hors délais non confirmée
 							
